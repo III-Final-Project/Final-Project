@@ -1,4 +1,4 @@
-# ai_project
+# ai-vue-project
 
 > A Vue.js project
 

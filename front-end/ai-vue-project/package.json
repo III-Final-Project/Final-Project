@@ -1,8 +1,8 @@
 {
-  "name": "ai_project",
+  "name": "ai-vue-project",
   "version": "1.0.0",
   "description": "A Vue.js project",
-  "author": "Lin Michael <yanwun1214@gmail.com>",
+  "author": "Michael Lin <yanwun1214@gmail.com>",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
@@ -39,14 +39,13 @@
     "file-loader": "^1.1.4",
     "friendly-errors-webpack-plugin": "^1.6.1",
     "html-webpack-plugin": "^2.30.1",
-    "node-notifier": "^8.0.1",
+    "node-notifier": "^5.1.2",
     "optimize-css-assets-webpack-plugin": "^3.2.0",
     "ora": "^1.2.0",
     "portfinder": "^1.0.13",
     "postcss-import": "^11.0.0",
     "postcss-loader": "^2.0.8",
     "postcss-url": "^7.2.1",
-    "pre-commit": "^1.2.2",
     "rimraf": "^2.6.0",
     "semver": "^5.3.0",
     "shelljs": "^0.7.6",
@@ -57,8 +56,7 @@
     "vue-template-compiler": "^2.5.2",
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.9.0",
-    "webpack-dev-server": "^3.1.11",
-
+    "webpack-dev-server": "^2.9.1",
     "webpack-merge": "^4.1.0"
   },
   "engines": {
@@ -69,8 +67,5 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ],
-  "pre-commit": [
-    "lint"
   ]
 }
