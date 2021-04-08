@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 'AI000',
+  name: 'AIF000',
 };
 </script>
 
