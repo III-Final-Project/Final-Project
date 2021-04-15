@@ -1,22 +1,31 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import HelloWorld from '@/components/HelloWorld';
-import AI000 from '@/pages/F0/AI000';
+// F0
+import AIF000 from '@/pages/F0/AIF000';
+import Signup from '@/components/F0/Signup';
+import Login from '@/components/F0/Login';
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld,
+      name: 'AIF000',
+      component: AIF000,
     },
     {
-      path: '/pages',
-      name: 'AI000',
-      component: AI000,
+      path: '/Signup',
+      name: 'Signup',
+      component: Signup,
+    },
+    {
+      path: '/Login',
+      name: 'Login',
+      component: Login,
     },
   ],
 });
+
+export default router;
