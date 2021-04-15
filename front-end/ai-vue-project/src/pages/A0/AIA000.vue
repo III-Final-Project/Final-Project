@@ -1,9 +1,16 @@
 <template>
-  <div>AI-back</div>
+  <div>
+    <Header />
+    AI-back
+  </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {};
+  },
+};
 </script>
 
 <style scoped></style>
