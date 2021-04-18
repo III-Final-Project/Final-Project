@@ -32,7 +32,7 @@ const create = (data, res) => {
         // console.log(error.sql);
         res.json({
           returnCode: '500',
-          detail: error.sqlMessage,
+          detail: 'error',
         });
       } else {
       // return callBack(null, results);
@@ -40,7 +40,7 @@ const create = (data, res) => {
       // console.log(results);
         res.status(200).json({
           returnCode: '200',
-          detail: results,
+          detail: 'success',
         });
       }
     },
@@ -79,14 +79,19 @@ const getUserByID = (req, res) => {
       if (error) {
         res.json({
           returnCode: '500',
-          detail: 'No such id number!',
+          detail: 'error',
         });
-      } else {
+      }
+      if (!results) {
         res.json({
           returnCode: '200',
           detail: results,
         });
       }
+      res.json({
+        returnCode: '200',
+        detail: 'empty',
+      });
     },
   );
 };
@@ -113,7 +118,7 @@ const modifyUserInfo = (req, res) => {
       if (error) {
         res.json({
           returnCode: '500',
-          detail: error.sqlMessage,
+          detail: 'error',
         });
       } else {
         res.json({
@@ -125,10 +130,29 @@ const modifyUserInfo = (req, res) => {
   );
 };
 // Delete
-
+const deleteUser = (req, res) => {
+  pool.query(
+    'delete from User where user_id = ?',
+    [req.body.user_id],
+    (error) => {
+      if (error) {
+        res.json({
+          returnCode: '500',
+          detail: 'error',
+        });
+      } else {
+        res.json({
+          returnCode: '200',
+          detail: 'success',
+        });
+      }
+    },
+  );
+};
 router.get('/', getAllUser);
 router.get('/:id', getUserByID);
 router.post('/', create);
 router.patch('/', modifyUserInfo);
+router.delete('/', deleteUser);
 
 module.exports = router;
