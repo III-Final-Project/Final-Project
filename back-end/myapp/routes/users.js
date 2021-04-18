@@ -72,14 +72,14 @@ const getAllUser = (req, res) => {
 const getUserByID = (req, res) => {
   console.log(req.params.id);
   pool.query(
-    'select user_id, user_name,  user_email, user_address, user_mobile, role_name, pass_type, create_time, login_time, login_ip from User' 
+    'select user_id, user_name,  user_email, user_address, user_mobile, role_name, pass_type, create_time, login_time, login_ip from User'
     + ' INNER JOIN  Roles ON User.role_id = Roles.role_id where user_id = ?',
     [req.params.id],
     (error, results) => {
       if (error) {
         res.json({
           returnCode: '500',
-          detail: error.sqlMessage,
+          detail: 'No such id number!',
         });
       } else {
         res.json({
@@ -91,11 +91,44 @@ const getUserByID = (req, res) => {
   );
 };
 // Update
-
+const modifyUserInfo = (req, res) => {
+  // console.log(req.body);
+  pool.query(
+    'update User set user_name=?,  user_email=?, user_address=?, user_mobile=?, user_password=?, pass_desc=?, pass_type=?, login_time=?, login_ip=?, create_time=?, role_id=? where user_id = ?',
+    [
+      req.body.user_name,
+      req.body.user_email,
+      req.body.user_address,
+      req.body.user_mobile,
+      req.body.user_password,
+      req.body.pass_desc,
+      req.body.pass_type,
+      req.body.login_time,
+      req.body.login_ip,
+      req.body.create_time,
+      req.body.role_id,
+      req.body.user_id,
+    ],
+    (error) => {
+      if (error) {
+        res.json({
+          returnCode: '500',
+          detail: error.sqlMessage,
+        });
+      } else {
+        res.json({
+          returnCode: '200',
+          detail: 'success',
+        });
+      }
+    },
+  );
+};
 // Delete
 
 router.get('/', getAllUser);
 router.get('/:id', getUserByID);
 router.post('/', create);
+router.patch('/', modifyUserInfo);
 
 module.exports = router;
