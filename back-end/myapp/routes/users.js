@@ -25,7 +25,7 @@ const create = (data, res) => {
       data.body.role_id,
     ],
     // callback function of pool.query has three parameters
-    (error, results) => {
+    (error) => {
       if (error) {
         // callBack(error);
         // console.log(error.sqlMessage);
