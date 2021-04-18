@@ -3,14 +3,13 @@ const express = require('express');
 const pool = require('../config/database');
 
 const router = express.Router();
-// create new user
+// Create new user
 const create = (data, res) => {
   // use mysql query to insert into data
   // console.log(data);
   pool.query(
     'insert into User (user_id, user_name, user_email, user_address, user_mobile, user_password, pass_desc, pass_type, login_time, login_ip, create_time, role_id)'
     + ' values (?,?,?,?,?,?,?,?,?,?,?,?)',
-    // define the ? in values in the following array
     [
       data.body.user_id,
       data.body.user_name,
@@ -47,14 +46,14 @@ const create = (data, res) => {
     },
   );
 };
-const getUserByUser = (req, res) => {
+// Retrieve all users
+const getAllUser = (req, res) => {
   const response = {};
   console.log(req);
   pool.query(
     // 'select * from user where user_id = 1',
     'select user_id, user_name,  user_email, user_address, user_mobile, role_name, pass_type, create_time, login_time, login_ip from User '
     + ' INNER JOIN  Roles ON `User`.role_id = Roles.role_id',
-    // [id],
     (error, results) => {
       if (error) {
         // callBack(error);
@@ -69,11 +68,34 @@ const getUserByUser = (req, res) => {
     },
   );
 };
-/* GET users listing. */
-// router.get('/', (req, res) => {
-//   res.send('respond with a resource');
-// });
-router.get('/', getUserByUser);
+// Retrieve single user by ID
+const getUserByID = (req, res) => {
+  console.log(req.params.id);
+  pool.query(
+    'select user_id, user_name,  user_email, user_address, user_mobile, role_name, pass_type, create_time, login_time, login_ip from User' 
+    + ' INNER JOIN  Roles ON User.role_id = Roles.role_id where user_id = ?',
+    [req.params.id],
+    (error, results) => {
+      if (error) {
+        res.json({
+          returnCode: '500',
+          detail: error.sqlMessage,
+        });
+      } else {
+        res.json({
+          returnCode: '200',
+          detail: results,
+        });
+      }
+    },
+  );
+};
+// Update
+
+// Delete
+
+router.get('/', getAllUser);
+router.get('/:id', getUserByID);
 router.post('/', create);
 
 module.exports = router;
