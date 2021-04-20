@@ -28,16 +28,19 @@
           </p>
           <button class="btn loginBtn" type="button">Submit</button>
         </div>
-        <a class="resetLink" href="#" @click.prevent="showEmailBox = true"
+        <a class="resetLink" href="#" @click.prevent="$bvModal.show('myModal')"
           >forgot your password?</a
         >
-        <div v-if="showEmailBox == true">
+        <b-modal id="myModal" hide-footer>
+          <template #modal-title> 忘記密碼 </template>
           <div class="emailBox">
-            <label for="email">Email:</label>
+            <h6>請輸入註冊時的Email或手機：</h6>
             <input id="email" type="text" />
-            <button class="btn resetBtn" type="button">go</button>
           </div>
-        </div>
+          <b-button class="mt-3" block @click="$bvModal.hide('myModal')"
+            >Send</b-button
+          >
+        </b-modal>
       </div>
     </div>
     <Footer />
@@ -63,6 +66,8 @@ export default {
 </script>
 
 <style scoped>
+/* TODO input css 問題 */
+
 h2 {
   margin-top: 80px;
   margin-bottom: 10px;
@@ -92,6 +97,7 @@ input {
 }
 
 .container {
+  padding: 0;
   width: 70vw;
   height: 90vh;
   display: flex;
@@ -170,8 +176,12 @@ input {
 }
 
 .emailBox > input {
-  width: 20vw;
-  border-bottom: 1px solid rgb(155, 117, 117);
+  width: 35vh;
+  background-color: #eee;
+  border-radius: 3px;
+  margin-bottom: 3vh;
+  padding: 0px 8px;
+  transition: 0.1s;
 }
 
 .loginBtn {

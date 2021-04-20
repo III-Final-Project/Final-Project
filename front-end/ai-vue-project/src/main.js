@@ -1,18 +1,25 @@
+// Third-part
+import axios from 'axios';
+import VueAxios from 'vue-axios';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
-// import 'bootstrap/dist/css/bootstrap.css';
-// import 'bootstrap-vue/dist/bootstrap-vue.css';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
+// Initial Vue
 import Vue from 'vue';
 import App from './App';
 import router from './router/router';
 
-Vue.config.productionTip = false;
+// global implement
+Vue.use(VueAxios, axios);
+Vue.use(BootstrapVue);
+Vue.use(IconsPlugin);
 
+// global middleware injection
+Vue.prototype.$ajax = axios;
+Vue.config.productionTip = false;
 router.afterEach(() => {
   window.scrollTo(0, 0);
 });
-
-Vue.use(BootstrapVue);
-Vue.use(IconsPlugin);
 
 /* eslint-disable no-new */
 new Vue({
