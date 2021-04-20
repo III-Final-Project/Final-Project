@@ -26,6 +26,8 @@ app.use('/users', usersRouter);
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   next(createError(404));
+  // If sub-directory is not exist, redirect user back to index page
+  res.redirect('/');
 });
 
 // error handler
@@ -38,6 +40,7 @@ app.use((err, req, res) => {
   res.status(err.status || 500);
   res.render('error');
 });
+
 app.listen(4000);
 
 module.exports = app;

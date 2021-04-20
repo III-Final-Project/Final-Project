@@ -5,7 +5,8 @@
   "scripts": {
     "start": "nodemon ./bin/www",
     "lint": "eslint *.js",
-    "pretest": "./node_modules/.bin/eslint --ignore-path .gitignore . --fix"
+    "pretest": "./node_modules/.bin/eslint --ignore-path .gitignore . --fix",
+    "unit-test": "mocha --timeout 10000 --watch"
   },
   "husky": {
     "hooks": {
@@ -26,9 +27,12 @@
     "prettier": "^2.2.1"
   },
   "devDependencies": {
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
     "eslint": "^7.23.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-vue": "^7.8.0"
+    "eslint-plugin-vue": "^7.8.0",
+    "mocha": "^8.1.0"
   }
 }
