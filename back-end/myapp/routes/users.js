@@ -49,7 +49,7 @@ const create = (data, res) => {
 // Retrieve all users
 const getAllUser = (req, res) => {
   const response = {};
-  console.log(req);
+  // console.log(req);
   pool.query(
     // 'select * from user where user_id = 1',
     'select user_id, user_name,  user_email, user_address, user_mobile, role_name, pass_type, create_time, login_time, login_ip from User '
@@ -57,11 +57,15 @@ const getAllUser = (req, res) => {
     (error, results) => {
       if (error) {
         // callBack(error);
-        console.log(error);
+        // console.log(error);
+        res.status(500).json({
+          returnCode: '500',
+          detail: 'error',
+        });
       }
       // callBack is a callback function from req, res and results[0] means get part of response
       // return callBack(null, results[0]);
-      console.log(results);
+      // console.log(results);
       response.returnCode = '200';
       response.detail = results;
       res.json(response);
