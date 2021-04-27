@@ -4,6 +4,7 @@ import Router from 'vue-router';
 import AIF000 from '@/pages/F0/AIF000';
 import Signup from '@/components/F0/Signup';
 import Login from '@/components/F0/Login';
+import Reset from '@/components/F0/Reset';
 
 Vue.use(Router);
 
@@ -24,6 +25,11 @@ const router = new Router({
       path: '/Login',
       name: 'Login',
       component: Login,
+    },
+    {
+      path: '/Reset',
+      name: 'Reset',
+      component: Reset,
     },
   ],
 });

@@ -13,33 +13,48 @@
         <h2>登入您的帳戶</h2>
         <div>
           <div class="inputBox">
-            <label for="UserName">Username</label>
+            <label for="UserName">帳號</label>
             <input id="UserName" type="text" />
           </div>
           <div class="inputBox">
-            <label for="passWord">Password</label>
+            <label for="passWord">密碼</label>
             <input id="passWord" type="password" />
           </div>
           <p class="remindText">
-            No account ?
+            尚未成為會員 ?
             <router-link class="loginLink" :to="{ name: 'Signup' }"
-              >Create one</router-link
+              >註冊</router-link
+            >
+            <a
+              class="resetLink"
+              href="#"
+              @click.prevent="$bvModal.show('myModal'), (showResetBox = true)"
+              >/忘記密碼</a
             >
           </p>
-          <button class="btn loginBtn" type="button">Submit</button>
+          <button class="btn loginBtn" type="button">登入</button>
         </div>
-        <a class="resetLink" href="#" @click.prevent="$bvModal.show('myModal')"
-          >forgot your password?</a
-        >
         <b-modal id="myModal" hide-footer>
-          <template #modal-title> 忘記密碼 </template>
-          <div class="emailBox">
-            <h6>請輸入註冊時的Email或手機：</h6>
-            <input id="email" type="text" />
+          <template #modal-title> 重設密碼 </template>
+          <div v-if="showResetBox">
+            <div class="resetBox">
+              <h6>請填寫您的會員信箱</h6>
+              <input type="text" />
+            </div>
+            <b-button class="mt-3" block @click="showResetBox = false"
+              >送出</b-button
+            >
           </div>
-          <b-button class="mt-3" block @click="$bvModal.hide('myModal')"
-            >Send</b-button
-          >
+          <div v-if="!showResetBox">
+            <div class="resetBox">
+              <p>
+                密碼重設信已送至您的註冊信箱。請點擊信中連結，重新設定密碼。
+              </p>
+            </div>
+            <b-button class="mt-3" block @click="$bvModal.hide('myModal')"
+              >關閉</b-button
+            >
+          </div>
         </b-modal>
       </div>
     </div>
@@ -59,19 +74,19 @@ export default {
   },
   data() {
     return {
-      showEmailBox: false,
+      showResetBox: false,
     };
   },
 };
 </script>
 
 <style scoped>
-/* TODO input css 問題 */
-
 h2 {
-  margin-top: 80px;
-  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 1.75rem;
   letter-spacing: 0.2rem;
+  margin-top: 60px;
+  margin-bottom: 3vh;
 }
 
 p {
@@ -141,14 +156,13 @@ input {
 .inputBox > label {
   display: block;
   color: rgb(95, 94, 94);
-  font-weight: bold;
   text-align: left;
   padding-left: 5vw;
   margin-bottom: 3px;
 }
 
 .inputBox > input {
-  background-color: #eee;
+  background-color: rgb(245, 245, 245);
   border: none;
   border-radius: 3px;
   margin-bottom: 3vh;
@@ -158,7 +172,7 @@ input {
 
 .inputBox > input:focus {
   background-color: white;
-  border: #0b346e 2px solid;
+  border: #0b346e 1px solid;
 }
 
 .loginLink {
@@ -171,17 +185,26 @@ input {
   color: #ff9d82;
 }
 
-.emailBox {
+.modalSize {
+  width: 450px;
+}
+
+.resetBox {
   margin-top: 3vh;
 }
 
-.emailBox > input {
+.resetBox > input {
   width: 35vh;
   background-color: #eee;
   border-radius: 3px;
   margin-bottom: 3vh;
   padding: 0px 8px;
   transition: 0.1s;
+}
+
+.resetBox > p {
+  text-align: left;
+  font-size: 1rem;
 }
 
 .loginBtn {
@@ -209,7 +232,8 @@ input {
 
 .resetLink {
   color: black;
-  font-weight: bold;
+  display: block;
+  padding-top: 1.5vh;
 }
 
 .resetLink:hover,
@@ -241,7 +265,6 @@ input {
 
   .inputBox > label {
     font-size: 1.15rem;
-    font-weight: bold;
     padding-left: 10vw;
   }
 
@@ -251,13 +274,14 @@ input {
 
   .remindText {
     font-size: 1.2rem;
-    text-align: center;
-    padding: 0;
+    text-align: right;
+    padding-right: 10vw;
   }
 
   .loginBtn {
     font-size: 1.2rem;
     width: 30vw;
+    margin: 5vh 0;
   }
 }
 </style>

@@ -8,140 +8,124 @@
 <template>
   <div class="main">
     <Header />
-    <div class="container">
+    <div class="myContainer">
       <div class="picBox"></div>
       <div class="signUpBox" v-show="status == 'sign'">
         <h2>建立您的帳戶</h2>
         <div>
           <div class="inputBox">
             <label for="userName"
-              ><span v-if="!userNameCheck">*</span>Username</label
+              ><span v-if="!userNameCheck">*</span>帳號</label
             >
             <input
               id="userName"
               :class="{ error: v.userName }"
               type="text"
               v-model="userName"
+              @keyup.enter="signUp"
             />
             <div class="verify" v-show="v.userName">
-              <img
-                :src="require('@/assets/icon/exclamationMark.jpg')"
-                alt="exclamationMark"
-              />
-              <span>請輸入使用者名稱</span>
+              <img :src="require('@/assets/icon/alarm.png')" alt="alarm" />
+              <span>請輸入帳號</span>
             </div>
           </div>
           <div class="inputBox">
             <label for="passWord"
-              ><span v-if="!passWordCheck">*</span>Password</label
+              ><span v-if="!passWordCheck">*</span>密碼</label
             >
             <input
               id="passWord"
               :class="{ error: v.passWord }"
               type="password"
               v-model="passWord"
+              @keyup.enter="signUp"
             />
             <div class="verify" v-show="v.passWord">
-              <img
-                :src="require('@/assets/icon/exclamationMark.jpg')"
-                alt="exclamationMark"
-              />
+              <img :src="require('@/assets/icon/alarm.png')" alt="alarm" />
               <span>請輸入密碼</span>
             </div>
           </div>
           <div class="inputBox">
             <label for="pwdCheck"
-              ><span v-if="!pwdDoubleCheck">*</span>Password Check</label
+              ><span v-if="!pwdDoubleCheck">*</span>再次輸入密碼</label
             >
             <input
               id="pwdCheck"
               :class="{ error: v.pwdCheck }"
               type="password"
               v-model="pwdCheck"
+              @keyup.enter="signUp"
             />
             <div class="verify" v-show="v.pwdCheck">
-              <img
-                :src="require('@/assets/icon/exclamationMark.jpg')"
-                alt="exclamationMark"
-              />
-              <span>請輸入二次密碼</span>
+              <img :src="require('@/assets/icon/alarm.png')" alt="alarm" />
+              <span>密碼與上述不符，請再次確認</span>
             </div>
           </div>
           <div class="inputBox">
-            <label for="email"><span v-if="!emailCheck">*</span>Email</label>
+            <label for="email"><span v-if="!emailCheck">*</span>信箱</label>
             <input
               id="email"
               :class="{ error: v.email }"
               type="text"
               v-model="email"
+              @keyup.enter="signUp"
             />
             <div class="verify" v-show="v.email">
-              <img
-                :src="require('@/assets/icon/exclamationMark.jpg')"
-                alt="exclamationMark"
-              />
-              <span>請輸入正確的email格式</span>
+              <img :src="require('@/assets/icon/alarm.png')" alt="alarm" />
+              <span>請輸入正確的信箱格式</span>
             </div>
           </div>
           <div class="inputBox">
-            <label for="address"
-              ><span v-if="!addressCheck">*</span>Address</label
-            >
+            <label for="address"><span v-if="!addressCheck">*</span>地址</label>
             <input
               id="address"
               :class="{ error: v.address }"
               type="text"
               v-model="address"
+              @keyup.enter="signUp"
             />
             <div class="verify" v-show="v.address">
-              <img
-                :src="require('@/assets/icon/exclamationMark.jpg')"
-                alt="exclamationMark"
-              />
+              <img :src="require('@/assets/icon/alarm.png')" alt="alarm" />
               <span>請輸入住址</span>
             </div>
           </div>
           <div class="inputBox">
-            <label for="phone"
-              ><span v-if="!phoneCheck">*</span>Phone Number</label
-            >
+            <label for="phone"><span v-if="!phoneCheck">*</span>手機號碼</label>
             <input
               id="phone"
               :class="{ error: v.phone }"
               type="text"
               v-model="phone"
+              @keyup.enter="signUp"
             />
             <div class="verify" v-show="v.phone">
-              <img
-                :src="require('@/assets/icon/exclamationMark.jpg')"
-                alt="exclamationMark"
-              />
-              <span>請輸入手機(09xxxx)</span>
+              <img :src="require('@/assets/icon/alarm.png')" alt="alarm" />
+              <span>手機號碼格式(09)或長度錯誤</span>
             </div>
           </div>
           <p class="remindText">
-            Already have account ?
+            已經註冊?
             <router-link class="loginLink" :to="{ name: 'Login' }"
-              >Log In</router-link
+              >登入</router-link
             >
           </p>
-          <button class="loginBtn" @click="signUp">Submit</button>
+          <button class="loginBtn" @click="signUp">註冊</button>
         </div>
       </div>
-      <div class="signUpBox" v-show="status == 'verify'">
-        <h2>請輸入Email或簡訊驗證碼</h2>
+      <div class="signUpBox cfArea" v-if="status == 'verify'">
+        <h2>請輸入簡訊驗證碼</h2>
         <div>
           <div class="inputBox">
-            <label for="cfNumber">Certificate Number</label>
+            <label for="cfNumber"></label>
             <input id="cfNumber" type="text" v-model="cfNumber" />
           </div>
           <p class="remindText">
-            Can't get certificate number ?
+            還沒收到驗證碼?
             <router-link class="loginLink" to="" @click.prevent="sendSMS"
-              >Send again</router-link
+              >再寄一次</router-link
             >
           </p>
-          <button class="loginBtn" @click="verify">Verify</button>
+          <button class="loginBtn" @click="verify">送出</button>
         </div>
       </div>
     </div>
@@ -150,6 +134,7 @@
 </template>
 
 <script>
+// import axios from 'axios';
 import Header from '@/components/F0/Header';
 import Footer from '@/components/F0/Footer';
 
@@ -225,12 +210,6 @@ export default {
       }
     },
     verify() {
-      const newUserObjec = {};
-      newUserObjec.username = this.userName;
-      newUserObjec.password = this.passWord;
-      newUserObjec.email = this.email;
-      newUserObjec.phone = this.phone;
-      // TODO $axios.post取得驗證碼後若成功兩秒跳轉至登入頁面
       this.$bvToast.toast('註冊成功，請稍候!', {
         title: '註冊訊息',
         variant: 'success',
@@ -282,6 +261,7 @@ export default {
 
 <style scoped>
 h2 {
+  font-weight: bold;
   margin: 3vh 0;
   letter-spacing: 0.2rem;
 }
@@ -291,8 +271,7 @@ h2 {
   background-color: rgb(15, 15, 54);
 }
 
-.container {
-  padding: 0;
+.myContainer {
   width: 70vw;
   height: 90vh;
   display: flex;
@@ -315,27 +294,29 @@ h2 {
   flex: 1;
   text-align: center;
   background-color: white;
-  overflow: scroll;
+  overflow-y: auto;
 }
 
 .logoBox {
   height: 100px;
 }
 
+.inputBox {
+  padding-bottom: 2vh;
+}
+
 .inputBox > label {
   display: block;
   color: rgb(95, 94, 94);
-  font-weight: bold;
   text-align: left;
   padding-left: 5vw;
   margin-bottom: 3px;
 }
 
 .inputBox > input {
-  background-color: #eee;
+  background-color: rgb(245, 245, 245);
   border: none;
   border-radius: 3px;
-  margin-bottom: 12px;
   padding: 0px 8px;
   transition: 0.1s;
   box-sizing: border-box;
@@ -347,11 +328,11 @@ h2 {
 
 .inputBox > input:focus {
   background-color: white;
-  border: #0b346e 2px solid;
+  border: #0b346e 1px solid;
 }
 
 .inputBox > input.error {
-  border: #d93025 2px solid;
+  border: #e94236 1px solid;
 }
 
 .inputBox > img {
@@ -366,12 +347,11 @@ h2 {
 .inputBox > .verify {
   text-align: left;
   padding-left: 5vw;
-  margin-bottom: 0.5vw;
 }
 
 .inputBox > .verify > img {
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
 }
 
 .inputBox > .verify > span {
@@ -379,6 +359,7 @@ h2 {
   font-size: 0.8rem;
   text-align: left;
   letter-spacing: 1px;
+  padding-left: 5px;
 }
 
 .loginLink {
@@ -425,6 +406,24 @@ h2 {
   transform: translate(0, 2px);
 }
 
+.cfArea {
+  padding-top: 10vh;
+}
+
+.cfArea h2 {
+  font-size: 1.4rem;
+}
+
+.cfArea input {
+  box-sizing: border-box;
+  width: 25vw;
+  height: 6vh;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  border: none;
+  color: #555;
+}
+
 @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
   h2 {
     font-size: 1.6rem;
@@ -436,7 +435,7 @@ h2 {
     padding-top: 15vh;
   }
 
-  .container {
+  .myContainer {
     flex-direction: column;
     width: 90vw;
     height: 82vh;
@@ -449,7 +448,6 @@ h2 {
 
   .inputBox > label {
     font-size: 1.15rem;
-    font-weight: bold;
     padding-left: 10vw;
   }
 
@@ -457,10 +455,13 @@ h2 {
     width: 70vw;
   }
 
+  .inputBox > .verify {
+    padding-left: 10vw;
+  }
+
   .remindText {
     font-size: 1.2rem;
-    text-align: center;
-    padding: 0;
+    padding-right: 10vw;
   }
 
   .loginBtn {
