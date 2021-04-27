@@ -32,7 +32,9 @@
               >/忘記密碼</a
             >
           </p>
-          <button class="btn loginBtn" type="button">登入</button>
+          <button class="btn loginBtn" type="button" @click="login">
+            Login
+          </button>
         </div>
         <b-modal id="myModal" hide-footer>
           <template #modal-title> 重設密碼 </template>
@@ -76,6 +78,11 @@ export default {
     return {
       showResetBox: false,
     };
+  },
+  methods: {
+    login() {
+      this.$router.push({ name: 'AIA000' });
+    },
   },
 };
 </script>

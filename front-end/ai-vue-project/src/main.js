@@ -1,4 +1,5 @@
 // Third-part
+import Vuex from 'vuex';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
@@ -13,6 +14,7 @@ import router from './router/router';
 Vue.use(VueAxios, axios);
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
+Vue.use(Vuex);
 
 // global middleware injection
 Vue.prototype.$ajax = axios;

@@ -74,6 +74,7 @@ export default {
   position: fixed;
   top: 0;
   transition: 300ms;
+  z-index: 1;
 }
 
 .logo {
