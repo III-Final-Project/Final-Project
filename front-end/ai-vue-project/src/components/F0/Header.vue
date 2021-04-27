@@ -7,7 +7,9 @@
 <template>
   <div id="nav" class="navBar" :class="{ sticky: active == true }">
     <div class="logoBox">
-      <img class="logo" src="@/assets/icon/teamLogo.png" alt="logo" />
+      <router-link :to="{ name: 'AIF000' }"
+        ><img class="logo" src="@/assets/icon/teamLogo.png" alt="logo"
+      /></router-link>
       <label class="burgerBtn" id="burger" for="menu">☰</label>
     </div>
     <input id="menu" type="checkbox" />
@@ -18,9 +20,10 @@
             >首頁</router-link
           >
         </li>
-        <li class="navLi"><a class="navLink" href="#">使用理念</a></li>
-        <li class="navLi"><a class="navLink" href="#">產品特色</a></li>
-        <li class="navLi"><a class="navLink" href="#">DEMO</a></li>
+        <li class="navLi"><a class="navLink" href="#vission">使用理念</a></li>
+        <li class="navLi"><a class="navLink" href="#service">服務項目</a></li>
+        <li class="navLi"><a class="navLink" href="#demo">成果展示</a></li>
+        <li class="navLi"><a class="navLink" href="#techView">技術一覽</a></li>
         <li class="navCut">|</li>
         <li>
           <router-link class="navLink" :to="{ name: 'Signup' }"
@@ -43,8 +46,6 @@ export default {
   data() {
     return {
       active: false,
-      offsetTop: '',
-      scrollY: '',
     };
   },
   mounted() {
@@ -62,12 +63,12 @@ export default {
 
 <style scoped>
 .navBar {
+  z-index: 1;
   display: flex;
   justify-content: space-between;
   width: 100vw;
   height: 13vh;
   background-color: rgb(255, 255, 255);
-  border-bottom: 1px solid #ddd;
   font-weight: bold;
   font-size: 1em;
   position: fixed;
@@ -85,12 +86,12 @@ export default {
   margin: 0 25px;
 }
 
-.menu > ul {
+.menu ul {
   display: flex;
   margin: 0;
 }
 
-.menu > ul > li {
+.menu li {
   display: inline-block;
   height: 13vh;
   width: 80px;
@@ -122,7 +123,7 @@ export default {
 }
 
 .sticky .logo {
-  height: 11vh;
+  height: 10.5vh;
   padding-left: 2vw;
   transition: 300ms;
 }
@@ -144,7 +145,7 @@ export default {
   display: none;
 }
 
-@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
+@media only screen and (min-device-width: 375px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
   .navBar {
     flex-direction: column;
   }
@@ -164,13 +165,13 @@ export default {
     display: none;
   }
 
-  .menu > ul {
+  .menu ul {
     display: block;
     background: white;
     border-bottom: 1px solid #ddd;
   }
 
-  .menu > ul > li {
+  .menu li {
     display: block;
     width: 100vw;
     height: 7vh;

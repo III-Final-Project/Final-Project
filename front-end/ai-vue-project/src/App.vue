@@ -11,16 +11,27 @@ export default {
 </script>
 
 <style>
+@font-face {
+  font-family: 'Roboto-Regular';
+  src: url('~@/assets/font/Roboto-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Roboto-Medium';
+  src: url('~@/assets/font/Roboto-Medium.ttf');
+}
+
 /* 消除瀏覽器預設css */
 body {
   margin: 0;
+  font-family: 'Roboto-Regular';
 }
 
 a,
 input,
 button {
-  outline: none;
-  text-decoration: none;
+  outline: none !important;
+  text-decoration: none !important;
 }
 
 ul {
@@ -30,5 +41,13 @@ ul {
 
 li {
   list-style-type: none;
+}
+
+p {
+  color: rgb(95, 94, 94);
+}
+
+label {
+  margin: 0;
 }
 </style>
