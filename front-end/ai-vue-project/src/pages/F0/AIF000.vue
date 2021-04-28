@@ -22,9 +22,8 @@
     <div class="box vission">
       <p class="conTopic">使用理念</p>
       <div class="viContentBox">
-        <div class="viImg"></div>
+        <!-- <div class="viImg"></div> -->
         <div class="viText">
-          <p>hello</p>
           <p class="content">
             For the journal, see Machine Learning (journal). "Statistical
             learning" redirects here. For statistical learning in linguistics,
@@ -37,7 +36,9 @@
       <p class="conTopic">服務項目</p>
       <div class="serList">
         <div class="serCard">
-          <p>下載音樂</p>
+          <p>
+            下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂
+          </p>
           <p>隨時隨地聆聽。</p>
         </div>
         <div class="serCard">
@@ -48,12 +49,16 @@
           <p>愛聽什麼、就播什麼。</p>
           <p>行動裝置照樣聽。</p>
         </div>
+        <div class="serCard">
+          <p>愛聽什麼、就播什麼。</p>
+          <p>行動裝置照樣聽。</p>
+        </div>
       </div>
     </div>
     <div class="demo">
       <p class="conTopic">成果展示</p>
       <div class="video-container">
-        <iframe
+        <!-- <iframe
           width="560"
           height="315"
           src="https://www.youtube.com/embed/r5J6e5_yyxI"
@@ -61,16 +66,36 @@
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen
-        ></iframe>
+        ></iframe> -->
       </div>
     </div>
     <div class="box tech">
       <p class="conTopic">技術一覽</p>
       <div class="techBox">
-        <div class="techCard"></div>
-        <div class="techCard"></div>
-        <div class="techCard"></div>
-        <div class="techCard"></div>
+        <div class="techCard">
+          <p>
+            下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂
+          </p>
+          <p>隨時隨地聆聽。</p>
+        </div>
+        <div class="techCard">
+          <p>
+            下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂
+          </p>
+          <p>隨時隨地聆聽。</p>
+        </div>
+        <div class="techCard">
+          <p>
+            下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂
+          </p>
+          <p>隨時隨地聆聽。</p>
+        </div>
+        <div class="techCard">
+          <p>
+            下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂
+          </p>
+          <p>隨時隨地聆聽。</p>
+        </div>
       </div>
     </div>
     <Footer />
@@ -125,7 +150,7 @@ p {
 }
 
 .content {
-  padding: 20px 0;
+  padding: 20px 15px;
   line-height: 1.25em;
 }
 
@@ -156,6 +181,8 @@ p {
 }
 
 .box {
+  padding-left: 2vw;
+  padding-right: 2vw;
   padding-bottom: 8vh;
 }
 
@@ -168,20 +195,7 @@ p {
 }
 
 .vission {
-  background-color: #27264e;
-}
-
-.viContentBox {
-  display: flex;
-  height: 50vh;
-}
-
-.viContentBox > div {
-  flex: 1;
-}
-
-.viContentBox .viImg {
-  background-image: url('~@/assets/img/signup-sidepic.jpg');
+  background-color: rgb(66, 66, 80);
 }
 
 .viContentBox .viText {
@@ -195,17 +209,19 @@ p {
 
 .serList {
   display: flex;
+  padding: 0 10vw;
 }
 
 .serCard {
   flex: 1;
-  height: 50vh;
-  background-color: rgb(238, 238, 238);
+  height: 65vh;
+  background-color: #cd9df1;
   box-shadow: 1px 1px 5px 2px rgba(139, 138, 139, 0.3);
-  margin: 0 3vw;
+  margin: 0 2vw;
 }
 
-.features .conTopic {
+.features .conTopic,
+.tech .conTopic {
   color: rgb(95, 94, 94);
 }
 
@@ -217,28 +233,15 @@ p {
   text-align: center;
 }
 
-.tech {
-  background-image: url('~@/assets/img/tech-mainpic.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-.tech .techBox {
+.techBox {
   display: flex;
 }
 
 .techCard {
   flex: 1;
-  background-color: rgba(255, 255, 255, 0.75);
-  height: 55vh;
+  height: 40vh;
+  background-color: rgba(250, 225, 225, 0.75);
   margin: 0 2vw;
-  transition: 0.5s;
-  box-shadow: 0px 10px 10px;
-}
-
-.techCard:hover {
-  transform: translate(0px, -10px);
 }
 
 .video-container {

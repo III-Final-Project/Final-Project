@@ -67,8 +67,8 @@ export default {
   display: flex;
   justify-content: space-between;
   width: 100vw;
-  height: 13vh;
-  background-color: rgb(255, 255, 255);
+  height: 9vh;
+  background-color: rgba(33, 33, 33, 0.95);
   font-weight: bold;
   font-size: 1em;
   position: fixed;
@@ -78,7 +78,7 @@ export default {
 }
 
 .logo {
-  height: 13vh;
+  height: 9vh;
   padding-left: 1vw;
   transition: 300ms;
 }
@@ -94,9 +94,9 @@ export default {
 
 .menu li {
   display: inline-block;
-  height: 13vh;
+  height: 9vh;
   width: 80px;
-  line-height: 13vh;
+  line-height: 9vh;
   text-align: center;
 }
 
@@ -106,7 +106,7 @@ export default {
 
 .menu .navLink {
   display: block;
-  color: rgb(95, 94, 94);
+  color: white;
 }
 
 .menu .navLink:active,
@@ -119,26 +119,26 @@ export default {
 }
 
 .sticky {
-  height: 11vh;
+  height: 8vh;
   box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.2);
 }
 
 .sticky .logo {
-  height: 10.5vh;
+  height: 7.8vh;
   padding-left: 2vw;
   transition: 300ms;
 }
 
 .sticky .burgerBtn {
-  height: 11vh;
-  line-height: 11vh;
+  height: 8vh;
+  line-height: 8vh;
 }
 
 .sticky a,
 .sticky li,
 .sticky .navCut {
-  height: 11vh;
-  line-height: 11vh;
+  height: 8vh;
+  line-height: 8vh;
 }
 
 #burger,
@@ -158,7 +158,7 @@ export default {
 
   .burgerBtn {
     padding-right: 8vw;
-    line-height: 13vh;
+    line-height: 10vh;
   }
 
   .menu {

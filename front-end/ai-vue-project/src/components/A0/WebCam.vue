@@ -1,8 +1,8 @@
 <template>
-  <div class="container">
+  <div class="cwArea">
     <div class="row">
       <div class="col-md-6">
-        <h2>Current Camera</h2>
+        <h4>Current Camera</h4>
         <code v-if="device">{{ device.label }}</code>
         <div class="border">
           <vue-web-cam
@@ -17,7 +17,7 @@
           />
         </div>
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-12 fotoArea">
             <select v-model="camera">
               <option>-- Select Device --</option>
               <option
@@ -43,7 +43,7 @@
         </div>
       </div>
       <div class="col-md-6">
-        <h2>Captured Image</h2>
+        <h4>Captured Image</h4>
         <figure class="figure">
           <img :src="img" class="img-responsive" />
         </figure>
@@ -130,10 +130,10 @@ export default {
 .border {
   -webkit-transform: scaleX(-1);
   transform: scaleX(-1);
+  height: 30vh;
 }
 
-.camera {
-  width: 500px;
-  height: 500px;
+.fotoArea {
+  height: 30vh;
 }
 </style>

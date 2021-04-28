@@ -56,8 +56,8 @@ export default {
 
 <style scoped>
 .footerArea {
-  border-top: 1px solid rgb(192, 173, 173);
-  background-color: #fff;
+  /* border-top: 1px solid rgb(192, 173, 173); */
+  background-color: rgb(91, 48, 104);
 }
 
 .container {
@@ -87,10 +87,11 @@ export default {
 }
 
 .foAuthors a {
-  color: rgb(95, 94, 94);
+  color: white;
 }
 
 .foSlogan {
+  color: white;
   font-size: 1.3rem;
   letter-spacing: 2px;
   padding: 5px 0;
