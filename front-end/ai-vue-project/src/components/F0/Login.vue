@@ -33,7 +33,7 @@
             >
           </p>
           <button class="btn loginBtn" type="button" @click="login">
-            Login
+            登入
           </button>
         </div>
         <b-modal id="myModal" hide-footer>

@@ -1,24 +1,33 @@
 <template>
   <div>
     <Header />
-    <!-- Left-Side-Bar -->
-    <div class="container">
+    <div class="myContainer">
       <button class="button-menu">Menu</button>
       <div class="main">
+        <!-- Left-Side-Bar -->
         <div class="sidebar">
           <ul>
             <li>
-              <a href="#" @click.prevent="status = 'dashboard'"
+              <a
+                href="#"
+                @click.prevent="status = 'dashboard'"
+                :class="{ barcolor: status == 'dashboard' }"
                 ><span>Dashboard</span></a
               >
             </li>
             <li>
-              <a href="#" @click.prevent="status = 'datas'"
+              <a
+                href="#"
+                @click.prevent="status = 'datas'"
+                :class="{ barcolor: status == 'datas' }"
                 ><span>Data Explore</span></a
               >
             </li>
             <li>
-              <a href="#" @click.prevent="status = 'chart'"
+              <a
+                href="#"
+                @click.prevent="status = 'chart'"
+                :class="{ barcolor: status == 'chart' }"
                 ><span>Charts</span></a
               >
             </li>
@@ -40,7 +49,7 @@
             <AdminTable />
           </div>
           <!-- charts -->
-          <div class="page-content" v-if="status == 'chart'">
+          <div class="page-content chartArea" v-if="status == 'chart'">
             <h1>Charts</h1>
             <div class="search-box">
               <input type="search" placeholder="Search here..." />
@@ -87,7 +96,7 @@ export default {
   },
   mounted() {
     const menuButton = document.querySelector('.button-menu');
-    const container = document.querySelector('.container');
+    const container = document.querySelector('.myContainer');
     const pageContent = document.querySelector('.page-content');
     const responsiveBreakpoint = 991;
 
@@ -121,7 +130,14 @@ export default {
     'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
+.myContainer {
+  display: flex;
+  margin: 0;
+  padding: 9vh 0 0 0;
+}
+
 .right-content {
+  height: 91vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -134,56 +150,50 @@ export default {
 }
 
 .camera {
-  background-color: white;
+  /* background-color: rgb(155, 101, 101); */
   width: 100%;
-  height: 70vh;
   text-align: center;
 }
 
 .charts {
-  overflow: hidden;
-}
-
-/* side bar */
-.container {
-  margin-top: 12vh;
-  margin-left: 0;
-  padding: 0;
-  display: flex;
-  height: 100vh;
-  width: 100vw;
-  flex-wrap: wrap;
+  text-align: center;
   overflow: hidden;
 }
 
 .button-menu {
+  height: 91vh;
   background-color: #303f9e;
   color: #fff;
   border: #fff;
+  padding: 0 6px;
+  border-top-right-radius: 60px;
+  border-bottom-right-radius: 60px;
 }
 
 .main {
-  height: calc(100% - 50px);
   display: flex;
-  flex: 1;
 }
 .sidebar {
-  height: 100vh;
-  width: 250px;
+  width: 20vw;
+  height: 91vh;
   box-sizing: border-box;
+  padding: 3vh 0;
   box-shadow: 0 0 2rem 0 rgb(0 0 0 / 5%);
   overflow: hidden;
   transition: width 0.5s ease;
 }
-.container.nav-closed .sidebar,
-.container.nav-closed .header-logo {
+
+.myContainer.nav-closed .sidebar,
+.myContainer.nav-closed .header-logo {
   width: 0;
 }
+
 .sidebar ul {
   display: flex;
   flex-direction: column;
   padding: 5px;
 }
+
 .sidebar ul li {
   display: flex;
   align-items: center;
@@ -199,7 +209,11 @@ export default {
 
 .sidebar ul li a.active,
 .sidebar ul li a:hover {
-  background: #e8ecef;
+  background: hsl(0, 0%, 95%);
+}
+
+.sidebar ul li .barcolor {
+  background-color: #e8ecef;
 }
 
 .sidebar ul li span {
@@ -209,23 +223,18 @@ export default {
 }
 
 .page-content {
-  padding: 10px 20px;
   box-sizing: border-box;
-  width: 100vh;
-  flex: 1;
+  width: 74vw;
+  height: 100vh;
+  padding: 10px 20px;
   text-align: center;
+  overflow-y: auto;
 }
 
-/* @media screen and (max-width: 991px) {
-  .page-content {
-    width: 100vw;
-  }
+.chartArea {
+  display: flex;
+  flex-direction: column;
 }
-@media screen and (max-width: 767px) {
-  .header-logo {
-    display: none;
-  }
-} */
 
 .search-box {
   display: flex;
@@ -281,4 +290,15 @@ input[type='search'] {
   width: 25px;
   height: 25px;
 }
+
+/* @media screen and (max-width: 991px) {
+  .page-content {
+    width: 100vw;
+  }
+}
+@media screen and (max-width: 767px) {
+  .header-logo {
+    display: none;
+  }
+} */
 </style>
