@@ -7,6 +7,7 @@ const router = express.Router();
 const create = (data, res) => {
   // use mysql query to insert into data
   // console.log(data);
+  // TODO: Remember to hash the password before insert into the database
   pool.query(
     'insert into User (user_id, user_name, user_email, user_address, user_mobile, user_password, pass_desc, pass_type, login_time, login_ip, create_time, role_id)'
     + ' values (?,?,?,?,?,?,?,?,?,?,?,?)',
@@ -74,7 +75,7 @@ const getAllUser = (req, res) => {
 };
 // Retrieve single user by ID
 const getUserByID = (req, res) => {
-  console.log(req.params.id);
+  // console.log(req.params.id);
   pool.query(
     'select user_id, user_name,  user_email, user_address, user_mobile, role_name, pass_type, create_time, login_time, login_ip from User'
     + ' INNER JOIN  Roles ON User.role_id = Roles.role_id where user_id = ?',
@@ -86,16 +87,20 @@ const getUserByID = (req, res) => {
           detail: 'error',
         });
       }
-      if (!results) {
+      // console.log(results);
+      // Check if user exists in database
+      if (results.length !== 0) {
         res.json({
           returnCode: '200',
           detail: results,
         });
+      // Return empty when user not exist
+      } else {
+        res.json({
+          returnCode: '200',
+          detail: 'empty',
+        });
       }
-      res.json({
-        returnCode: '200',
-        detail: 'empty',
-      });
     },
   );
 };
