@@ -19,6 +19,7 @@
       </div>
       <div class="imgBox"></div>
     </div>
+    <div class="spot" id="vission"></div>
     <div class="box vission">
       <p class="conTopic">使用理念</p>
       <div class="viContentBox">
@@ -32,6 +33,7 @@
         </div>
       </div>
     </div>
+    <div class="spot" id="service"></div>
     <div class="box features">
       <p class="conTopic">服務項目</p>
       <div class="serList">
@@ -55,6 +57,7 @@
         </div>
       </div>
     </div>
+    <div class="spot" id="demo"></div>
     <div class="demo">
       <p class="conTopic">成果展示</p>
       <div class="video-container">
@@ -69,6 +72,7 @@
         ></iframe> -->
       </div>
     </div>
+    <div class="spot" id="techView"></div>
     <div class="box tech">
       <p class="conTopic">技術一覽</p>
       <div class="techBox">
@@ -126,6 +130,13 @@ export default {
 <style scoped>
 p {
   margin: 0;
+}
+
+.spot {
+  position: relative;
+  top: -8vh;
+  display: block;
+  visibility: hidden;
 }
 
 .main {
