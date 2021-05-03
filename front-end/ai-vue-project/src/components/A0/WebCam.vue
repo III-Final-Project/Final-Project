@@ -5,16 +5,17 @@
         <h4>Current Camera</h4>
         <code v-if="device">{{ device.label }}</code>
         <div class="border">
-          <vue-web-cam
-            ref="webcam"
-            :device-id="deviceId"
-            width="100%"
-            @started="onStarted"
-            @stopped="onStopped"
-            @error="onError"
-            @cameras="onCameras"
-            @camera-change="onCameraChange"
-          />
+          <div v-if="status">
+            <vue-web-cam
+              ref="webcam"
+              :device-id="deviceId"
+              width="100%"
+              @started="onStarted"
+              @stopped="onStopped"
+              @error="onError"
+              @cameras="onCameras"
+            />
+          </div>
         </div>
         <div class="row">
           <div class="col-md-12 fotoArea">
@@ -48,6 +49,9 @@
           <img :src="img" class="img-responsive" />
         </figure>
       </div>
+      <div>
+        <img :src="newImg" />
+      </div>
     </div>
   </div>
 </template>
@@ -66,6 +70,8 @@ export default {
       camera: null,
       deviceId: null,
       devices: [],
+      newImg: null,
+      status: true,
     };
   },
   computed: {
@@ -92,6 +98,11 @@ export default {
   methods: {
     onCapture() {
       this.img = this.$refs.webcam.capture();
+      const formData = new FormData();
+      formData.append('picture', this.img);
+      this.axios.post('http://localhost:2204/receive', formData).then((res) => {
+        this.newImg = `data:image/jpeg;base64,${res.data}`;
+      });
     },
     onStarted(stream) {
       // eslint-disable-next-line
@@ -104,7 +115,8 @@ export default {
     onStop() {
       this.$refs.webcam.stop();
     },
-    onStart() {
+    async onStart() {
+      this.status = true;
       this.$refs.webcam.start();
     },
     onError(error) {
@@ -113,15 +125,16 @@ export default {
     },
     onCameras(cameras) {
       this.devices = cameras;
+      this.$refs.webcam.stop();
       // eslint-disable-next-line
       console.log('On Cameras Event', cameras);
     },
-    onCameraChange(deviceId) {
-      this.deviceId = deviceId;
-      this.camera = deviceId;
-      // eslint-disable-next-line
-      console.log('On Camera Change Event', deviceId);
-    },
+    // onCameraChange(deviceId) {
+    //   this.deviceId = deviceId;
+    //   this.camera = deviceId;
+    //   // eslint-disable-next-line
+    //   console.log('On Camera Change Event', deviceId);
+    // },
   },
 };
 </script>

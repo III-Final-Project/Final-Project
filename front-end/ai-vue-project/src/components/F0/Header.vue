@@ -16,14 +16,31 @@
     <nav class="menu">
       <ul>
         <li class="navLi">
-          <router-link class="navLink" :to="{ name: 'AIF000' }"
-            >首頁</router-link
+          <a class="navLink" href="#" @click.prevent="scroll('#')">首頁</a>
+        </li>
+        <li class="navLi">
+          <a class="navLink" href="#vission" @click.prevent="scroll('vission')"
+            >使用理念</a
           >
         </li>
-        <li class="navLi"><a class="navLink" href="#vission">使用理念</a></li>
-        <li class="navLi"><a class="navLink" href="#service">服務項目</a></li>
-        <li class="navLi"><a class="navLink" href="#demo">成果展示</a></li>
-        <li class="navLi"><a class="navLink" href="#techView">技術一覽</a></li>
+        <li class="navLi">
+          <a class="navLink" href="#service" @click.prevent="scroll('service')"
+            >服務項目</a
+          >
+        </li>
+        <li class="navLi">
+          <a class="navLink" href="#demo" @click.prevent="scroll('demo')"
+            >成果展示</a
+          >
+        </li>
+        <li class="navLi">
+          <a
+            class="navLink"
+            href="#techView"
+            @click.prevent="scroll('techView')"
+            >技術一覽</a
+          >
+        </li>
         <li class="navCut">|</li>
         <li>
           <router-link class="navLink" :to="{ name: 'Signup' }"
@@ -57,6 +74,39 @@ export default {
         this.active = false;
       }
     };
+  },
+  methods: {
+    async scroll(spot) {
+      if (this.$router.currentRoute.name === 'AIF000') {
+        this.scrollToSpot(spot);
+      } else {
+        await this.$router.push({ name: 'AIF000' });
+        this.scrollToSpot(spot);
+      }
+    },
+    scrollToSpot(spot) {
+      const vission = document.querySelector('#vission');
+      const service = document.querySelector('#service');
+      const demo = document.querySelector('#demo');
+      const techView = document.querySelector('#techView');
+      switch (spot) {
+        case 'vission':
+          window.scrollTo({ behavior: 'smooth', top: vission.offsetTop });
+          break;
+        case 'service':
+          window.scrollTo({ behavior: 'smooth', top: service.offsetTop });
+          break;
+        case 'demo':
+          window.scrollTo({ behavior: 'smooth', top: demo.offsetTop });
+          break;
+        case 'techView':
+          window.scrollTo({ behavior: 'smooth', top: techView.offsetTop });
+          break;
+        default:
+          window.scrollTo({ behavior: 'smooth', top: 0 });
+          break;
+      }
+    },
   },
 };
 </script>
