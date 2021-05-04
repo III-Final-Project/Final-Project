@@ -5,7 +5,14 @@ module.exports = {
 // Create new user
   create: (data, res) => {
     // use mysql query to insert into data
-    // console.log(data);
+    const passDesc = 'I am a new user';
+    const passType = 'basic permission';
+    const createTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    // TODO: Update login time when Login
+    const loginTime = createTime;
+    const ipAddress = data.ip.substring(7);
+    const roleId = '3';
+    // console.log(createTime);
     // TODO: Remember to hash the password before insert into the database
     pool.query(
       'insert into User (user_id, user_name, user_email, user_address, user_mobile, user_password, pass_desc, pass_type, login_time, login_ip, create_time, role_id)'
@@ -17,12 +24,12 @@ module.exports = {
         data.body.user_address,
         data.body.user_mobile,
         data.body.user_password,
-        data.body.pass_desc,
-        data.body.pass_type,
-        data.body.login_time,
-        data.body.login_ip,
-        data.body.create_time,
-        data.body.role_id,
+        passDesc,
+        passType,
+        loginTime,
+        ipAddress,
+        createTime,
+        roleId,
       ],
       // callback function of pool.query has three parameters
       (error) => {
@@ -30,7 +37,7 @@ module.exports = {
           // callBack(error);
           // console.log(error.sqlMessage);
           // console.log(error.sql);
-          res.json({
+          res.status(500).json({
             returnCode: '500',
             detail: 'error',
           });
@@ -81,7 +88,7 @@ module.exports = {
       [req.params.id],
       (error, results) => {
         if (error) {
-          res.json({
+          res.status(500).json({
             returnCode: '500',
             detail: 'error',
           });
@@ -124,7 +131,7 @@ module.exports = {
       ],
       (error) => {
         if (error) {
-          res.json({
+          res.status(500).json({
             returnCode: '500',
             detail: 'error',
           });
@@ -144,7 +151,7 @@ module.exports = {
       [req.body.user_id],
       (error) => {
         if (error) {
-          res.json({
+          res.status(500).json({
             returnCode: '500',
             detail: 'error',
           });
