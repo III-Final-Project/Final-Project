@@ -134,6 +134,7 @@ module.exports = {
           res.status(500).json({
             returnCode: '500',
             detail: 'error',
+            // msg: error,
           });
         } else {
           res.json({

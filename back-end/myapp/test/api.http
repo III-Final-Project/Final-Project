@@ -1,0 +1,56 @@
+@hostname = http://127.0.0.1
+@port = 4000
+@host = {{hostname}}:{{port}}
+@contentType = application/json
+@endPoint = users
+# Get all users
+GET {{host}}/{{endPoint}}
+
+###
+# Get specific user
+GET {{host}}/{{endPoint}}/1
+
+###
+# Post data
+POST {{host}}/{{endPoint}}
+content-type: {{contentType}}
+
+{
+    "user_name": "Jeff",
+    "user_password": "123",
+    "user_email": "123@gmail.com",
+    "user_address": "@home",
+    "user_mobile": "0988787666"
+}
+###
+# Update data
+# TODO
+PATCH {{host}}/{{endPoint}}
+content-type: application/json
+
+{
+    "user_id": 58,
+    "user_name": "Jeff123",
+    "user_password": "123",
+    "user_email": "123@gmail.com",
+    "user_address": "@home",
+    "user_mobile": "0988787666"
+}
+
+###
+# Delete Data
+DELETE {{host}}/{{endPoint}}
+content-type: {{contentType}}
+
+{
+    "user_id": 59
+}
+
+###
+# Send Email
+POST {{host}}/{{endPoint}}/email
+content-type: {{{contentType}}}
+
+{
+    "email": "jeff14994@gmail.com"
+}

@@ -18,6 +18,14 @@ Then change
     - TWILIO_ACCOUNT_SID=XXX
     - TWILIO_AUTH_TOKEN=XXX
     - TELL=09XXX
+# Unit test
+npm run unit-test
+
+# Find restful-api examples
+Go to /test/app.http and use the file to make requests
+
+# Replace GOOGLE_EMAIL_USER and GOOGLE_EMAIL_PASS in .env.example
+- Tutorial: [How to obtain Google App Passwards?](https://lininu.blogspot.com/2017/09/NodeJSSendMailService.html)
 ```
 
 Lets' GOGOGO!
