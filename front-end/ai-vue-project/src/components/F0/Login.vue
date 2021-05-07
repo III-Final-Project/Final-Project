@@ -80,6 +80,25 @@ export default {
     };
   },
   methods: {
+    login_vuex() {
+      this.$store
+        .dispatch('userLogin', {
+          username: this.username,
+          password: this.password,
+        })
+        .then(() => {
+          if (this.myteam.indexOf(this.username) !== -1) {
+            this.$router.push({ name: 'COURSEA000' });
+          } else {
+            this.$router.push({ name: 'COURSE000' });
+          }
+        })
+        .catch((err) => {
+          if (err) {
+            this.incorrectAuth = true;
+          }
+        });
+    },
     login() {
       this.$router.push({ name: 'AIA000' });
     },
