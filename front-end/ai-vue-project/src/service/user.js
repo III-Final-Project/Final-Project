@@ -9,6 +9,7 @@ const queryUsersById = (id) => userRequest.get(`/${id}`);
 const createUsers = (data) => userRequest.post('/', data);
 const updatedUser = (data) => userRequest.put('/', data);
 const deleteUser = (data) => userRequest.delete('/', data);
+const userSMS = (data) => userRequest.post('/sms', data);
 
 export default {
   queryUsers,
@@ -16,4 +17,5 @@ export default {
   createUsers,
   updatedUser,
   deleteUser,
+  userSMS,
 };

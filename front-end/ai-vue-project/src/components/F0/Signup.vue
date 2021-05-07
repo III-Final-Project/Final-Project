@@ -137,6 +137,7 @@
 // import axios from 'axios';
 import Header from '@/components/F0/Header';
 import Footer from '@/components/F0/Footer';
+import User from '../../service/user';
 
 export default {
   name: 'Signup',
@@ -153,7 +154,8 @@ export default {
       address: '',
       email: '',
       phone: '',
-      cfNumber: '', // 簡訊驗證碼
+      cfNumber: '', // 簡訊驗證碼-使用者
+      cfNumberSms: '', // 簡訊驗證碼-後端系統
       status: 'sign', // 頁面狀態
       // 驗證提醒變數
       v: {
@@ -206,18 +208,41 @@ export default {
         !this.v.address &&
         !this.v.phone
       ) {
-        this.status = 'verify';
+        User.userSMS({ telephone: this.phone }).then((res) => {
+          if (res.data.returnCode === '200') {
+            this.cfNumberSms = res.data.detail;
+            this.status = 'verify';
+          }
+        });
       }
     },
     verify() {
-      this.$bvToast.toast('註冊成功，請稍候!', {
-        title: '註冊訊息',
-        variant: 'success',
-        solid: true,
-      });
-      setTimeout(() => {
-        this.$router.push({ name: 'Login' });
-      }, 2000);
+      if (this.cfNumber === this.cfNumberSms) {
+        const userObj = {};
+        userObj.user_name = this.userName;
+        userObj.user_password = this.passWord;
+        userObj.user_email = this.email;
+        userObj.user_address = this.address;
+        userObj.user_mobile = this.phone;
+        User.createUsers(userObj).then((res) => {
+          if (res.data.returnCode === '200') {
+            this.$bvToast.toast('註冊成功，請稍候!', {
+              title: '註冊訊息',
+              variant: 'success',
+              solid: true,
+            });
+            setTimeout(() => {
+              this.$router.push({ name: 'Login' });
+            }, 2000);
+          }
+        });
+      } else {
+        this.$bvToast.toast('註冊失敗，請確認驗證碼是否正確!', {
+          title: '註冊訊息',
+          variant: 'danger',
+          solid: true,
+        });
+      }
     },
   },
   computed: {
