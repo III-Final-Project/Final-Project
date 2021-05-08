@@ -50,7 +50,8 @@
         </figure>
       </div>
       <div>
-        <img :src="newImg" />
+        <!-- <img :src="newImg" /> -->
+        <h1>{{ user_name }}</h1>
       </div>
     </div>
   </div>
@@ -72,6 +73,9 @@ export default {
       devices: [],
       newImg: null,
       status: true,
+      cacheImg: null,
+      timeInterval: null,
+      user_name: null,
     };
   },
   computed: {
@@ -97,12 +101,33 @@ export default {
   },
   methods: {
     onCapture() {
-      this.img = this.$refs.webcam.capture();
-      const formData = new FormData();
-      formData.append('picture', this.img);
-      this.axios.post('http://localhost:2204/receive', formData).then((res) => {
-        this.newImg = `data:image/jpeg;base64,${res.data}`;
-      });
+      let count = 0;
+      this.timeInterval = setInterval(() => {
+        this.cacheImg = this.$refs.webcam.capture();
+        const formData = new FormData();
+        formData.append('picture', this.cacheImg);
+        this.axios.post('http://localhost:5000/face', formData).then((res) => {
+          // this.newImg = `data:image/jpeg;base64,${res.data}`;
+          // eslint-disable-next-line no-console
+          // console.log(res.data);
+          count += 1;
+          if (count === 2) {
+            this.user_name = 'Unknown';
+            clearInterval(this.timeInterval);
+          }
+          if (res.data.username !== 'Unknown') {
+            this.user_name = res.data.username;
+            clearInterval(this.timeInterval);
+          }
+        });
+      }, 1000);
+      // console.log(imageArray);
+      // this.img = this.$refs.webcam.capture();
+      // const formData = new FormData();
+      // formData.append('picture', this.img);
+      // this.axios.post('http://localhost:2204/receive', formData).then((res) => {
+      //   this.newImg = `data:image/jpeg;base64,${res.data}`;
+      // });
     },
     onStarted(stream) {
       // eslint-disable-next-line
