@@ -174,4 +174,9 @@ export default {
 .fotoArea {
   height: 30vh;
 }
+
+.img-responsive {
+  object-fit: contain;
+  max-width: 100%;
+}
 </style>

@@ -235,7 +235,6 @@ export default {
 
 .page-content {
   box-sizing: border-box;
-  width: 74vw;
   height: 100vh;
   padding: 10px 20px;
   text-align: center;
