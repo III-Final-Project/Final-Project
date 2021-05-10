@@ -207,6 +207,7 @@ export default {
   }
 
   .burgerBtn {
+    color: white;
     padding-right: 8vw;
     line-height: 10vh;
   }
