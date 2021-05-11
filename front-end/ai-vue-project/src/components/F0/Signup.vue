@@ -153,6 +153,7 @@ import heic2any from 'heic2any';
 import Header from '@/components/F0/Header';
 import Footer from '@/components/F0/Footer';
 import User from '../../service/user';
+import Face from '../../service/face';
 
 export default {
   name: 'Signup',
@@ -244,16 +245,23 @@ export default {
         userObj.user_email = this.email;
         userObj.user_address = this.address;
         userObj.user_mobile = this.phone;
-        User.createUsers(userObj).then((res) => {
+
+        const imageForm = new FormData();
+        imageForm.append('image', this.file);
+        Face.imgUpload(imageForm).then((res) => {
           if (res.data.returnCode === '200') {
-            this.$bvToast.toast('註冊成功，請稍候!', {
-              title: '註冊訊息',
-              variant: 'success',
-              solid: true,
+            User.createUsers(userObj).then((resp) => {
+              if (resp.data.returnCode === '200') {
+                this.$bvToast.toast('註冊成功，請稍候!', {
+                  title: '註冊訊息',
+                  variant: 'success',
+                  solid: true,
+                });
+                setTimeout(() => {
+                  this.$router.push({ name: 'Login' });
+                }, 2000);
+              }
             });
-            setTimeout(() => {
-              this.$router.push({ name: 'Login' });
-            }, 2000);
           }
         });
       } else {
