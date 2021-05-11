@@ -92,8 +92,40 @@ module.exports = {
             returnCode: '500',
             detail: 'error',
           });
+          return;
         }
         // console.log(results);
+        // Check if user exists in database
+        if (results.length !== 0) {
+          res.json({
+            returnCode: '200',
+            detail: results,
+          });
+        // Return empty when user not exist
+        } else {
+          res.json({
+            returnCode: '200',
+            detail: 'empty',
+          });
+        }
+      },
+    );
+  },
+  getUserByName: (req, res) => {
+    // console.log(req.params.username);
+    pool.query(
+      'select user_id, user_name,  user_email, user_address, user_mobile, role_name, pass_type, create_time, login_time, login_ip from User'
+      + ' INNER JOIN  Roles ON User.role_id = Roles.role_id where user_name = ?',
+      [req.params.username],
+      (error, results) => {
+        console.log(req.params.username);
+        if (error) {
+          res.status(500).json({
+            returnCode: '500',
+            detail: 'error',
+          });
+          return;
+        }
         // Check if user exists in database
         if (results.length !== 0) {
           res.json({

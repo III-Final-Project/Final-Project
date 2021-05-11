@@ -7,8 +7,12 @@
 GET {{host}}/{{endPoint}}
 
 ###
-# Get specific user
+# Get specific user by ID
 GET {{host}}/{{endPoint}}/1
+
+###
+# Get Specific user by name
+GET {{host}}/{{endPoint}}/queryname/Jeff
 
 ###
 # Post data
