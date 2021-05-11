@@ -78,6 +78,7 @@ import Pie from '@/components/A0/Charts/Pie';
 import Bar from '@/components/A0/Charts/Bar';
 import WebCam from '@/components/A0/WebCam';
 import axios from 'vue-axios';
+import User from '../../service/user';
 
 export default {
   name: 'AIA000',
@@ -92,7 +93,11 @@ export default {
   data() {
     return {
       status: 'dashboard',
+      details: null,
     };
+  },
+  created() {
+    // this.queryAllDatas();
   },
   mounted() {
     const menuButton = document.querySelector('.button-menu');
@@ -120,7 +125,13 @@ export default {
       }
     });
   },
-  methods: {},
+  methods: {
+    queryAllUserDatas() {
+      User.queryUsers.then((res) => {
+        this.details = res.data.details;
+      });
+    },
+  },
 };
 </script>
 
@@ -224,7 +235,6 @@ export default {
 
 .page-content {
   box-sizing: border-box;
-  width: 74vw;
   height: 100vh;
   padding: 10px 20px;
   text-align: center;

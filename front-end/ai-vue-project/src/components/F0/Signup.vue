@@ -22,7 +22,7 @@
               :class="{ error: v.userName }"
               type="text"
               v-model="userName"
-              @keyup.enter="signUp"
+              @keypress.enter="signUp"
             />
             <div class="verify" v-show="v.userName">
               <img :src="require('@/assets/icon/alarm.png')" alt="alarm" />
@@ -38,7 +38,7 @@
               :class="{ error: v.passWord }"
               type="password"
               v-model="passWord"
-              @keyup.enter="signUp"
+              @keypress.enter="signUp"
             />
             <div class="verify" v-show="v.passWord">
               <img :src="require('@/assets/icon/alarm.png')" alt="alarm" />
@@ -54,7 +54,7 @@
               :class="{ error: v.pwdCheck }"
               type="password"
               v-model="pwdCheck"
-              @keyup.enter="signUp"
+              @keypress.enter="signUp"
             />
             <div class="verify" v-show="v.pwdCheck">
               <img :src="require('@/assets/icon/alarm.png')" alt="alarm" />
@@ -68,7 +68,7 @@
               :class="{ error: v.email }"
               type="text"
               v-model="email"
-              @keyup.enter="signUp"
+              @keypress.enter="signUp"
             />
             <div class="verify" v-show="v.email">
               <img :src="require('@/assets/icon/alarm.png')" alt="alarm" />
@@ -82,7 +82,7 @@
               :class="{ error: v.address }"
               type="text"
               v-model="address"
-              @keyup.enter="signUp"
+              @keypress.enter="signUp"
             />
             <div class="verify" v-show="v.address">
               <img :src="require('@/assets/icon/alarm.png')" alt="alarm" />
@@ -96,12 +96,26 @@
               :class="{ error: v.phone }"
               type="text"
               v-model="phone"
-              @keyup.enter="signUp"
+              @keypress.enter="signUp"
             />
             <div class="verify" v-show="v.phone">
               <img :src="require('@/assets/icon/alarm.png')" alt="alarm" />
               <span>手機號碼格式(09)或長度錯誤</span>
             </div>
+          </div>
+          <div class="profileBox">
+            <label class="uploadBtn" for="selectedFile">
+              ☞ 選擇上傳您的個人照 ☜
+              <input id="selectedFile" type="file" @change="onChange"
+            /></label>
+            <div class="showProfile" v-show="image">
+              <img :src="image" alt="in prograss..." />
+            </div>
+          </div>
+          <div class="fotoText">
+            <p>相片格式說明</p>
+            <p>支援規格：jpg、jpeg、png、heic</p>
+            <p>檔案大小限制：1KB至6MB</p>
           </div>
           <p class="remindText">
             已經註冊?
@@ -135,8 +149,10 @@
 
 <script>
 // import axios from 'axios';
+import heic2any from 'heic2any';
 import Header from '@/components/F0/Header';
 import Footer from '@/components/F0/Footer';
+import User from '../../service/user';
 
 export default {
   name: 'Signup',
@@ -153,7 +169,8 @@ export default {
       address: '',
       email: '',
       phone: '',
-      cfNumber: '', // 簡訊驗證碼
+      cfNumber: '', // 簡訊驗證碼-使用者
+      cfNumberSms: '', // 簡訊驗證碼-後端系統
       status: 'sign', // 頁面狀態
       // 驗證提醒變數
       v: {
@@ -164,6 +181,11 @@ export default {
         email: false,
         phone: false,
       },
+      // 相片檔案
+      file: '',
+      // 過濾相片規格
+      fileFilter: { type: false, size: false },
+      image: '',
     };
   },
   methods: {
@@ -206,18 +228,105 @@ export default {
         !this.v.address &&
         !this.v.phone
       ) {
-        this.status = 'verify';
+        User.userSMS({ telephone: this.phone }).then((res) => {
+          if (res.data.returnCode === '200') {
+            this.cfNumberSms = res.data.detail;
+            this.status = 'verify';
+          }
+        });
       }
     },
     verify() {
-      this.$bvToast.toast('註冊成功，請稍候!', {
-        title: '註冊訊息',
-        variant: 'success',
-        solid: true,
-      });
-      setTimeout(() => {
-        this.$router.push({ name: 'Login' });
-      }, 2000);
+      if (this.cfNumber === this.cfNumberSms) {
+        const userObj = {};
+        userObj.user_name = this.userName;
+        userObj.user_password = this.passWord;
+        userObj.user_email = this.email;
+        userObj.user_address = this.address;
+        userObj.user_mobile = this.phone;
+        User.createUsers(userObj).then((res) => {
+          if (res.data.returnCode === '200') {
+            this.$bvToast.toast('註冊成功，請稍候!', {
+              title: '註冊訊息',
+              variant: 'success',
+              solid: true,
+            });
+            setTimeout(() => {
+              this.$router.push({ name: 'Login' });
+            }, 2000);
+          }
+        });
+      } else {
+        this.$bvToast.toast('註冊失敗，請確認驗證碼是否正確!', {
+          title: '註冊訊息',
+          variant: 'danger',
+          solid: true,
+        });
+      }
+    },
+    onChange(e) {
+      const reader = new FileReader(); // 建立FileReader 監聽 Load 事件
+      const files = e.target.files; // 一個檔案流 FileList {0: File, length: 1}
+      const file = files[0]; // Bolb物件
+      // 判斷副檔名
+      if (!file.type.match('image/jpeg|image/png|image/jpg|image/heic')) {
+        this.fileFilter.type = false;
+        this.$bvToast.toast('檔案不符合支援規格', {
+          title: '相片規格有誤',
+          variant: 'danger',
+          solid: true,
+        });
+      } else {
+        this.fileFilter.type = true;
+      }
+      // 畫素小於1KB
+      if (file.size < 1000) {
+        this.fileFilter.size = false;
+        this.$bvToast.toast('檔案過小', {
+          title: '相片尺寸有誤',
+          variant: 'danger',
+          solid: true,
+        });
+      } else if (file.size > 6000000) {
+        this.fileFilter.type = false;
+        this.$bvToast.toast('檔案過大', {
+          title: '相片尺寸有誤',
+          variant: 'danger',
+          solid: true,
+        });
+      } else {
+        this.fileFilter.size = true;
+      }
+      // 建立符合格式的檔案
+      if (this.fileFilter.type && this.fileFilter.size) {
+        if (file.type === 'image/heic') {
+          heic2any({
+            blob: file,
+            toType: 'image/jpeg',
+            quality: 0.5,
+          }).then((res) => {
+            const myBlob = res;
+            const blobToFile = new File([myBlob], 'show.jpeg', {
+              type: 'image/jpeg',
+            });
+            // 轉檔完畢->jpeg
+            this.file = blobToFile;
+            // 把照片呈現在瀏覽器上
+            reader.addEventListener('load', this.imageLoader);
+            reader.readAsDataURL(this.file);
+          });
+        } else {
+          // jpg\jpep\png
+          this.file = file;
+          reader.addEventListener('load', this.imageLoader);
+          reader.readAsDataURL(this.file);
+        }
+      } else {
+        this.file = '';
+      }
+    },
+    imageLoader(event) {
+      this.image = event.target.result;
     },
   },
   computed: {
@@ -259,6 +368,7 @@ export default {
 
 <style scoped>
 h2 {
+  font-size: 1.75rem;
   font-weight: bold;
   margin: 3vh 0;
   letter-spacing: 0.2rem;
@@ -422,6 +532,55 @@ h2 {
   color: #555;
 }
 
+.profileBox {
+  text-align: center;
+  padding-top: 2vh;
+}
+
+.uploadBtn {
+  color: rgb(255, 255, 255);
+  width: 24vw;
+  padding: 10px 0;
+  background-color: #81c7d4;
+  cursor: pointer;
+  letter-spacing: 1.5px;
+}
+
+.uploadBtn:hover,
+.uploadBtn:active {
+  background-color: #a5dee4;
+}
+
+.showProfile {
+  width: 24vw;
+  height: 35vh;
+  border: 1px solid gray;
+  border-radius: 3px;
+  margin: auto;
+}
+
+.showProfile img {
+  object-fit: contain;
+  width: 23vw;
+  height: 34vh;
+}
+
+.fotoText {
+  width: 24vw;
+  margin: auto;
+  text-align: left;
+  padding: 2vh 0;
+}
+
+.fotoText p {
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+#selectedFile {
+  display: none;
+}
+
 @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
   h2 {
     font-size: 1.6rem;
@@ -465,6 +624,23 @@ h2 {
   .loginBtn {
     font-size: 1.2rem;
     width: 30vw;
+  }
+
+  .uploadBtn {
+    width: 70vw;
+  }
+
+  .showProfile {
+    width: 70vw;
+  }
+
+  .showProfile img {
+    object-fit: contain;
+    width: 69vw;
+  }
+
+  .fotoText {
+    width: 70vw;
   }
 }
 </style>

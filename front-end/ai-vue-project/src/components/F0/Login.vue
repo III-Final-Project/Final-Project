@@ -20,21 +20,27 @@
             <label for="passWord">密碼</label>
             <input id="passWord" type="password" />
           </div>
-          <p class="remindText">
-            尚未成為會員 ?
-            <router-link class="loginLink" :to="{ name: 'Signup' }"
-              >註冊</router-link
-            >
-            <a
-              class="resetLink"
-              href="#"
-              @click.prevent="$bvModal.show('myModal'), (showResetBox = true)"
-              >/忘記密碼</a
-            >
-          </p>
-          <button class="btn loginBtn" type="button" @click="login">
-            登入
-          </button>
+          <div class="btnArea">
+            <button class="btn loginBtn" type="button" @click="login">
+              GO
+            </button>
+            <p class="remindText">
+              尚未成為會員 ?
+              <router-link class="loginLink" :to="{ name: 'Signup' }"
+                >註冊</router-link
+              >
+              <a
+                class="resetLink"
+                href="#"
+                @click.prevent="$bvModal.show('myModal'), (showResetBox = true)"
+                >/忘記密碼</a
+              >
+            </p>
+          </div>
+        </div>
+        <div class="faceArea">
+          <img src="@/assets/icon/faceScan.png" alt="FaceId" />
+          <p>用<span style="color: #fe5987"> Face ID </span> 登入</p>
         </div>
         <b-modal id="myModal" hide-footer>
           <template #modal-title> 重設密碼 </template>
@@ -80,6 +86,25 @@ export default {
     };
   },
   methods: {
+    login_vuex() {
+      this.$store
+        .dispatch('userLogin', {
+          username: this.username,
+          password: this.password,
+        })
+        .then(() => {
+          if (this.myteam.indexOf(this.username) !== -1) {
+            this.$router.push({ name: 'COURSEA000' });
+          } else {
+            this.$router.push({ name: 'COURSE000' });
+          }
+        })
+        .catch((err) => {
+          if (err) {
+            this.incorrectAuth = true;
+          }
+        });
+    },
     login() {
       this.$router.push({ name: 'AIA000' });
     },
@@ -99,7 +124,6 @@ h2 {
 p {
   margin: 0;
   text-align: right;
-  padding-right: 5vw;
   font-size: 15px;
 }
 
@@ -196,6 +220,29 @@ input {
   width: 450px;
 }
 
+.faceArea {
+  margin: 2vh auto;
+  width: 180px;
+  height: 180px;
+  border-radius: 40%;
+  box-shadow: 0 -13px 46px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 -13px 46px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 -13px 46px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.faceArea > img {
+  margin-top: 5vh;
+  width: 100px;
+  height: 100px;
+}
+
+.faceArea > p {
+  padding-top: 1vh;
+  text-align: center;
+}
+
 .resetBox {
   margin-top: 3vh;
 }
@@ -214,13 +261,18 @@ input {
   font-size: 1rem;
 }
 
+.btnArea {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 5vw;
+}
+
 .loginBtn {
-  width: 10vw;
-  height: 40px;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  width: 50px;
+  height: 50px;
   letter-spacing: 0.5px;
   font-size: 1rem;
+  border-radius: 50%;
 }
 
 .resetBtn {
@@ -279,16 +331,26 @@ input {
     width: 70vw;
   }
 
+  .btnArea {
+    padding: 0 10vw;
+  }
+
   .remindText {
     font-size: 1.2rem;
-    text-align: right;
-    padding-right: 10vw;
   }
 
   .loginBtn {
     font-size: 1.2rem;
-    width: 30vw;
-    margin: 5vh 0;
+  }
+
+  .faceArea {
+    margin: 5vh auto;
+    width: 180px;
+    height: 180px;
+  }
+
+  .faceArea > img {
+    margin-top: 3vh;
   }
 }
 </style>
