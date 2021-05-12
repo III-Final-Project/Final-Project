@@ -46,12 +46,13 @@
       <div class="col-md-6">
         <h4>Captured Image</h4>
         <figure class="figure">
-          <img :src="img" class="img-responsive" />
+          <img :src="newImg" class="img-responsive" />
         </figure>
       </div>
+      <div><button @click="testing">test</button></div>
       <div>
         <!-- <img :src="newImg" /> -->
-        <h1>{{ user_name }}</h1>
+        <!-- <h1>{{ user_name }}</h1> -->
       </div>
     </div>
   </div>
@@ -132,6 +133,16 @@ export default {
       // this.axios.post('http://localhost:2204/receive', formData).then((res) => {
       //   this.newImg = `data:image/jpeg;base64,${res.data}`;
       // });
+    },
+    testing() {
+      setInterval(() => {
+        this.img = this.$refs.webcam.capture();
+        const formData = new FormData();
+        formData.append('picture', this.img);
+        this.axios.post('http://localhost:5000/face', formData).then((res) => {
+          this.newImg = `data:image/jpeg;base64,${res.data.message}`;
+        });
+      }, 500);
     },
     onStarted(stream) {
       // eslint-disable-next-line
