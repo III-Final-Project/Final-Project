@@ -49,11 +49,18 @@ content-type: {{contentType}}
 {
     "user_id": 59
 }
+###
+# Send SMS
+POST {{host}}/{{endPoint}}/sms
+content-type: {{contentType}}
 
+{
+    "telephone": "0911867605"
+}
 ###
 # Send Email
 POST {{host}}/{{endPoint}}/email
-content-type: {{{contentType}}}
+content-type: {{contentType}}
 
 {
     "email": "jeff14994@gmail.com"

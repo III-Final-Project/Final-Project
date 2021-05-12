@@ -18,7 +18,7 @@ Then change
     - TWILIO_ACCOUNT_SID=XXX
     - TWILIO_AUTH_TOKEN=XXX
     - TELL=09XXX
-# Unit test
+# Run Unit test to test everthing is ok
 npm run unit-test
 
 # Find restful-api examples
