@@ -14,6 +14,7 @@
     }
   },
   "dependencies": {
+    "@google-cloud/vision": "^2.3.2",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
     "debug": "~2.6.9",
@@ -27,6 +28,7 @@
     "nodemailer": "^6.6.0",
     "nodemon": "^2.0.7",
     "prettier": "^2.2.1",
+    "pureimage": "^0.3.2",
     "twilio": "^3.61.0"
   },
   "devDependencies": {
