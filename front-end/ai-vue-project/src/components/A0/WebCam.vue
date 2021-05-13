@@ -46,7 +46,8 @@
       <div class="col-md-6">
         <h4>Captured Image</h4>
         <figure class="figure">
-          <img :src="newImg" class="img-responsive" />
+          <img :src="img" class="img-responsive" />
+          <h4>{{ user_name }}</h4>
         </figure>
       </div>
       <div><button @click="testing">test</button></div>
@@ -68,7 +69,6 @@ export default {
   },
   data() {
     return {
-      img: null,
       camera: null,
       deviceId: null,
       devices: [],
@@ -76,7 +76,10 @@ export default {
       status: true,
       cacheImg: null,
       timeInterval: null,
+      // canvus
+      img: null,
       user_name: null,
+      face_location: null,
     };
   },
   computed: {
@@ -126,23 +129,16 @@ export default {
           }
         });
       }, 1000);
-      // console.log(imageArray);
-      // this.img = this.$refs.webcam.capture();
-      // const formData = new FormData();
-      // formData.append('picture', this.img);
-      // this.axios.post('http://localhost:2204/receive', formData).then((res) => {
-      //   this.newImg = `data:image/jpeg;base64,${res.data}`;
-      // });
     },
-    testing() {
-      setInterval(() => {
-        this.img = this.$refs.webcam.capture();
-        const formData = new FormData();
-        formData.append('picture', this.img);
-        this.axios.post('http://localhost:5000/face', formData).then((res) => {
-          this.newImg = `data:image/jpeg;base64,${res.data.message}`;
-        });
-      }, 500);
+    async testing() {
+      this.img = this.$refs.webcam.capture();
+      const formData = new FormData();
+      formData.append('picture', this.img);
+      this.axios.post('http://localhost:5000/face', formData).then((res) => {
+        // this.user_name = res.data.details[0].name;
+        // this.face_location = res.data.details[0].face_location;
+        console.log(res.data);
+      });
     },
     onStarted(stream) {
       // eslint-disable-next-line
