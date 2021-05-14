@@ -31,7 +31,7 @@
             </select>
           </div>
           <div class="col-md-12">
-            <button type="button" class="btn btn-primary" @click="onCapture">
+            <button type="button" class="btn btn-primary" @click="testing">
               Capture Photo
             </button>
             <button type="button" class="btn btn-danger" @click="onStop">
@@ -46,11 +46,15 @@
       <div class="col-md-6">
         <h4>Captured Image</h4>
         <figure class="figure">
-          <img :src="img" class="img-responsive" />
-          <h4>{{ user_name }}</h4>
+          <canvas ref="sketchpad">
+            <img id="myImg" :src="img" class="img-responsive" />
+          </canvas>
         </figure>
       </div>
-      <div><button @click="testing">test</button></div>
+      <div>
+        <!-- fdasjifdjsaifjsdaif
+        <button @click="testing">dddddddddddddddddddtest</button> -->
+      </div>
       <div>
         <!-- <img :src="newImg" /> -->
         <!-- <h1>{{ user_name }}</h1> -->
@@ -134,11 +138,41 @@ export default {
       this.img = this.$refs.webcam.capture();
       const formData = new FormData();
       formData.append('picture', this.img);
-      this.axios.post('http://localhost:5000/face', formData).then((res) => {
-        // this.user_name = res.data.details[0].name;
-        // this.face_location = res.data.details[0].face_location;
-        console.log(res.data);
-      });
+      this.axios
+        .post('http://localhost:5000/face', formData)
+        .then((res) => {
+          if (res.data.returnCode === '200') {
+            // TODO revise the coding logistic
+            this.face_location = res.data.details[0].face_location;
+            this.user_name = res.data.details[0].name;
+            const canvas = this.$refs.sketchpad;
+            const image = document.getElementById('myImg');
+            const ctx = canvas.getContext('2d');
+            // 設定畫布長寬
+            canvas.width = 640;
+            canvas.height = 480;
+            // 繪製圖片
+            ctx.drawImage(image, 0, 0);
+            ctx.strokeStyle = 'red';
+            ctx.strokeRect(
+              this.face_location[3],
+              this.face_location[0],
+              this.face_location[2] - this.face_location[0],
+              this.face_location[1] - this.face_location[3],
+            );
+            ctx.fillStyle = 'red';
+            ctx.font = '20px Georgia';
+            ctx.fillText(
+              this.user_name,
+              this.face_location[3],
+              this.face_location[0] - 10,
+            );
+          }
+        })
+        .catch((error) => {
+          // eslint-disable-next-line
+          console.log(error);
+        });
     },
     onStarted(stream) {
       // eslint-disable-next-line

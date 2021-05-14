@@ -9,7 +9,12 @@
   <div class="main">
     <Header />
     <div class="myContainer">
-      <div class="picBox"></div>
+      <div class="picBox">
+        <div>
+          <img src="~@/assets/icon/signUp.png" alt="" />
+          <p>Sign Up</p>
+        </div>
+      </div>
       <div class="signUpBox" v-show="status == 'sign'">
         <h2>建立您的帳戶</h2>
         <div>
@@ -105,7 +110,7 @@
           </div>
           <div class="profileBox">
             <label class="uploadBtn" for="selectedFile">
-              ☞ 選擇上傳您的個人照 ☜
+              ☞ 上傳您的個人照 ☜
               <input id="selectedFile" type="file" @change="onChange"
             /></label>
             <div class="showProfile" v-show="image">
@@ -286,25 +291,27 @@ export default {
         });
       } else {
         this.fileFilter.type = true;
+        // 檔案符合格式後接續判斷檔案尺寸
+        // 畫素小於1KB
+        if (file.size < 1000) {
+          this.fileFilter.size = false;
+          this.$bvToast.toast('檔案過小', {
+            title: '相片尺寸有誤',
+            variant: 'danger',
+            solid: true,
+          });
+        } else if (file.size > 6000000) {
+          this.fileFilter.type = false;
+          this.$bvToast.toast('檔案過大', {
+            title: '相片尺寸有誤',
+            variant: 'danger',
+            solid: true,
+          });
+        } else {
+          this.fileFilter.size = true;
+        }
       }
-      // 畫素小於1KB
-      if (file.size < 1000) {
-        this.fileFilter.size = false;
-        this.$bvToast.toast('檔案過小', {
-          title: '相片尺寸有誤',
-          variant: 'danger',
-          solid: true,
-        });
-      } else if (file.size > 6000000) {
-        this.fileFilter.type = false;
-        this.$bvToast.toast('檔案過大', {
-          title: '相片尺寸有誤',
-          variant: 'danger',
-          solid: true,
-        });
-      } else {
-        this.fileFilter.size = true;
-      }
+
       // 建立符合格式的檔案
       if (this.fileFilter.type && this.fileFilter.size) {
         if (file.type === 'image/heic') {
@@ -314,7 +321,7 @@ export default {
             quality: 0.5,
           }).then((res) => {
             const myBlob = res;
-            const blobToFile = new File([myBlob], 'show.jpeg', {
+            const blobToFile = new File([myBlob], `${this.userName}.jpg`, {
               type: 'image/jpeg',
             });
             // 轉檔完畢->jpeg
@@ -374,36 +381,49 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 h2 {
-  font-size: 1.75rem;
-  font-weight: bold;
+  font: {
+    size: 1.75rem;
+    weight: bold;
+  }
   margin: 3vh 0;
   letter-spacing: 0.2rem;
 }
 
 .main {
-  padding-top: 20vh;
-  background-color: rgb(15, 15, 54);
+  padding-top: 15vh;
+  background: linear-gradient(to top, #16222a, #8a215e);
 }
 
 .myContainer {
   width: 70vw;
-  height: 90vh;
+  height: 80vh;
   display: flex;
   margin: 0 auto 8vh auto;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 2px 2px 10px 2px gray;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.4);
 }
 
 .picBox {
   flex: 1;
-  height: 100vh;
-  background-image: url('~@/assets/img/signup-sidepic.jpg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  div {
+    text-align: center;
+    img {
+      width: 15vw;
+      margin: 0 auto;
+    }
+    p {
+      padding-top: 7vh;
+      color: white;
+      font-size: 25px;
+      letter-spacing: 5px;
+    }
+  }
 }
 
 .signUpBox {
@@ -419,79 +439,71 @@ h2 {
 
 .inputBox {
   padding-bottom: 2vh;
-}
-
-.inputBox > label {
-  display: block;
-  color: rgb(95, 94, 94);
-  text-align: left;
-  padding-left: 5vw;
-  margin-bottom: 3px;
-}
-
-.inputBox > input {
-  background-color: rgb(245, 245, 245);
-  border: none;
-  border-radius: 3px;
-  padding: 0px 8px;
-  transition: 0.1s;
-  box-sizing: border-box;
-  width: 24vw;
-  height: 5vh;
-  letter-spacing: 1px;
-  color: #555;
-}
-
-.inputBox > input:focus {
-  background-color: white;
-  border: #0b346e 1px solid;
-}
-
-.inputBox > input.error {
-  border: #e94236 1px solid;
-}
-
-.inputBox > img {
-  width: 20px;
-  height: 20px;
-}
-
-.inputBox > label > span {
-  color: red;
-}
-
-.inputBox > .verify {
-  text-align: left;
-  padding-left: 5vw;
-}
-
-.inputBox > .verify > img {
-  width: 15px;
-  height: 15px;
-}
-
-.inputBox > .verify > span {
-  color: #d93025;
-  font-size: 0.8rem;
-  text-align: left;
-  letter-spacing: 1px;
-  padding-left: 5px;
+  > label {
+    display: block;
+    color: rgb(95, 94, 94);
+    text-align: left;
+    padding-left: 5.5vw;
+    margin-bottom: 3px;
+    > span {
+      color: red;
+    }
+  }
+  > input {
+    background-color: rgb(245, 245, 245);
+    border: none;
+    border-radius: 3px;
+    padding: 0px 8px;
+    transition: 0.1s;
+    box-sizing: border-box;
+    width: 24vw;
+    height: 44px;
+    letter-spacing: 1px;
+    color: #555;
+    &:focus {
+      background-color: white;
+      border: #662377 1px solid;
+    }
+  }
+  .error {
+    border: #e94236 1px solid;
+  }
+  > img {
+    width: 20px;
+    height: 20px;
+  }
+  > .verify {
+    text-align: left;
+    padding-left: 5.7vw;
+    > img {
+      width: 15px;
+      height: 15px;
+    }
+    > span {
+      color: #d93025;
+      font-size: 0.8rem;
+      text-align: left;
+      letter-spacing: 1px;
+      padding-left: 5px;
+    }
+  }
 }
 
 .loginLink {
-  color: #f75c2f;
+  color: #ef5064;
   font-weight: bold;
-}
-
-.loginLink:focus,
-.loginLink:hover {
-  color: #ff9d82;
+  &:focus {
+    color: #fa756c;
+  }
+  &:hover {
+    color: #fa756c;
+  }
 }
 
 .remindText {
   margin: 0;
   text-align: right;
-  padding-right: 5vw;
+  padding-right: 5.5vw;
   font-size: 15px;
 }
 
@@ -504,7 +516,7 @@ h2 {
   font-size: 1rem;
   border: none;
   border-radius: 3px;
-  background-color: #0b346e;
+  background-color: #662377;
   color: white;
   font-weight: bold;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
@@ -513,31 +525,26 @@ h2 {
   transition: 0.2s;
 }
 
-.loginBtn:focus,
+.loginBtn:active,
 .loginBtn:hover {
-  background-color: #316ec4;
-  -moz-box-shadow: 0 7px 6px -6px #5697ec;
-  -webkit-box-shadow: 0 7px 6px -6px #5697ec;
-  box-shadow: 0 7px 6px -6px #5697ec;
+  background-color: #a82973;
   transform: translate(0, 2px);
 }
 
 .cfArea {
   padding-top: 10vh;
-}
-
-.cfArea h2 {
-  font-size: 1.4rem;
-}
-
-.cfArea input {
-  box-sizing: border-box;
-  width: 25vw;
-  height: 6vh;
-  font-size: 1.2rem;
-  letter-spacing: 1px;
-  border: none;
-  color: #555;
+  h2 {
+    font-size: 1.4rem;
+  }
+  input {
+    box-sizing: border-box;
+    width: 25vw;
+    height: 6vh;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    border: none;
+    color: #555;
+  }
 }
 
 .profileBox {
@@ -549,14 +556,15 @@ h2 {
   color: rgb(255, 255, 255);
   width: 24vw;
   padding: 10px 0;
-  background-color: #81c7d4;
+  background-color: #ef5064;
   cursor: pointer;
   letter-spacing: 1.5px;
-}
-
-.uploadBtn:hover,
-.uploadBtn:active {
-  background-color: #a5dee4;
+  &:hover {
+    background-color: #fa756c;
+  }
+  &:active {
+    background-color: #fa756c;
+  }
 }
 
 .showProfile {
@@ -565,12 +573,11 @@ h2 {
   border: 1px solid gray;
   border-radius: 3px;
   margin: auto;
-}
-
-.showProfile img {
-  object-fit: contain;
-  width: 23vw;
-  height: 34vh;
+  img {
+    object-fit: contain;
+    max-width: 100%;
+    height: 34vh;
+  }
 }
 
 .fotoText {
@@ -578,18 +585,17 @@ h2 {
   margin: auto;
   text-align: left;
   padding: 2vh 0;
-}
-
-.fotoText p {
-  font-size: 0.8rem;
-  margin: 0;
+  p {
+    font-size: 0.8rem;
+    margin: 0;
+  }
 }
 
 #selectedFile {
   display: none;
 }
 
-@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
+@media screen and (max-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
   h2 {
     font-size: 1.6rem;
     margin: 3vh 0;
@@ -597,7 +603,7 @@ h2 {
   }
 
   .main {
-    padding-top: 15vh;
+    padding-top: 13vh;
   }
 
   .myContainer {
@@ -611,26 +617,26 @@ h2 {
     display: none;
   }
 
-  .inputBox > label {
-    font-size: 1.15rem;
-    padding-left: 10vw;
-  }
-
-  .inputBox > input {
-    width: 70vw;
-  }
-
-  .inputBox > .verify {
-    padding-left: 10vw;
+  .inputBox {
+    > label {
+      font-size: 1.15rem;
+      padding-left: 10vw;
+    }
+    > input {
+      width: 70vw;
+    }
+    > .verify {
+      padding-left: 10vw;
+    }
   }
 
   .remindText {
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     padding-right: 10vw;
   }
 
   .loginBtn {
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     width: 30vw;
   }
 
@@ -640,11 +646,10 @@ h2 {
 
   .showProfile {
     width: 70vw;
-  }
-
-  .showProfile img {
-    object-fit: contain;
-    width: 69vw;
+    img {
+      object-fit: contain;
+      max-width: 100%;
+    }
   }
 
   .fotoText {

@@ -8,7 +8,12 @@
   <div class="main">
     <Header />
     <div class="container">
-      <div class="picBox"></div>
+      <div class="picBox">
+        <div>
+          <img src="~@/assets/icon/logIn.png" alt="" />
+          <p>Log In</p>
+        </div>
+      </div>
       <div class="signUpBox">
         <h2>登入您的帳戶</h2>
         <div>
@@ -26,8 +31,8 @@
             </button>
             <p class="remindText">
               尚未成為會員 ?
-              <router-link class="loginLink" :to="{ name: 'Signup' }"
-                >註冊</router-link
+              <router-link class="loginLink" :to="{ name: 'Signup' }">
+                註冊</router-link
               >
               <a
                 class="resetLink"
@@ -112,13 +117,14 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 h2 {
-  font-weight: bold;
-  font-size: 1.75rem;
+  font: {
+    weight: bold;
+    size: 1.75rem;
+  }
   letter-spacing: 0.2rem;
-  margin-top: 60px;
-  margin-bottom: 3vh;
+  margin: 3vh 0;
 }
 
 p {
@@ -129,8 +135,8 @@ p {
 
 input {
   box-sizing: border-box;
-  width: 25vw;
-  height: 6vh;
+  width: 24vw;
+  height: 44px;
   font-size: 1.2rem;
   letter-spacing: 1px;
   border: none;
@@ -138,40 +144,59 @@ input {
 }
 
 .main {
-  padding-top: 20vh;
-  background-color: rgb(15, 15, 54);
+  padding-top: 15vh;
+  background: linear-gradient(to top, #16222a, #a82973);
 }
 
 .container {
   padding: 0;
   width: 70vw;
-  height: 90vh;
+  height: 80vh;
   display: flex;
   margin: 0 auto 8vh auto;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 2px 2px 10px 2px gray;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.4);
 }
 
 .btn {
+  font: {
+    weight: bold;
+    family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+      'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
   border: none;
   outline: none;
   color: white;
   border-radius: 3px;
-  background-color: #0b346e;
-  font-weight: bold;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
-    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  background-color: #662377;
   transition: 0.2s;
+}
+
+.btn:active,
+.btn:hover {
+  background-color: #a82973;
+  transform: translate(0, 2px);
 }
 
 .picBox {
   flex: 1;
-  height: 100vh;
-  background-image: url('~@/assets/img/login-sidepic.jpg');
-  background-repeat: no-repeat;
-  background-position: 50% 10%;
-  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  div {
+    img {
+      width: 15vw;
+      margin: 0 auto;
+    }
+    p {
+      padding-top: 7vh;
+      color: white;
+      font-size: 25px;
+      letter-spacing: 5px;
+      text-align: center;
+    }
+  }
 }
 
 .signUpBox {
@@ -184,36 +209,37 @@ input {
   height: 100px;
 }
 
-.inputBox > label {
-  display: block;
-  color: rgb(95, 94, 94);
-  text-align: left;
-  padding-left: 5vw;
-  margin-bottom: 3px;
-}
-
-.inputBox > input {
-  background-color: rgb(245, 245, 245);
-  border: none;
-  border-radius: 3px;
-  margin-bottom: 3vh;
-  padding: 0px 8px;
-  transition: 0.1s;
-}
-
-.inputBox > input:focus {
-  background-color: white;
-  border: #0b346e 1px solid;
+.inputBox {
+  > label {
+    display: block;
+    color: rgb(95, 94, 94);
+    text-align: left;
+    padding-left: 5.5vw;
+    margin-bottom: 3px;
+  }
+  > input {
+    background-color: rgb(245, 245, 245);
+    border: none;
+    border-radius: 3px;
+    margin-bottom: 3vh;
+    padding: 0px 8px;
+    transition: 0.1s;
+    &:focus {
+      background-color: white;
+      border: #662377 1px solid;
+    }
+  }
 }
 
 .loginLink {
   color: #f75c2f;
   font-weight: bold;
-}
-
-.loginLink:active,
-.loginLink:hover {
-  color: #ff9d82;
+  &:active {
+    color: #ff9d82;
+  }
+  &:hover {
+    color: #ff9d82;
+  }
 }
 
 .modalSize {
@@ -225,46 +251,44 @@ input {
   width: 180px;
   height: 180px;
   border-radius: 40%;
-  box-shadow: 0 -13px 46px rgba(0, 0, 0, 0.1);
-  -webkit-box-shadow: 0 -13px 46px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 0 -13px 46px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 -10px 30px -20px rgba(0, 0, 0, 0.4);
   overflow: hidden;
   cursor: pointer;
-}
-
-.faceArea > img {
-  margin-top: 5vh;
-  width: 100px;
-  height: 100px;
-}
-
-.faceArea > p {
-  padding-top: 1vh;
-  text-align: center;
+  > img {
+    margin-top: 2.5vh;
+    width: 100px;
+    height: 100px;
+  }
+  > p {
+    padding-top: 1vh;
+    text-align: center;
+  }
 }
 
 .resetBox {
   margin-top: 3vh;
-}
-
-.resetBox > input {
-  width: 35vh;
-  background-color: #eee;
-  border-radius: 3px;
-  margin-bottom: 3vh;
-  padding: 0px 8px;
-  transition: 0.1s;
-}
-
-.resetBox > p {
-  text-align: left;
-  font-size: 1rem;
+  > input {
+    width: 35vh;
+    background-color: #eee;
+    border-radius: 3px;
+    margin-bottom: 3vh;
+    padding: 0px 8px;
+    transition: 0.1s;
+  }
+  > p {
+    text-align: left;
+    font-size: 1rem;
+  }
 }
 
 .btnArea {
   display: flex;
   justify-content: space-between;
-  padding: 0 5vw;
+  padding: 0 5.5vw;
+}
+
+.remindText {
+  margin-left: 3vw;
 }
 
 .loginBtn {
@@ -280,27 +304,19 @@ input {
   height: 4vh;
 }
 
-.btn:focus,
-.btn:hover {
-  background-color: #316ec4;
-  -moz-box-shadow: 0 7px 6px -6px #5697ec;
-  -webkit-box-shadow: 0 7px 6px -6px #5697ec;
-  box-shadow: 0 7px 6px -6px #5697ec;
-  transform: translate(0, 2px);
-}
-
 .resetLink {
   color: black;
   display: block;
   padding-top: 1.5vh;
+  &:hover {
+    color: rgb(95, 95, 95);
+  }
+  &:focus {
+    color: rgb(95, 95, 95);
+  }
 }
 
-.resetLink:hover,
-.resetLink:focus {
-  color: rgb(95, 95, 95);
-}
-
-@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
+@media screen and (max-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
   h2 {
     font-size: 1.6rem;
     margin: 3vh 0;
@@ -308,7 +324,7 @@ input {
   }
 
   .main {
-    padding-top: 15vh;
+    padding-top: 13vh;
   }
 
   .container {
@@ -322,13 +338,14 @@ input {
     display: none;
   }
 
-  .inputBox > label {
-    font-size: 1.15rem;
-    padding-left: 10vw;
-  }
-
-  .inputBox > input {
-    width: 70vw;
+  .inputBox {
+    > label {
+      font-size: 1.15rem;
+      padding-left: 10vw;
+    }
+    > input {
+      width: 70vw;
+    }
   }
 
   .btnArea {
@@ -347,10 +364,9 @@ input {
     margin: 5vh auto;
     width: 180px;
     height: 180px;
-  }
-
-  .faceArea > img {
-    margin-top: 3vh;
+    > img {
+      margin-top: 3vh;
+    }
   }
 }
 </style>
