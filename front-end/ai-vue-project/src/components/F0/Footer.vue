@@ -54,55 +54,57 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .footerArea {
-  /* border-top: 1px solid rgb(192, 173, 173); */
-  background-color: rgb(91, 48, 104);
+  background-color: rgba(33, 33, 33, 0.95);
 }
 
 .container {
   display: flex;
   justify-content: space-between;
-  padding: 2vh 10vw;
+  padding: 1vh 10vw;
 }
 
 .foContents {
   width: 20vw;
+  li {
+    padding: 5px 0;
+    letter-spacing: 1.5px;
+  }
 }
 
-.foContents li {
-  padding: 5px 0;
-  letter-spacing: 1.5px;
-}
-
-.foAuthors li:hover,
-.foAuthors a:active {
-  color: #f75c2f;
-}
-
-.foAuthors img {
-  display: inline-block;
-  height: 15px;
-  padding-right: 15px;
-}
-
-.foAuthors a {
-  color: white;
+.foAuthors {
+  a {
+    color: white;
+    &:hover {
+      color: #f75c2f;
+    }
+  }
+  li {
+    &:hover {
+      color: #f75c2f;
+    }
+  }
+  img {
+    display: inline-block;
+    height: 15px;
+    padding-right: 15px;
+  }
 }
 
 .foSlogan {
   color: white;
-  font-size: 1.3rem;
   letter-spacing: 2px;
   padding: 5px 0;
 }
 
 .copyRight {
+  color: white;
   text-align: center;
   padding-bottom: 10px;
 }
 
-@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
+@media screen and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
   .foContents {
     width: 30vw;
   }

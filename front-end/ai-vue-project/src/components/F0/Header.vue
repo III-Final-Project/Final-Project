@@ -111,20 +111,21 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .navBar {
+  font: {
+    weight: bold;
+    size: 1em;
+  }
   z-index: 1;
   display: flex;
   justify-content: space-between;
   width: 100vw;
   height: 9vh;
   background-color: rgba(33, 33, 33, 0.95);
-  font-weight: bold;
-  font-size: 1em;
   position: fixed;
   top: 0;
   transition: 300ms;
-  z-index: 1;
 }
 
 .logo {
@@ -135,60 +136,59 @@ export default {
 
 .menu {
   margin: 0 25px;
-}
-
-.menu ul {
-  display: flex;
-  margin: 0;
-}
-
-.menu li {
-  display: inline-block;
-  height: 9vh;
-  width: 80px;
-  line-height: 9vh;
-  text-align: center;
-}
-
-.menu .navLi {
-  margin: 0 25px;
-}
-
-.menu .navLink {
-  display: block;
-  color: white;
-}
-
-.menu .navLink:active,
-.menu .navLink:hover {
-  color: #f75c2f;
-}
-
-.menu .navCut {
-  width: 15px;
+  ul {
+    display: flex;
+    margin: 0;
+  }
+  li {
+    display: inline-block;
+    height: 9vh;
+    width: 80px;
+    line-height: 9vh;
+    text-align: center;
+  }
+  .navLi {
+    margin: 0 25px;
+  }
+  .navLink {
+    display: block;
+    color: white;
+    &:hover {
+      color: #f75c2f;
+    }
+    &:active {
+      color: #f75c2f;
+    }
+  }
+  .navCut {
+    width: 15px;
+  }
 }
 
 .sticky {
   height: 8vh;
   box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.2);
-}
-
-.sticky .logo {
-  height: 7.8vh;
-  padding-left: 2vw;
-  transition: 300ms;
-}
-
-.sticky .burgerBtn {
-  height: 8vh;
-  line-height: 8vh;
-}
-
-.sticky a,
-.sticky li,
-.sticky .navCut {
-  height: 8vh;
-  line-height: 8vh;
+  a {
+    height: 8vh;
+    line-height: 8vh;
+  }
+  li {
+    height: 8vh;
+    line-height: 8vh;
+  }
+  .navCut {
+    height: 8vh;
+    line-height: 8vh;
+  }
+  .logo {
+    height: 7.8vh;
+    padding-left: 2vw;
+    transition: 300ms;
+  }
+  .burgerBtn {
+    height: 8vh;
+    line-height: 8vh;
+  }
 }
 
 #burger,
@@ -196,7 +196,7 @@ export default {
   display: none;
 }
 
-@media only screen and (min-device-width: 375px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
+@media screen and (max-width: 990px) and (-webkit-min-device-pixel-ratio: 2) {
   .navBar {
     flex-direction: column;
   }
@@ -209,45 +209,38 @@ export default {
   .burgerBtn {
     color: white;
     padding-right: 8vw;
-    line-height: 10vh;
+    line-height: 9vh;
   }
 
   .menu {
     margin: 0;
     display: none;
-  }
-
-  .menu ul {
-    display: block;
-    background: white;
-    border-bottom: 1px solid #ddd;
-  }
-
-  .menu li {
-    display: block;
-    width: 100vw;
-    height: 7vh;
-    line-height: 7vh;
-    padding: 0.1vh 8vw;
-    letter-spacing: 3px;
-  }
-
-  .menu > ul > li + li {
-    border-top: 1px solid rgb(243, 242, 242);
-  }
-
-  .menu .navLi {
-    margin: 0;
-  }
-
-  .menu .navLink {
-    height: 7vh;
-    color: rgb(95, 94, 94);
-    text-align: left;
-  }
-
-  .menu .navCut {
-    display: none;
+    ul {
+      display: block;
+      background: white;
+    }
+    li {
+      display: block;
+      background-color: rgba(33, 33, 33, 0.95);
+      width: 100vw;
+      height: 7vh;
+      line-height: 7vh;
+      padding: 0.1vh 8vw;
+      letter-spacing: 3px;
+    }
+    > ul > li + li {
+      border-top: 1px solid rgba(71, 66, 66, 0.7);
+    }
+    .navLi {
+      margin: 0;
+    }
+    .navLink {
+      height: 7vh;
+      text-align: left;
+    }
+    .navCut {
+      display: none;
+    }
   }
 
   .sticky a,

@@ -50,7 +50,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 table {
   width: 50vw;
   border-collapse: collapse;
@@ -59,11 +59,10 @@ table {
 thead {
   text-transform: uppercase;
   border-bottom: 1px solid #0e0e0e;
-}
-
-thead th {
-  padding: 5px;
-  text-align: center;
+  th {
+    padding: 5px;
+    text-align: center;
+  }
 }
 
 td {

@@ -127,7 +127,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 p {
   margin: 0;
 }
@@ -184,11 +184,10 @@ p {
   border: #f75c2f 3px solid;
   border-radius: 60px;
   transition: 0.35s;
-}
-
-.topBtn:hover {
-  background: linear-gradient(#e06f6f, #f75c2f);
-  color: white;
+  &:hover {
+    background: linear-gradient(#e06f6f, #f75c2f);
+    color: white;
+  }
 }
 
 .box {
@@ -211,11 +210,12 @@ p {
 
 .viContentBox .viText {
   padding: 0 2vw;
-}
-
-.viContentBox .viText .topic,
-.viContentBox .viText .content {
-  color: beige;
+  .topic {
+    color: beige;
+  }
+  .content {
+    color: beige;
+  }
 }
 
 .serList {
@@ -238,10 +238,9 @@ p {
 
 .demo {
   background-color: rgb(46, 45, 45);
-}
-
-.demo .myVideo {
-  text-align: center;
+  .myVideo {
+    text-align: center;
+  }
 }
 
 .techBox {
