@@ -19,11 +19,11 @@
         <div>
           <div class="inputBox">
             <label for="UserName">帳號</label>
-            <input id="UserName" type="text" />
+            <input id="UserName" type="text" v-model="user_name" />
           </div>
           <div class="inputBox">
             <label for="passWord">密碼</label>
-            <input id="passWord" type="password" />
+            <input id="passWord" type="password" v-model="user_password" />
           </div>
           <div class="btnArea">
             <button class="btn loginBtn" type="button" @click="login">
@@ -44,7 +44,11 @@
           </div>
         </div>
         <div class="faceArea">
-          <img src="@/assets/icon/faceScan.png" alt="FaceId" />
+          <img
+            src="@/assets/icon/faceScan.png"
+            alt="FaceId"
+            @click="$bvModal.show('faceModal')"
+          />
           <p>用<span style="color: #fe5987"> Face ID </span> 登入</p>
         </div>
         <b-modal id="myModal" hide-footer>
@@ -70,6 +74,10 @@
           </div>
         </b-modal>
       </div>
+      <b-modal id="faceModal" class="faceModal" hide-footer>
+        <template #modal-title> FaceID偵測 </template>
+        <Camera @faceVerify="faceVerify" />
+      </b-modal>
     </div>
     <Footer />
   </div>
@@ -78,16 +86,20 @@
 <script>
 import Header from '@/components/F0/Header';
 import Footer from '@/components/F0/Footer';
+import Camera from '@/components/F0/Camera_F';
 
 export default {
   name: 'Login',
   components: {
     Header,
     Footer,
+    Camera,
   },
   data() {
     return {
       showResetBox: false,
+      user_name: null,
+      user_password: null,
     };
   },
   methods: {
@@ -111,7 +123,30 @@ export default {
         });
     },
     login() {
-      this.$router.push({ name: 'AIA000' });
+      this.$router.push({
+        name: 'AIA000',
+        params: { user_name: this.user_name },
+      });
+    },
+    faceVerify(res) {
+      if (res !== 'Unknown') {
+        this.user_name = res;
+        // TODO 利用使用者名稱搜尋使用者帳號與密碼
+        this.user_password = '1234';
+        // TODO 利用VueX與JWT登入並且記錄使用者資訊
+        // this.login_vuex();
+        // eslint-disable-next-line
+        console.log(`使用者名稱：${this.user_name}`);
+        // eslint-disable-next-line
+        console.log(`使用者帳號：${this.user_password}`);
+        this.login();
+      } else {
+        this.$bvToast.toast(`偵測失敗，請重新一次或使用帳號密碼登入`, {
+          title: '登入訊息',
+          variant: 'danger',
+          solid: true,
+        });
+      }
     },
   },
 };
@@ -263,6 +298,10 @@ input {
     padding-top: 1vh;
     text-align: center;
   }
+}
+
+.modal-body {
+  height: 350px;
 }
 
 .resetBox {

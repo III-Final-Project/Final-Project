@@ -100,6 +100,9 @@ export default {
     // this.queryAllDatas();
   },
   mounted() {
+    this.showToast();
+
+    // 記住前台頁面的DOM元素
     const menuButton = document.querySelector('.button-menu');
     const container = document.querySelector('.myContainer');
     const pageContent = document.querySelector('.page-content');
@@ -129,6 +132,13 @@ export default {
     queryAllUserDatas() {
       User.queryUsers.then((res) => {
         this.details = res.data.details;
+      });
+    },
+    showToast() {
+      this.$bvToast.toast(`歡迎回來${this.$route.params.user_name}`, {
+        title: '登入訊息',
+        variant: 'info',
+        solid: true,
       });
     },
   },
