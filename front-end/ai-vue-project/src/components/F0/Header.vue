@@ -12,24 +12,38 @@
       /></router-link>
       <label class="burgerBtn" id="burger" for="menu">☰</label>
     </div>
-    <input id="menu" type="checkbox" />
+    <input id="menu" type="checkbox" v-model="checkStatus" />
     <nav class="menu">
       <ul>
         <li class="navLi">
-          <a class="navLink" href="#" @click.prevent="scroll('#')">首頁</a>
+          <a
+            class="navLink"
+            href="#"
+            @click.prevent="scroll('#'), (checkStatus = false)"
+            >首頁</a
+          >
         </li>
         <li class="navLi">
-          <a class="navLink" href="#vission" @click.prevent="scroll('vission')"
+          <a
+            class="navLink"
+            href="#vission"
+            @click.prevent="scroll('vission'), (checkStatus = false)"
             >使用理念</a
           >
         </li>
         <li class="navLi">
-          <a class="navLink" href="#service" @click.prevent="scroll('service')"
+          <a
+            class="navLink"
+            href="#service"
+            @click.prevent="scroll('service'), (checkStatus = false)"
             >服務項目</a
           >
         </li>
         <li class="navLi">
-          <a class="navLink" href="#demo" @click.prevent="scroll('demo')"
+          <a
+            class="navLink"
+            href="#demo"
+            @click.prevent="scroll('demo'), (checkStatus = false)"
             >成果展示</a
           >
         </li>
@@ -37,7 +51,7 @@
           <a
             class="navLink"
             href="#techView"
-            @click.prevent="scroll('techView')"
+            @click.prevent="scroll('techView'), (checkStatus = false)"
             >技術一覽</a
           >
         </li>
@@ -63,6 +77,7 @@ export default {
   data() {
     return {
       active: false,
+      checkStatus: null,
     };
   },
   mounted() {
