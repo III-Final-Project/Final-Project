@@ -11,7 +11,6 @@ class FaceService:
         self.image_file = 'static/image'
 
     def file_reader(self):
-        print(os.path.abspath(os.path.dirname('__file__')))
         return os.listdir(self.image_file)
 
     def face_recognize(self):

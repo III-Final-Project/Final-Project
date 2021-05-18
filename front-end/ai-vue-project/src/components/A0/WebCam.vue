@@ -52,10 +52,6 @@
         </figure>
       </div>
       <div>
-        <!-- fdasjifdjsaifjsdaif
-        <button @click="testing">dddddddddddddddddddtest</button> -->
-      </div>
-      <div>
         <!-- <img :src="newImg" /> -->
         <!-- <h1>{{ user_name }}</h1> -->
       </div>
@@ -116,14 +112,11 @@ export default {
         formData.append('picture', this.cacheImg);
         // 最多打4次後停住
         count += 1;
-        if (count === 4) {
+        if (count === 10) {
           this.user_name = 'Unknown';
           clearInterval(this.timeInterval);
         }
         this.axios.post('http://localhost:5000/face', formData).then((res) => {
-          // this.newImg = `data:image/jpeg;base64,${res.data}`;
-          // eslint-disable-next-line no-console
-          // console.log(res.data);
           if (
             res.data.returnCode === '200' &&
             res.data.details[0].user_name !== 'Unknown'
