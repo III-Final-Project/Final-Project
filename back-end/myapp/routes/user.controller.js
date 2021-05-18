@@ -1,5 +1,10 @@
+// import json web token
+const { sign } = require('jsonwebtoken');
+
+const { hashSync, genSaltSync, compareSync } = require('bcrypt');
 const sendMail = require('../verification/mailVerfication/send_sms');
 const sendEmail = require('../verification/emailVerification/send_mail');
+const { create, getUserByNamePost } = require('./user.service');
 
 module.exports = {
   // Verify telephones
@@ -33,5 +38,50 @@ module.exports = {
         res.send(returnFormat);
       },
     );
+  },
+  createUser: (req, res) => {
+    // encrypt the password with salt and hash
+    const salt = genSaltSync(10);
+    req.body.user_password = hashSync(req.body.user_password, salt);
+    create(req, res);
+  },
+  login: (req, res) => {
+    const { body } = req;
+    getUserByNamePost(body.user_name, (err, results) => {
+      // MySQL Error handling
+      if (err) {
+        console.log(`Error message: ${err}`);
+        return res.status(500).json({
+          returnCode: '500',
+          detail: err.code,
+        });
+      }
+      // Wrong user name
+      if (!results) {
+        return res.json({
+          returnCode: '200',
+          detail: 'Invalid username',
+        });
+      }
+      // Compare user input password with database password
+      const result = compareSync(body.user_password, results.user_password);
+      if (result) {
+        // sign consumes three parameters: object(password), key, object(expires time)
+        const key = process.env.JWT_KEY;
+        const jsontoken = sign({ result: results }, key, {
+          expiresIn: '1h',
+        });
+        return res.status(200).json({
+          returnCode: '200',
+          detail: 'login successfully',
+          token: jsontoken,
+        });
+      }
+      // Wrong  password
+      return res.status(500).json({
+        returnCode: '500',
+        detail: 'Invalid username or password',
+      });
+    });
   },
 };

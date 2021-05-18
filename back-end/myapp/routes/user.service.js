@@ -13,7 +13,6 @@ module.exports = {
     const ipAddress = data.ip.substring(7);
     const roleId = '3';
     // console.log(createTime);
-    // TODO: Remember to hash the password before insert into the database
     pool.query(
       'insert into User (user_id, user_name, user_email, user_address, user_mobile, user_password, pass_desc, pass_type, login_time, login_ip, create_time, role_id)'
       + ' values (?,?,?,?,?,?,?,?,?,?,?,?)',
@@ -114,11 +113,11 @@ module.exports = {
   getUserByName: (req, res) => {
     // console.log(req.params.username);
     pool.query(
-      'select user_id, user_name,  user_email, user_address, user_mobile, role_name, pass_type, create_time, login_time, login_ip from User'
+      'select user_id, user_name, user_email, user_address, user_mobile, role_name, pass_type, create_time, login_time, login_ip from User'
       + ' INNER JOIN  Roles ON User.role_id = Roles.role_id where user_name = ?',
       [req.params.username],
       (error, results) => {
-        console.log(req.params.username);
+        // console.log(req.params.username);
         if (error) {
           res.status(500).json({
             returnCode: '500',
@@ -139,6 +138,23 @@ module.exports = {
             detail: 'empty',
           });
         }
+      },
+    );
+  },
+  getUserByNamePost: (userName, callback) => {
+    // console.log(req.body.user_name);
+    pool.query(
+      'select * from User'
+      + ' INNER JOIN  Roles ON User.role_id = Roles.role_id where user_name = ?',
+      [userName],
+      (error, results) => {
+        if (error) {
+          callback(error);
+        }
+        // null means callback's first parameter error is empty
+        // results[0] means obtain the first element from the object
+        console.log(results);
+        return callback(null, results[0]);
       },
     );
   },
