@@ -20,7 +20,7 @@ POST {{host}}/{{endPoint}}
 content-type: {{contentType}}
 
 {
-    "user_name": "Jeff",
+    "user_name": "Jeff1",
     "user_password": "123",
     "user_email": "123@gmail.com",
     "user_address": "@home",
@@ -64,4 +64,14 @@ content-type: {{contentType}}
 
 {
     "email": "jeff14994@gmail.com"
+}
+
+###
+# Login post
+POST {{host}}/{{endPoint}}/login
+content-type: {{contentType}}
+
+{
+    "user_name": "jeff1",
+    "user_password": "123"
 }
