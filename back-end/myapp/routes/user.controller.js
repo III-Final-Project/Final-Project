@@ -5,6 +5,7 @@ const { hashSync, genSaltSync, compareSync } = require('bcrypt');
 const sendMail = require('../verification/mailVerfication/send_sms');
 const sendEmail = require('../verification/emailVerification/send_mail');
 const { create, getUserByNamePost } = require('./user.service');
+const { suitDetectionByHand } = require('../suitDetection/suitDetect');
 
 module.exports = {
   // Verify telephones
@@ -83,5 +84,28 @@ module.exports = {
         detail: 'Invalid username or password',
       });
     });
+  },
+  suitDetect: (req, res) => {
+    // console.log(req.body.image);
+    suitDetectionByHand(req.body.image)
+      .then((data) => {
+        const response = {
+          returnCode: '200',
+          detail: data.responses,
+        };
+        // console.log(data);
+        // Correct responses
+        if (data.responses) {
+          res.status(200).json(response);
+          return;
+        }
+        // Error responses
+        res.status(400).json({
+          returnCode: '400',
+          detail: data.error.message,
+        });
+        // console.log(data);
+      }) // JSON from `response.json()` call
+      .catch((error) => { console.error(error); res.send(error); });
   },
 };
