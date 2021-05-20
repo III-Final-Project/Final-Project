@@ -111,6 +111,7 @@ module.exports = {
     );
   },
   getUserByName: (req, res) => {
+    // TODO: Verify username password
     // console.log(req.params.username);
     pool.query(
       'select user_id, user_name, user_email, user_address, user_mobile, role_name, pass_type, create_time, login_time, login_ip from User'

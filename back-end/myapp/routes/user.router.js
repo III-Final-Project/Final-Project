@@ -21,7 +21,7 @@ router.delete('/', verifyToken, deleteUser);
 router.post('/sms', verifyToken, verificationCode);
 router.post('/email', verifyToken, resetPassword);
 router.post('/login', login);
-router.post('/suitdetect', verifyToken, suitDetect);
+router.post('/suitdetect', suitDetect);
 
 // Without JWT validation
 // router.get('/', getAllUser);
