@@ -153,7 +153,7 @@ module.exports = {
         }
         // null means callback's first parameter error is empty
         // results[0] means obtain the first element from the object
-        console.log(results);
+        // console.log(results);
         return callback(null, results[0]);
       },
     );

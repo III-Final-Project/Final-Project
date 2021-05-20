@@ -26,6 +26,11 @@ npm run unit-test
 
 ## Find restful-api examples
 - Go to /backend/myapp/test/app.http and use the file to make requests
+- [2021.05.20 Update] Since I added validation of JWT, thus /backend/myapp/test/app.http won't work anymore. Instead, use /backend/myapp/test/app-jwt.http to make requests.
+    - Step 1: POST data to enroll user to Database 
+    - Step 2: Login with correct username and password by POST and obtain the JWT 
+    - Step 3: Replace the string after Bearer at the value of @authorization in /backend/myapp/test/app-jwt.http
+    - Step 4: Test another requests to ensure you can use user service.
 
 ## Use Google Cloud Vision API
 - Examples. Please refer to [Examples - Try the API](https://cloud.google.com/vision/)
