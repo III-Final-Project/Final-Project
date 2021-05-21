@@ -32,8 +32,7 @@ npm run unit-test
     - Step 3: Replace the string after Bearer at the value of @authorization in /backend/myapp/test/app-jwt.http
     - Step 4: Test another requests to ensure you can use user service.
 - Basic authentication for Python Server request
-    - ![](https://i.imgur.com/6fayR5S.png)
-    - In order to make request from Python Server, please replace those XXX with the credentials I posted in Trello -> backend.
+    - In order to make request from Python Server, please POST data and included userName, userPassword, and user_name column in POST body(userName, userPassword are the credentials I posted in Trello -> backend).
 
 ## Use Google Cloud Vision API
 - Examples. Please refer to [Examples - Try the API](https://cloud.google.com/vision/)
