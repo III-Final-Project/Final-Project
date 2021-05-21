@@ -6,6 +6,7 @@ const sendMail = require('../verification/mailVerfication/send_sms');
 const sendEmail = require('../verification/emailVerification/send_mail');
 const { create, getUserByNamePost } = require('./user.service');
 const { suitDetectionByHand } = require('../suitDetection/suitDetect');
+const { verifyServerRequest } = require('../auth/serverValidate');
 
 module.exports = {
   // Verify telephones
@@ -48,6 +49,40 @@ module.exports = {
   },
   login: (req, res) => {
     const { body } = req;
+    // Two ways to login
+    // 1. By username and credential data from Python Server(FaceID)
+    const isServerValidate = verifyServerRequest(body);
+    if (isServerValidate) {
+      getUserByNamePost(body.user_name, (err, results) => {
+        // MySQL Error handling
+        if (err) {
+          console.log(`Error message: ${err}`);
+          return res.status(500).json({
+            returnCode: '500',
+            detail: err.code,
+          });
+        }
+        // Wrong user name
+        if (!results) {
+          return res.json({
+            returnCode: '200',
+            detail: 'Invalid username',
+          });
+        }
+        // sign consumes three parameters: object(password), key, object(expires time)
+        const key = process.env.JWT_KEY;
+        const jsontoken = sign({ result: results }, key, {
+          expiresIn: '1h',
+        });
+        return res.status(200).json({
+          returnCode: '200',
+          detail: 'login successfully',
+          token: jsontoken,
+        });
+      });
+      return;
+    }
+    // 2. By username and password
     getUserByNamePost(body.user_name, (err, results) => {
       // MySQL Error handling
       if (err) {

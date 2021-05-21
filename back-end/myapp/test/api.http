@@ -78,6 +78,17 @@ content-type: {{contentType}}
 }
 
 ###
+# Login post - From Python Server ( Obtain JWT Token )
+POST {{host}}/{{endPoint}}/login
+content-type: {{contentType}}
+
+{
+    "userName": "omg123",
+    "userPassword": "?AREyouFrickingKiddingME?!",
+    "user_name": "jeff1"
+}
+
+###
 # POST Google Vision API
 # Miranda kerr
 POST {{host}}/{{endPoint}}/suitdetect
