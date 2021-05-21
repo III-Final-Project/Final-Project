@@ -104,7 +104,7 @@ export default {
   padding-bottom: 10px;
 }
 
-@media screen and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
+@media screen and (max-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
   .foContents {
     width: 30vw;
   }

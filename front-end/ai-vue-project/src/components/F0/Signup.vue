@@ -29,9 +29,12 @@
               v-model="userName"
               @keypress.enter="signUp"
             />
+            <!-- <div class="verify" v-show="!usedNameCheck">
+              <span>此帳號已經有人使用</span>
+            </div> -->
             <div class="verify" v-show="v.userName">
               <img :src="require('@/assets/icon/alarm.png')" alt="alarm" />
-              <span>請輸入帳號</span>
+              <span>請輸入有效帳號</span>
             </div>
           </div>
           <div class="inputBox">
@@ -42,7 +45,7 @@
               id="passWord"
               :class="{ error: v.passWord }"
               type="password"
-              v-model="passWord"
+              v-model.lazy="passWord"
               @keypress.enter="signUp"
             />
             <div class="verify" v-show="v.passWord">
@@ -58,7 +61,7 @@
               id="pwdCheck"
               :class="{ error: v.pwdCheck }"
               type="password"
-              v-model="pwdCheck"
+              v-model.lazy="pwdCheck"
               @keypress.enter="signUp"
             />
             <div class="verify" v-show="v.pwdCheck">
@@ -168,6 +171,9 @@ export default {
   },
   data() {
     return {
+      // TODO重複帳號
+      // // 會員資料
+      // memberNames: [],
       // 使用者資訊
       userName: '',
       passWord: '',
@@ -181,6 +187,7 @@ export default {
       // 驗證提醒變數
       v: {
         userName: false,
+        // usedName: false,
         passWord: false,
         pwdCheck: false,
         address: false,
@@ -194,6 +201,16 @@ export default {
       image: '',
     };
   },
+  // TODO重複帳號
+  // mounted() {
+  //   User.queryUsers.then((res) => {
+  //     if (res.data.returnCode === '200') {
+  //       res.data.detail.forEach((member) => {
+  //         this.memberNames.push(member.user_name);
+  //       });
+  //     }
+  //   });
+  // },
   methods: {
     signUp() {
       if (!this.userNameCheck) {
@@ -201,6 +218,12 @@ export default {
       } else {
         this.v.userName = false;
       }
+      // TODO重複帳號
+      // if (!this.usedNameCheck) {
+      //   this.v.usedName = true;
+      // } else {
+      //   this.v.usedName = false;
+      // }
       if (!this.passWordCheck) {
         this.v.passWord = true;
       } else {
@@ -228,6 +251,8 @@ export default {
       }
       if (
         !this.v.userName &&
+        // TODO重複帳號
+        // !this.v.usedName &&
         !this.v.passWord &&
         !this.v.pwdDoubleCheck &&
         !this.v.email &&
@@ -345,6 +370,10 @@ export default {
     },
   },
   computed: {
+    // TODO重複帳號
+    // usedNameCheck() {
+    //   return !this.memberNames.includes(this.userName);
+    // },
     userNameCheck() {
       return (
         this.userName.length !== 0 &&
@@ -569,14 +598,13 @@ h2 {
 
 .showProfile {
   width: 24vw;
-  height: 35vh;
   border: 1px solid gray;
   border-radius: 3px;
   margin: auto;
   img {
     object-fit: contain;
     max-width: 100%;
-    height: 34vh;
+    max-height: 35vh;
   }
 }
 
@@ -646,10 +674,6 @@ h2 {
 
   .showProfile {
     width: 70vw;
-    img {
-      object-fit: contain;
-      max-width: 100%;
-    }
   }
 
   .fotoText {
