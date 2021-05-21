@@ -21,10 +21,15 @@ export default {
   src: url('~@/assets/font/Roboto-Medium.ttf');
 }
 
+@font-face {
+  font-family: 'NotoSansCJKtc-Regular';
+  src: url('~@/assets/font/NotoSansCJKtc-Regular.otf');
+}
+
 /* 消除瀏覽器預設css */
 body {
   margin: 0;
-  font-family: 'Roboto-Regular';
+  font-family: 'NotoSansCJKtc-Regular,Roboto-Regular';
 }
 
 a,

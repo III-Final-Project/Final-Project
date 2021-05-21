@@ -50,9 +50,17 @@
         <li class="navLi">
           <a
             class="navLink"
-            href="#techView"
-            @click.prevent="scroll('techView'), (checkStatus = false)"
+            href="#tech"
+            @click.prevent="scroll('tech'), (checkStatus = false)"
             >技術一覽</a
+          >
+        </li>
+        <li class="navLi">
+          <a
+            class="navLink"
+            href="#member"
+            @click.prevent="scroll('member'), (checkStatus = false)"
+            >開發人員</a
           >
         </li>
         <li class="navCut">|</li>
@@ -103,7 +111,8 @@ export default {
       const vission = document.querySelector('#vission');
       const service = document.querySelector('#service');
       const demo = document.querySelector('#demo');
-      const techView = document.querySelector('#techView');
+      const tech = document.querySelector('#tech');
+      const member = document.querySelector('#member');
       switch (spot) {
         case 'vission':
           window.scrollTo({ behavior: 'smooth', top: vission.offsetTop });
@@ -114,8 +123,11 @@ export default {
         case 'demo':
           window.scrollTo({ behavior: 'smooth', top: demo.offsetTop });
           break;
-        case 'techView':
-          window.scrollTo({ behavior: 'smooth', top: techView.offsetTop });
+        case 'tech':
+          window.scrollTo({ behavior: 'smooth', top: tech.offsetTop });
+          break;
+        case 'member':
+          window.scrollTo({ behavior: 'smooth', top: member.offsetTop });
           break;
         default:
           window.scrollTo({ behavior: 'smooth', top: 0 });
@@ -129,7 +141,6 @@ export default {
 <style lang="scss" scoped>
 .navBar {
   font: {
-    weight: bold;
     size: 1em;
   }
   z-index: 1;
@@ -177,6 +188,7 @@ export default {
   }
   .navCut {
     width: 15px;
+    color: white;
   }
 }
 
@@ -211,7 +223,7 @@ export default {
   display: none;
 }
 
-@media screen and (max-width: 990px) and (-webkit-min-device-pixel-ratio: 2) {
+@media screen and (max-width: 1100px) and (-webkit-min-device-pixel-ratio: 2) {
   .navBar {
     flex-direction: column;
   }
@@ -229,12 +241,14 @@ export default {
 
   .menu {
     margin: 0;
-    display: none;
+    transform: scale(1, 0);
+    transform-origin: top;
+    transition: transform 0.2s ease-in;
     ul {
       display: block;
-      background: white;
     }
     li {
+      opacity: 0;
       display: block;
       background-color: rgba(33, 33, 33, 0.95);
       width: 100vw;
@@ -270,7 +284,11 @@ export default {
   }
 
   #menu:checked ~ .menu {
-    display: block;
+    transform: scale(1, 1);
+    li {
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
   }
 }
 </style>

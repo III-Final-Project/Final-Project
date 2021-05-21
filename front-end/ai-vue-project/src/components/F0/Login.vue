@@ -141,8 +141,8 @@ export default {
         console.log(`使用者帳號：${this.user_password}`);
         this.login();
       } else {
-        this.$bvToast.toast(`偵測失敗，請重新一次或使用帳號密碼登入`, {
-          title: '登入訊息',
+        this.$bvToast.toast(`請關閉偵測視窗並重新打開，或使用帳號密碼登入`, {
+          title: '偵測失敗',
           variant: 'danger',
           solid: true,
         });
@@ -238,6 +238,7 @@ input {
   flex: 1;
   text-align: center;
   background-color: white;
+  overflow-y: auto;
 }
 
 .logoBox {
