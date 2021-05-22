@@ -1,4 +1,4 @@
-class Azure:
+class Cloud:
     # Constructor
     def __init__(self):
         # import 第三方套件的寫法
@@ -6,6 +6,7 @@ class Azure:
         self.urllib = __import__('urllib')
         self.json = __import__('json')
         self.http = __import__('http')
+        self.requests = __import__('requests')
         self.azure_face_Key = '9f9b446a0ffc4cd8924683536b056d6d'
         self.photo = None
         self.faceId = ''
@@ -25,12 +26,26 @@ class Azure:
         })
         try:
             conn = self.http.client.HTTPSConnection('southeastasia.api.cognitive.microsoft.com')
-            conn.request("POST", "/face/v1.0/detect?%s" % params, self.photo, headers)
+            conn.request("POST", "/face/v1.0/detect?%s" % params, self.base64.b64decode(self.photo), headers)
             response = conn.getresponse()
             data = response.read()
             json_obj = self.json.loads(data.decode("UTF-8"))
-            self.faceId = json_obj[0]['faceId']
             conn.close()
-            return json_obj
+            return json_obj  # array
         except Exception as e:
-            return "[Errno {0}]".format(e)
+            return "[Error]:{}".format(e)
+
+    def google_fashion_detect(self):
+        try:
+            r = self.requests.post('http://localhost:4000/users/suitdetect', data={'image': self.photo})
+            result = self.json.loads(r.text)
+            return result['detail']  # array
+        except Exception as e:
+            return "[Error]:{}".format(e)
+
+    def combination_service(self):
+        result_from_google = self.google_fashion_detect()
+        result_from_azure = self.face_detect_by_byte()
+        fashion_data = self.json.dumps(result_from_azure + result_from_google)
+        print(fashion_data)
+        return fashion_data

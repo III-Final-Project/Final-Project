@@ -219,14 +219,6 @@ export default {
     Header,
     Footer,
   },
-  data() {
-    return {
-      data: [
-        { id: 1, username: 'Jyun' },
-        { id: 2, username: 'Michael' },
-      ],
-    };
-  },
 };
 </script>
 
