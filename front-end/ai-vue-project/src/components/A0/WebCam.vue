@@ -52,6 +52,7 @@
         </figure>
       </div>
       <div>
+        <button @click="cloud">cloud testing</button>
         <!-- <img :src="newImg" /> -->
         <!-- <h1>{{ user_name }}</h1> -->
       </div>
@@ -192,6 +193,13 @@ export default {
       // eslint-disable-next-line
       console.log('On Cameras Event', cameras);
     },
+
+    // cloud() {
+    //   this.img = this.$refs.webcam.capture();
+    //   const formData = new FormData();
+    //   formData.append('picture', this.img);
+    //   this.axios.post('http://localhost:5000/cloud', formData);
+    // },
     // onCameraChange(deviceId) {
     //   this.deviceId = deviceId;
     //   this.camera = deviceId;
