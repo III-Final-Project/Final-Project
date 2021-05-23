@@ -2,6 +2,9 @@
 [![hackmd-github-sync-badge](https://hackmd.io/ltKybsAsREWgua7zq238qg/badge)](https://hackmd.io/ltKybsAsREWgua7zq238qg)
 ## Build Setup
 ```bash
+# Build Tables in MySQL 
+mysql -u [username] -p [database_name] < [dbCreate.sql](https://github.com/III-Final-Project/Final-Project/blob/main/back-end/myapp/config/dbInfo/dbCreate.sql)
+
 # Install dependencies
 npm install
 
@@ -10,9 +13,10 @@ npm start
 
 # Run Unit test to ensure your setup is well done
 npm run unit-test
+
 ```
 ## Remember to add credential information in .env
-- Rename .env.example to .env
+- Rename [.env.example](https://github.com/III-Final-Project/Final-Project/blob/main/back-end/myapp/.env.example) to .env
 - Then change the following in .env
     - DB_USER=XXX
     - DB_PASS=XXX
@@ -26,13 +30,13 @@ npm run unit-test
 
 ## Find restful-api examples
 - Go to /backend/myapp/test/app.http and use the file to make requests
-- [2021.05.20 Update] Since I added validation of JWT, thus /backend/myapp/test/app.http won't work anymore. Instead, use /backend/myapp/test/app-jwt.http to make requests.
+- [2021.05.20 Update] Since I added validation of JWT, thus [app.http](https://github.com/III-Final-Project/Final-Project/blob/main/back-end/myapp/test/api.http) won't work anymore. Instead, use [app-jwt.http](https://github.com/III-Final-Project/Final-Project/blob/main/back-end/myapp/test/api-jwt.http) to make requests.
     - Step 1: POST data to enroll user to Database 
     - Step 2: Login with correct username and password by POST and obtain the JWT 
-    - Step 3: Replace the string after Bearer at the value of @authorization in /backend/myapp/test/app-jwt.http
+    - Step 3: Replace the string after Bearer at the value of @authorization in [app-jwt.http](https://github.com/III-Final-Project/Final-Project/blob/main/back-end/myapp/test/api-jwt.http)
     - Step 4: Test another requests to ensure you can use user service.
 - Basic authentication for Python Server request
-    - In order to make request from Python Server, please POST data and included userName, userPassword, and user_name column in POST body(userName, userPassword are the credentials I posted in Trello -> backend).
+    - In order to make request from Python Server, please POST data and included userName, userPassword, and user_name column in POST body (userName, userPassword are the credentials I posted in Trello -> backend).
 
 ## Use Google Cloud Vision API
 - Examples. Please refer to [Examples - Try the API](https://cloud.google.com/vision/)
