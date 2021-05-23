@@ -2,8 +2,8 @@
 [![hackmd-github-sync-badge](https://hackmd.io/ltKybsAsREWgua7zq238qg/badge)](https://hackmd.io/ltKybsAsREWgua7zq238qg)
 ## Build Setup
 ```bash
-# Build Tables in MySQL 
-mysql -u [username] -p [database_name] < [dbCreate.sql](https://github.com/III-Final-Project/Final-Project/blob/main/back-end/myapp/config/dbInfo/dbCreate.sql)
+# Build Tables in MySQL with this script ((https://github.com/III-Final-Project/Final-Project/blob/main/back-end/myapp/config/dbInfo/dbCreate.sql))
+mysql -u [username] -p [database_name] < dbCreate.sql 
 
 # Install dependencies
 npm install
