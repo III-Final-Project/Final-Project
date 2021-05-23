@@ -105,7 +105,7 @@ module.exports = {
         // sign consumes three parameters: object(password), key, object(expires time)
         const key = process.env.JWT_KEY;
         const jsontoken = sign({ result: results }, key, {
-          expiresIn: '1h',
+          expiresIn: '7d',
         });
         return res.status(200).json({
           returnCode: '200',
