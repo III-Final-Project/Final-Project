@@ -52,6 +52,10 @@ module.exports = {
     // Two ways to login
     // 1. By username and credential data from Python Server(FaceID)
     const isServerValidate = verifyServerRequest(body);
+    // JWT expire time
+    const expiresTime = {
+      expiresIn: '7d',
+    };
     if (isServerValidate) {
       getUserByNamePost(body.user_name, (err, results) => {
         // MySQL Error handling
@@ -71,9 +75,7 @@ module.exports = {
         }
         // sign consumes three parameters: object(password), key, object(expires time)
         const key = process.env.JWT_KEY;
-        const jsontoken = sign({ result: results }, key, {
-          expiresIn: '1h',
-        });
+        const jsontoken = sign({ result: results }, key, expiresTime);
         return res.status(200).json({
           returnCode: '200',
           detail: 'login successfully',
@@ -104,9 +106,7 @@ module.exports = {
       if (result) {
         // sign consumes three parameters: object(password), key, object(expires time)
         const key = process.env.JWT_KEY;
-        const jsontoken = sign({ result: results }, key, {
-          expiresIn: '7d',
-        });
+        const jsontoken = sign({ result: results }, key, expiresTime);
         return res.status(200).json({
           returnCode: '200',
           detail: 'login successfully',

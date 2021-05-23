@@ -11,7 +11,7 @@ POST {{host}}/{{endPoint}}
 content-type: {{contentType}}
 
 {
-    "user_name": "Jeff1",
+    "user_name": "Jeff5",
     "user_password": "123",
     "user_email": "123@gmail.com",
     "user_address": "@home",
@@ -64,7 +64,7 @@ content-type: {{contentType}}
 authorization: {{authorization}}
 
 {
-    "user_id": 62
+    "user_id": 64
 }
 ###
 # Send SMS
