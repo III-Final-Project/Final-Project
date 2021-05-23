@@ -31,7 +31,7 @@ module.exports = {
         roleId,
       ],
       // callback function of pool.query has three parameters
-      (error) => {
+      (error, result) => {
         if (error) {
           // callBack(error);
           // console.log(error.sqlMessage);
@@ -47,6 +47,7 @@ module.exports = {
           res.status(200).json({
             returnCode: '200',
             detail: 'success',
+            userID: result.insertId,
           });
         }
       },
