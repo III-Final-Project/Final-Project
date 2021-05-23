@@ -3,7 +3,7 @@
 ## Build Setup
 ```bash
 # Build Tables in MySQL with this script ((https://github.com/III-Final-Project/Final-Project/blob/main/back-end/myapp/config/dbInfo/dbCreate.sql))
-mysql -u [username] -p [database_name] < dbCreate.sql 
+mysql -u [userName] -p [databaseName] < dbCreate.sql 
 
 # Install dependencies
 npm install

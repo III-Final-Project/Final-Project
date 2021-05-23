@@ -9,6 +9,7 @@ const cors = require('cors');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/user.router');
 
+const PORT = process.env.APP_PORT;
 const app = express();
 // Setup Cors
 const corsOptions = {
@@ -49,6 +50,6 @@ app.use((err, req, res) => {
   res.render('error');
 });
 
-app.listen(4000);
+app.listen(PORT);
 
 module.exports = app;
