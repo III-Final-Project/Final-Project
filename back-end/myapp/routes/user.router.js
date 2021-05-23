@@ -18,8 +18,8 @@ router.get('/queryname/:username', verifyToken, getUserByName);
 router.post('/', createUser);
 router.patch('/', verifyToken, modifyUserInfo);
 router.delete('/', verifyToken, deleteUser);
-router.post('/sms', verifyToken, verificationCode);
-router.post('/email', verifyToken, resetPassword);
+router.post('/sms', verificationCode);
+router.post('/email', resetPassword);
 router.post('/login', login);
 router.post('/suitdetect', suitDetect);
 

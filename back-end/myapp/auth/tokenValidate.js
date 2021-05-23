@@ -8,7 +8,7 @@ module.exports = {
     if (!token) {
       return res.status(400).json({
         returnCode: '400',
-        detail: 'Bring JWT in authorization in Header',
+        detail: 'Did not bring JWT in authorization in Header',
       });
     }
     token = token.slice(7);
