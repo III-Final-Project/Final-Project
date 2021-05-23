@@ -3,6 +3,7 @@
 ## Build Setup
 ```bash
 # Build Tables in MySQL with this script ((https://github.com/III-Final-Project/Final-Project/blob/main/back-end/myapp/config/dbInfo/dbCreate.sql))
+cd Final-Project/back-end/myapp/config/dbInfo 
 mysql -u [userName] -p [databaseName] < dbCreate.sql 
 
 # Install dependencies
