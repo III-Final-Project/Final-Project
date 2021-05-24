@@ -48,7 +48,8 @@ li {
   list-style-type: none;
 }
 
-p {
+p,
+td {
   color: rgb(95, 94, 94);
 }
 

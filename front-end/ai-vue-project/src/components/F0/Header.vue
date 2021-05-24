@@ -274,7 +274,7 @@ export default {
     margin: 0;
     transform: scale(1, 0);
     transform-origin: top;
-    transition: transform 0.2s ease-in;
+    transition: transform 0.2s ease-out;
     ul {
       display: block;
     }
@@ -287,6 +287,7 @@ export default {
       line-height: 7vh;
       padding: 0.1vh 8vw;
       letter-spacing: 3px;
+      transition: opacity 0.2s ease-out;
     }
     > ul > li + li {
       border-top: 1px solid rgba(71, 66, 66, 0.7);
@@ -318,7 +319,6 @@ export default {
     transform: scale(1, 1);
     li {
       opacity: 0.8;
-      transition: opacity 0.2s;
     }
   }
 }
