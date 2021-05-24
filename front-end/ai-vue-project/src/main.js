@@ -9,6 +9,8 @@ import 'bootstrap-vue/dist/bootstrap-vue.css';
 import Vue from 'vue';
 import App from './App';
 import router from './router/router';
+// Vuex
+import store from './store/store';
 
 // global implement
 Vue.use(VueAxios, axios);
@@ -27,5 +29,6 @@ router.afterEach(() => {
 new Vue({
   el: '#app',
   router,
+  store,
   render: (h) => h(App),
 }).$mount('#app');

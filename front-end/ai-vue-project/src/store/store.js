@@ -1,38 +1,34 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { allAPI } from '../service/service';
+import User from '../service/user';
 
 Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     accessToken: null,
-    refreshToken: null,
-    username: '',
+    user_name: null,
   },
   mutations: {
-    updatedStorage(state, { access, refresh }) {
+    updatedStorage(state, { access }) {
       state.accessToken = access;
-      state.refreshToken = refresh;
     },
-    updatedUsername(state, { username }) {
-      state.username = username;
+    updatedUsername(state, { userName }) {
+      state.user_name = userName;
     },
   },
   actions: {
     userLogin(context, usercredentials) {
       return new Promise((resolve, reject) => {
-        allAPI
-          .post('/api/auth/get_token/', {
-            username: usercredentials.username,
-            password: usercredentials.password,
-          })
+        User.userLogin({
+          user_name: usercredentials.user_name,
+          user_password: usercredentials.user_password,
+        })
           .then((response) => {
             context.commit('updatedStorage', {
-              access: response.data.access,
-              refresh: response.data.refresh,
+              access: response.data.token,
             });
             context.commit('updatedUsername', {
-              username: usercredentials.username,
+              userName: usercredentials.user_name,
             });
             resolve();
           })

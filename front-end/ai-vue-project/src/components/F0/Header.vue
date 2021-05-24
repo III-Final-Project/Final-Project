@@ -64,14 +64,30 @@
           >
         </li>
         <li class="navCut">|</li>
-        <li>
+        <li v-if="user_name === 'guest'">
           <router-link class="navLink" :to="{ name: 'Signup' }"
             >註冊</router-link
           >
         </li>
-        <li>
+        <li v-if="user_name === 'guest'">
           <router-link class="navLink" :to="{ name: 'Login' }"
             >登入</router-link
+          >
+        </li>
+        <li v-show="user_name !== 'guest'">
+          <router-link class="navLink" :to="{ name: 'AIA000' }"
+            >後台首頁</router-link
+          >
+        </li>
+        <li v-show="user_name !== 'guest'">
+          <router-link class="navLink" to="">{{ user_name }}</router-link>
+        </li>
+        <li v-show="user_name !== 'guest'">
+          <router-link
+            class="navLink"
+            to=""
+            @click.native.prevent.capture="logOut"
+            >登出</router-link
           >
         </li>
       </ul>
@@ -86,7 +102,13 @@ export default {
     return {
       active: false,
       checkStatus: null,
+      user_name: 'guest',
     };
+  },
+  created() {
+    if (this.$store.state.user_name != null) {
+      this.user_name = this.$store.state.user_name;
+    }
   },
   mounted() {
     window.document.onscroll = () => {
@@ -132,6 +154,15 @@ export default {
         default:
           window.scrollTo({ behavior: 'smooth', top: 0 });
           break;
+      }
+    },
+    logOut() {
+      this.$store.state.user_name = null;
+      this.$store.state.accessToken = null;
+      if (this.$route.name === 'AIF000') {
+        this.$router.go(0);
+      } else {
+        this.$router.push({ name: 'AIF000' });
       }
     },
   },

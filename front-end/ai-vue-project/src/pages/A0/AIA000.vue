@@ -1,10 +1,9 @@
 <template>
   <div>
     <Header />
-    <div class="myContainer">
+    <!-- <div class="myContainer">
       <button class="button-menu">Menu</button>
       <div class="main">
-        <!-- Left-Side-Bar -->
         <div class="sidebar">
           <ul>
             <li>
@@ -37,18 +36,15 @@
           </ul>
         </div>
         <div class="right-content">
-          <!-- dashboard -->
           <div class="page-content" v-if="status == 'dashboard'">
             <h1>Camera Wall</h1>
             <WebCam class="camera" />
             <AdminTable />
           </div>
-          <!-- data -->
           <div class="page-content" v-if="status == 'datas'">
             <h1>Data Wall</h1>
             <AdminTable />
           </div>
-          <!-- charts -->
           <div class="page-content chartArea" v-if="status == 'chart'">
             <h1>Charts</h1>
             <div class="search-box">
@@ -67,7 +63,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -78,7 +74,7 @@ import Pie from '@/components/A0/Charts/Pie';
 import Bar from '@/components/A0/Charts/Bar';
 import WebCam from '@/components/A0/WebCam';
 import axios from 'vue-axios';
-import User from '../../service/user';
+// import User from '../../service/user';
 
 export default {
   name: 'AIA000',
@@ -100,40 +96,33 @@ export default {
     // this.queryAllDatas();
   },
   mounted() {
-    this.showToast();
-
+    // eslint-disable-next-line no-console
+    console.log(this.$store.state.accessToken);
+    // eslint-disable-next-line no-console
+    console.log(this.$store.state.user_name);
     // 記住前台頁面的DOM元素
-    const menuButton = document.querySelector('.button-menu');
-    const container = document.querySelector('.myContainer');
-    const pageContent = document.querySelector('.page-content');
-    const responsiveBreakpoint = 991;
-
-    if (window.innerWidth <= responsiveBreakpoint) {
-      container.classList.add('nav-closed');
-    }
-
-    menuButton.addEventListener('click', () => {
-      container.classList.toggle('nav-closed');
-    });
-
-    pageContent.addEventListener('click', () => {
-      if (window.innerWidth <= responsiveBreakpoint) {
-        container.classList.add('nav-closed');
-      }
-    });
-
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > responsiveBreakpoint) {
-        container.classList.remove('nav-closed');
-      }
-    });
+    // const menuButton = document.querySelector('.button-menu');
+    // const container = document.querySelector('.myContainer');
+    // const pageContent = document.querySelector('.page-content');
+    // const responsiveBreakpoint = 991;
+    // if (window.innerWidth <= responsiveBreakpoint) {
+    //   container.classList.add('nav-closed');
+    // }
+    // menuButton.addEventListener('click', () => {
+    //   container.classList.toggle('nav-closed');
+    // });
+    // pageContent.addEventListener('click', () => {
+    //   if (window.innerWidth <= responsiveBreakpoint) {
+    //     container.classList.add('nav-closed');
+    //   }
+    // });
+    // window.addEventListener('resize', () => {
+    //   if (window.innerWidth > responsiveBreakpoint) {
+    //     container.classList.remove('nav-closed');
+    //   }
+    // });
   },
   methods: {
-    queryAllUserDatas() {
-      User.queryUsers.then((res) => {
-        this.details = res.data.details;
-      });
-    },
     showToast() {
       this.$bvToast.toast(`歡迎回來${this.$route.params.user_name}`, {
         title: '登入訊息',

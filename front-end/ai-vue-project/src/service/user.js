@@ -10,6 +10,7 @@ const createUsers = (data) => userRequest.post('/', data);
 const updatedUser = (data) => userRequest.put('/', data);
 const deleteUser = (data) => userRequest.delete('/', data);
 const userSMS = (data) => userRequest.post('/sms', data);
+const userLogin = (data) => userRequest.post('/login', data);
 
 export default {
   // queryUsers,
@@ -18,4 +19,5 @@ export default {
   updatedUser,
   deleteUser,
   userSMS,
+  userLogin,
 };
