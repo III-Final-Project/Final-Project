@@ -20,59 +20,66 @@
       <div class="imgBox"></div>
     </div>
     <div class="spot" id="vission"></div>
-    <div class="box vission">
+    <div class="vissionArea box">
       <p class="conTopic">使用理念</p>
-      <div class="viContentBox">
-        <!-- <div class="viImg"></div> -->
-        <div class="viText">
-          <p class="content">
-            For the journal, see Machine Learning (journal). "Statistical
-            learning" redirects here. For statistical learning in linguistics,
-            see statistical learning in language acquisition.
-          </p>
-        </div>
+      <div class="vissionBox">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore unde
+        optio, nisi soluta modi repellendus et officia doloribus. Consectetur
+        unde dignissimos asperiores voluptatem enim cumque placeat eaque
+        possimus quos harum!
       </div>
     </div>
     <div class="spot" id="service"></div>
-    <div class="box features">
+    <div class="featuresArea box">
       <p class="conTopic">服務項目</p>
-      <div class="serList">
-        <div class="serCard">
-          <p>
-            下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂下載音樂
-          </p>
-          <p>隨時隨地聆聽。</p>
+      <div class="featBox">
+        <div class="featCard">
+          <div class="featIcon">
+            <img src="@/assets/img/jyun.jpeg" alt="" />
+          </div>
+          <div class="featText">
+            <p class="featTitle">客製化</p>
+            <p class="featDescription">
+              線上觀賞Netflix（網飛）電影與節目，或直接串流至智慧型電視、遊戲機、PC、Mac、手機、平板電腦等多種裝置。
+            </p>
+          </div>
         </div>
-        <div class="serCard">
-          <p>無廣告打擾。</p>
-          <p>享受不間斷的音樂。</p>
+        <div class="featCard">
+          <div class="featIcon">
+            <img src="@/assets/img/jyun.jpeg" alt="" />
+          </div>
+          <div class="featText">
+            <p class="featTitle">客製化 隨時隨地</p>
+            <p class="featDescription">
+              線上觀賞Netflix（網飛）電影與節目，或直接串流至智慧型電視、遊戲機、PC、Mac、手機、平板電腦等多種裝置。
+            </p>
+          </div>
         </div>
-        <div class="serCard">
-          <p>愛聽什麼、就播什麼。</p>
-          <p>行動裝置照樣聽。</p>
-        </div>
-        <div class="serCard">
-          <p>愛聽什麼、就播什麼。</p>
-          <p>行動裝置照樣聽。</p>
+        <div class="featCard">
+          <div class="featIcon">
+            <img src="@/assets/img/jyun.jpeg" alt="" />
+          </div>
+          <div class="featText">
+            <p class="featTitle">客製化</p>
+            <p class="featDescription">
+              線上觀賞Netflix（網飛）電影與節目，或直接串流至智慧型電視、遊戲機、PC、Mac、手機、平板電腦等多種裝置。
+            </p>
+          </div>
         </div>
       </div>
     </div>
     <div class="spot" id="demo"></div>
-    <div class="demo">
+    <div class="demo box">
       <p class="conTopic">成果展示</p>
     </div>
     <div class="spot" id="tech"></div>
-    <div class="box techArea">
+    <div class="techArea box">
       <p class="conTopic">技術一覽</p>
       <div class="techBox">
         <div class="techCard-1">
           <div class="techBanner">
             <div class="techIcon"></div>
             <div class="techTitle">Neutral Networks</div>
-          </div>
-          <div class="techContent">
-            <p class="subTitle">FrameWork</p>
-            <p>- Flask</p>
           </div>
           <div class="techContent">
             <p class="subTitle">Data preprocessing</p>
@@ -85,9 +92,9 @@
             <p>- scikit-learn</p>
           </div>
           <div class="techContent">
-            <p class="subTitle">Face Recognition Service</p>
+            <p class="subTitle">Cloud Services</p>
             <p>- Azure</p>
-            <p>- Face Recognition Model</p>
+            <p>- Google</p>
           </div>
           <div class="techContent">
             <p class="subTitle">Tensorflow</p>
@@ -104,7 +111,7 @@
             <p>- Vue.js</p>
           </div>
           <div class="techContent">
-            <p class="subTitle">Tools</p>
+            <p class="subTitle">Modules</p>
             <p>- Webpack</p>
             <p>- Webcam</p>
             <p>- Bootstrap</p>
@@ -121,13 +128,15 @@
           <div class="techContent">
             <p class="subTitle">Framework</p>
             <p>- Express</p>
+            <p>- Flask</p>
           </div>
           <div class="techContent">
-            <p class="subTitle">Tools</p>
+            <p class="subTitle">Modules</p>
             <p>- RESTful API</p>
             <p>- JWT</p>
             <p>- Email & SMS Server</p>
             <p>- Login with Access right system</p>
+            <p>- Unit-Test</p>
           </div>
         </div>
         <div class="techCard-4">
@@ -148,6 +157,7 @@
           <div class="techContent">
             <p>- Git</p>
             <p>- GitHub</p>
+            <p>- Code Review</p>
             <p>- Coding Style | Airbnb</p>
           </div>
         </div>
@@ -155,7 +165,7 @@
     </div>
     <!-- 開發人員 -->
     <div class="spot" id="member"></div>
-    <div class="memberArea">
+    <div class="memberArea box">
       <p class="conTopic">開發人員</p>
       <div class="memberBox">
         <div class="memberCard">
@@ -227,6 +237,12 @@ p {
   margin: 0;
 }
 
+.main {
+  padding-top: 13vh;
+}
+
+// 共同樣式
+
 .spot {
   position: relative;
   top: -8vh;
@@ -234,9 +250,18 @@ p {
   visibility: hidden;
 }
 
-.main {
-  padding-top: 13vh;
+.box {
+  padding: 0 6vw 8vh 6vw;
 }
+
+.conTopic {
+  padding: 5vh 0;
+  letter-spacing: 2px;
+  font-size: 2.2rem;
+  text-align: center;
+}
+
+//top
 
 .topArea {
   display: flex;
@@ -246,17 +271,29 @@ p {
 .textBox {
   flex: 1;
   padding: 8vh 5vw;
-}
-
-.topic {
-  padding: 20px 0;
-  font-size: 3em;
-  letter-spacing: 3px;
-}
-
-.content {
-  padding: 20px 0;
-  line-height: 1.25em;
+  .topic {
+    padding: 20px 0;
+    font-size: 3em;
+    letter-spacing: 3px;
+  }
+  .content {
+    padding: 20px 0;
+    line-height: 1.25em;
+  }
+  .topBtn {
+    float: right;
+    padding: 8px 25px 8px 25px;
+    margin: 0 30px;
+    border: #f75c2f 3px solid;
+    border-radius: 60px;
+    color: #f75c2f;
+    font-size: 16px;
+    transition: 0.35s;
+    &:hover {
+      background: linear-gradient(#e06f6f, #f75c2f);
+      color: white;
+    }
+  }
 }
 
 .imgBox {
@@ -269,79 +306,50 @@ p {
   }
 }
 
-.topBtn {
-  float: right;
-  box-sizing: border-box;
-  padding: 8px 25px 8px 25px;
-  margin: 0 30px;
-  border: #f75c2f 3px solid;
-  border-radius: 60px;
-  color: #f75c2f;
-  font-size: 16px;
-  transition: 0.35s;
-  &:hover {
-    background: linear-gradient(#e06f6f, #f75c2f);
-    color: white;
+//vission
+
+.vissionArea {
+  background: linear-gradient(to top, #fbf8f9, #f8f9fd);
+}
+
+//features
+
+.featBox {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 1.5rem;
+}
+
+.featCard {
+  width: 100%;
+  border-radius: 15px;
+  .featIcon {
+    width: 120px;
+    height: 120px;
+    margin: 2rem auto;
+    overflow: hidden;
+    img {
+      max-width: 100%;
+    }
+  }
+  .featText {
+    padding: 0 1.5rem;
+    .featTitle {
+      color: #f75c2f;
+      text-align: center;
+      letter-spacing: 2px;
+      font: {
+        size: 1.3rem;
+        weight: 300;
+      }
+    }
+    .featDescription {
+      padding: 1.3rem 0;
+    }
   }
 }
 
-.box {
-  padding-left: 2vw;
-  padding-right: 2vw;
-  padding-bottom: 8vh;
-}
-
-.conTopic {
-  color: white;
-  padding: 5vh 0;
-  letter-spacing: 2px;
-  font-size: 2.2rem;
-  text-align: center;
-}
-
-.vission {
-  margin: 20px 6vw;
-  border-radius: 50px;
-  background-color: rgb(66, 66, 80);
-}
-
-.viContentBox .viText {
-  padding: 0 2vw;
-  .topic {
-    color: beige;
-  }
-  .content {
-    color: beige;
-  }
-}
-
-.serList {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 0 10vw;
-}
-
-.serCard {
-  width: 15vw;
-  height: 65vh;
-  background-color: #cd9df1;
-  box-shadow: 1px 1px 5px 2px rgba(139, 138, 139, 0.3);
-  margin: 0 2vw;
-}
-.memberArea .conTopic,
-.features .conTopic,
-.techArea .conTopic {
-  color: rgb(95, 94, 94);
-}
-
-.demo {
-  margin: 20px 6vw;
-  border-radius: 50px;
-  background-color: rgb(46, 45, 45);
-  .myVideo {
-    text-align: center;
-  }
-}
+//demo
 
 // tech
 
@@ -357,7 +365,6 @@ p {
     'neutral neutral databases databases sccs sccs'
     'neutral neutral databases databases sccs sccs';
   grid-gap: 1.5rem;
-  padding: 0 4vw;
 }
 
 .techCard-1 {
@@ -380,13 +387,6 @@ p {
   grid-area: sccs;
 }
 
-div[class*='techCard'] {
-  padding: 0 2vw;
-  border-radius: 15px;
-  background-color: rgb(245, 245, 245);
-  overflow: hidden;
-}
-
 .techBanner {
   display: grid;
   grid-auto-flow: column;
@@ -399,9 +399,10 @@ div[class*='techCard'] {
       max-width: 100%;
     }
   }
+
   .techTitle {
     line-height: 50px;
-    padding-left: 2vw;
+    padding-left: 20px;
     font: {
       size: 1.5em;
       weight: bold;
@@ -414,8 +415,20 @@ div[class*='techCard'] {
   .subTitle {
     padding-bottom: 1vh;
     color: #a82973;
-    font-size: 18px;
+    letter-spacing: 1px;
+    font: {
+      size: 1.15em;
+      weight: 340;
+    }
   }
+}
+
+div[class*='techCard'] {
+  padding: 0 2vw;
+  border-radius: 15px;
+  background: linear-gradient(to top, #fbf8f9, #f8f9fd);
+  // background-color: #f8f9fd;
+  overflow: hidden;
 }
 
 // member
@@ -424,14 +437,12 @@ div[class*='techCard'] {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   grid-gap: 1.5rem;
-  padding: 0 6vw;
-  padding-bottom: 8vh;
 }
 
 .memberCard {
   min-height: 250px;
   border-radius: 20px;
-  background-color: rgb(245, 245, 245);
+  background: linear-gradient(to top, #fbf8f9, #f8f9fd);
   text-align: center;
   overflow: hidden;
 }
@@ -451,7 +462,8 @@ div[class*='techCard'] {
 .memberContent {
   padding: 3vh 2vw;
   font: {
-    weight: bold;
+    size: 0.9em;
+    weight: 340;
   }
 }
 
@@ -469,18 +481,6 @@ div[class*='techCard'] {
   }
 
   .imgBox {
-    display: none;
-  }
-
-  .viContentBox {
-    height: auto;
-  }
-
-  .viContentBox .viText {
-    padding: 0 4vw;
-  }
-
-  .viImg {
     display: none;
   }
 
@@ -505,10 +505,34 @@ div[class*='techCard'] {
   }
 
   .techBox {
+    grid-template-rows: repeat(5, minmax(50px, 1fr));
     grid-template-areas:
-      'neutral neutral neutral front back'
-      'neutral neutral neutral front back'
-      'neutral databases sccs';
+      'neutral neutral neutral front front front'
+      'neutral neutral neutral front front front'
+      'neutral neutral neutral databases databases databases'
+      'back back back sccs sccs sccs'
+      'back back back ˙ ˙ ˙';
+  }
+
+  @media screen and (max-width: 500px) and (-webkit-min-device-pixel-ratio: 2) {
+    .techBox {
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(9, minmax(50px, 1fr));
+      grid-template-areas:
+        'neutral'
+        'neutral'
+        'neutral'
+        'front'
+        'front'
+        'back'
+        'back'
+        'sccs'
+        'databases';
+    }
+
+    div[class*='techCard'] {
+      padding: 0 4vw;
+    }
   }
 }
 </style>
