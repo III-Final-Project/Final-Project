@@ -26,7 +26,7 @@
             <input id="passWord" type="password" v-model="user_password" />
           </div>
           <div class="btnArea">
-            <button class="btn loginBtn" type="button" @click="login">
+            <button class="btn loginBtn" type="button" @click="login_vuex">
               GO
             </button>
             <p class="remindText">
@@ -100,21 +100,19 @@ export default {
       showResetBox: false,
       user_name: null,
       user_password: null,
+      incorrectAuth: null,
+      token: '',
     };
   },
   methods: {
     login_vuex() {
       this.$store
         .dispatch('userLogin', {
-          username: this.username,
-          password: this.password,
+          user_name: this.user_name,
+          user_password: this.user_password,
         })
         .then(() => {
-          if (this.myteam.indexOf(this.username) !== -1) {
-            this.$router.push({ name: 'COURSEA000' });
-          } else {
-            this.$router.push({ name: 'COURSE000' });
-          }
+          this.$router.push({ name: 'AIA000' });
         })
         .catch((err) => {
           if (err) {

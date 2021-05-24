@@ -259,12 +259,13 @@ export default {
         !this.v.address &&
         !this.v.phone
       ) {
-        User.userSMS({ telephone: this.phone }).then((res) => {
-          if (res.data.returnCode === '200') {
-            this.cfNumberSms = res.data.detail;
-            this.status = 'verify';
-          }
-        });
+        // User.userSMS({ telephone: this.phone }).then((res) => {
+        //   if (res.data.returnCode === '200') {
+        //     this.cfNumberSms = res.data.detail;
+        //     this.status = 'verify';
+        //   }
+        // });
+        this.status = 'verify';
       }
     },
     verify() {
@@ -275,25 +276,39 @@ export default {
         userObj.user_email = this.email;
         userObj.user_address = this.address;
         userObj.user_mobile = this.phone;
-
-        const imageForm = new FormData();
-        imageForm.append('image', this.file);
-        Face.imgUpload(imageForm).then((res) => {
-          if (res.data.returnCode === '200') {
-            User.createUsers(userObj).then((resp) => {
-              if (resp.data.returnCode === '200') {
-                this.$bvToast.toast('註冊成功，請稍候!', {
-                  title: '註冊訊息',
-                  variant: 'success',
-                  solid: true,
-                });
-                setTimeout(() => {
-                  this.$router.push({ name: 'Login' });
-                }, 2000);
-              }
-            });
-          }
-        });
+        if (this.file !== '') {
+          const imageForm = new FormData();
+          imageForm.append('image', this.file);
+          Face.imgUpload(imageForm).then((res) => {
+            if (res.data.returnCode === '200') {
+              User.createUsers(userObj).then((resp) => {
+                if (resp.data.returnCode === '200') {
+                  this.$bvToast.toast('註冊成功，請稍候!', {
+                    title: '註冊訊息',
+                    variant: 'success',
+                    solid: true,
+                  });
+                  setTimeout(() => {
+                    this.$router.push({ name: 'Login' });
+                  }, 2000);
+                }
+              });
+            }
+          });
+        } else {
+          User.createUsers(userObj).then((resp) => {
+            if (resp.data.returnCode === '200') {
+              this.$bvToast.toast('註冊成功，請稍候!', {
+                title: '註冊訊息',
+                variant: 'success',
+                solid: true,
+              });
+              setTimeout(() => {
+                this.$router.push({ name: 'Login' });
+              }, 2000);
+            }
+          });
+        }
       } else {
         this.$bvToast.toast('註冊失敗，請確認驗證碼是否正確!', {
           title: '註冊訊息',
