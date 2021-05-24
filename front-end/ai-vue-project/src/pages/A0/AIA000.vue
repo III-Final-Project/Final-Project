@@ -40,7 +40,7 @@
           </div>
 
           <div class="boardMain">
-            <p class="boardTopic">現在時間：{{ time }}</p>
+            <p class="boardTopic">現在時間：{{ clock }}</p>
             <div class="boardFlow">
               <div class="timeCard">
                 <div class="timeNow">
@@ -106,35 +106,8 @@
                 <th class="table__cell table__cell--time">來店時間</th>
               </tr>
             </thead>
-
             <tbody class="table__body">
-              <tr class="table__row">
-                <td class="table__cell table__cell--checkbox">
-                  <input type="checkbox" />
-                </td>
-                <td class="table__cell table__cell--id">1</td>
-                <td class="table__cell table__cell--gender">{{ gender }}</td>
-                <td class="table__cell table__cell--age">{{ age }}</td>
-                <td class="table__cell table__cell--style">{{ style }}</td>
-                <td class="table__cell table__cell--recommandation">
-                  {{ recommandation }}
-                </td>
-                <td class="table__cell table__cell--time">{{ time }}</td>
-              </tr>
-              <tr class="table__row">
-                <td class="table__cell table__cell--checkbox">
-                  <input type="checkbox" />
-                </td>
-                <td class="table__cell table__cell--id">1</td>
-                <td class="table__cell table__cell--gender">{{ gender }}</td>
-                <td class="table__cell table__cell--age">{{ age }}</td>
-                <td class="table__cell table__cell--style">{{ style }}</td>
-                <td class="table__cell table__cell--recommandation">
-                  {{ recommandation }}
-                </td>
-                <td class="table__cell table__cell--time">{{ time }}</td>
-              </tr>
-              <tr class="table__row">
+              <tr class="table__row" v-for="n in 10" :key="n">
                 <td class="table__cell table__cell--checkbox">
                   <input type="checkbox" />
                 </td>
@@ -178,10 +151,12 @@ export default {
       age: 25,
       style: 'fashion',
       recommandation: 'blue pants',
+      timeInterval: null,
+      clock: new Date().toLocaleTimeString().substring(10),
     };
   },
   created() {
-    // this.queryAllDatas();
+    this.myClock();
   },
   mounted() {
     // eslint-disable-next-line no-console
@@ -217,6 +192,19 @@ export default {
         variant: 'info',
         solid: true,
       });
+    },
+    myClock() {
+      this.clock = new Date().toLocaleString().substring(10);
+      this.timeInterval = setInterval(() => {
+        const newClock = new Date();
+        // const year = newClock.getFullYear();
+        // const month = newClock.getMonth() + 1;
+        // const date = newClock.getDate();
+        // const time = newClock.toTimeString().substring(0, 8);
+        const test = newClock.toLocaleString().substring(10);
+        this.clock = test;
+        // eslint-disable-next-line no-consol
+      }, 1000);
     },
   },
 };
