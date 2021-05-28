@@ -42,8 +42,9 @@ export default {
   data() {
     return {
       option: {
+        color: ['#03A89E', '#00BBFF', '#FF8888', '#FFBB66', '#9999FF'],
         title: {
-          text: 'Customer Analysis',
+          text: '2021-商品售出比例圖(By product)',
           left: 'center',
         },
         tooltip: {
@@ -51,22 +52,23 @@ export default {
           formatter: '{a} <br/>{b} : {c} ({d}%)',
         },
         legend: {
-          orient: 'vertical',
-          left: 'left',
-          data: ['Clothes', 'Pants', 'Shoes', 'Underwear', 'Hats'],
+          // orient: 'vertical',
+          padding: [50, 0, 0, 0],
+          left: 'center',
+          data: ['衣服', '褲子', '鞋子', '內衣褲', '帽子'],
         },
         series: [
           {
-            name: 'Customer Sources',
+            name: '商品種類',
             type: 'pie',
             radius: '70%',
             center: ['50%', '60%'],
             data: [
-              { value: 335, name: 'Clothes' },
-              { value: 310, name: 'Pants' },
-              { value: 234, name: 'Shoes' },
-              { value: 135, name: 'Underwear' },
-              { value: 1548, name: 'Hats' },
+              { value: 500, name: '衣服' },
+              { value: 310, name: '褲子' },
+              { value: 234, name: '鞋子' },
+              { value: 135, name: '內衣褲' },
+              { value: 350, name: '帽子' },
             ],
             emphasis: {
               itemStyle: {
@@ -86,7 +88,7 @@ export default {
 <style scoped>
 .chart {
   height: 400px;
-  width: 500px;
+  width: 600px;
   position: relative;
 }
 </style>

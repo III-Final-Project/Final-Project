@@ -25,6 +25,7 @@
     "vue-echarts": "*",
     "vue-router": "^3.0.1",
     "vue-web-cam": "^1.9.0",
+    "vue-wordcloud": "^1.1.1",
     "vuex": "^3.6.2"
   },
   "devDependencies": {
