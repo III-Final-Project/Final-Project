@@ -124,10 +124,12 @@
           </table>
         </div>
         <div class="analysis" v-if="status === 'analysis'">
-          <div class="gender"></div>
-          <div class="age"></div>
-          <div class="color"></div>
-          <div class="style"></div>
+          <div class="gender"><Bar /></div>
+          <div class="age"><Bar2 /></div>
+          <div class="color"><Pie /></div>
+          <div class="style"><Pie2 /></div>
+          <div class="style"><Profit /></div>
+          <div class="style"><Worldcloud /></div>
         </div>
       </div>
     </div>
@@ -136,11 +138,23 @@
 
 <script>
 import Header from '@/components/F0/Header';
+import Bar from '@/components/A0/Charts/Analyze_by_gneder';
+import Bar2 from '@/components/A0/Charts/Analyze_by_age';
+import Pie from '@/components/A0/Charts/Analyze_by_product';
+import Pie2 from '@/components/A0/Charts/Analyze_by_color';
+import Profit from '@/components/A0/Charts/Analyze_by_profit';
+import Worldcloud from '@/components/A0/Charts/Analyze_by_cloud';
 
 export default {
   name: 'AIA000',
   components: {
     Header,
+    Bar,
+    Bar2,
+    Pie,
+    Profit,
+    Pie2,
+    Worldcloud,
   },
   data() {
     return {
@@ -163,27 +177,6 @@ export default {
     console.log(this.$store.state.accessToken);
     // eslint-disable-next-line no-console
     console.log(this.$store.state.user_name);
-    // 記住前台頁面的DOM元素
-    // const menuButton = document.querySelector('.button-menu');
-    // const container = document.querySelector('.myContainer');
-    // const pageContent = document.querySelector('.page-content');
-    // const responsiveBreakpoint = 991;
-    // if (window.innerWidth <= responsiveBreakpoint) {
-    //   container.classList.add('nav-closed');
-    // }
-    // menuButton.addEventListener('click', () => {
-    //   container.classList.toggle('nav-closed');
-    // });
-    // pageContent.addEventListener('click', () => {
-    //   if (window.innerWidth <= responsiveBreakpoint) {
-    //     container.classList.add('nav-closed');
-    //   }
-    // });
-    // window.addEventListener('resize', () => {
-    //   if (window.innerWidth > responsiveBreakpoint) {
-    //     container.classList.remove('nav-closed');
-    //   }
-    // });
   },
   methods: {
     showToast() {
@@ -450,7 +443,7 @@ td {
     background-color: #aaa;
   }
   .color {
-    background-color: rgb(150, 107, 127);
+    background-color: #aaa;
   }
   .style {
     background-color: #fff;

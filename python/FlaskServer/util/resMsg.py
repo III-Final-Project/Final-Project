@@ -18,7 +18,7 @@ class ResMsg:
                 try:
                     self.obj = self.json.loads(self.obj, encoding='utf-8')
                     return_object = {'returnCode': self.code, 'details': self.obj}
-                    return self.Response(return_object, status=self.status)
+                    return self.Response(self.json.dumps(return_object), status=self.status)
                 except Exception as e:
                     return_object = {'returnCode': self.code, 'message': self.obj}
                     result = self.json.dumps(return_object)
@@ -26,11 +26,15 @@ class ResMsg:
             elif type(self.obj) == list:
                 return_object = {'returnCode': self.code, 'details': self.obj}
                 result = self.json.dumps(return_object)
+                print('3')
+                print(result)
                 return self.Response(result, status=self.status)
             elif type(self.obj) == dict:
                 self.details.append(self.obj)
                 return_object = {'returnCode': self.code, 'details': self.details}
                 result = self.json.dumps(return_object)
+                print('4')
+                print(result)
                 return self.Response(result, status=self.status)
         except Exception as e:
             return e

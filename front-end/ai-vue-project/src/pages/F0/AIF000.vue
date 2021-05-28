@@ -229,6 +229,13 @@ export default {
     Header,
     Footer,
   },
+  mounted() {
+    const tooltip = document.querySelectorAll('.tooltip');
+    tooltip.forEach((item) => {
+      // eslint-disable-next-line
+      item.style.display = 'none';
+    });
+  },
 };
 </script>
 

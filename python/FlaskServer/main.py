@@ -7,6 +7,7 @@ from util.resMsg import ResMsg
 from flask_cors import CORS
 import json
 import os
+import requests
 import flask
 
 app = Flask(__name__)
@@ -15,6 +16,8 @@ cors = CORS(app)
 app.config['MONGODB_SETTINGS'] = {
     'host': 'mongodb://localhost/user-info'
 }
+
+
 # initialize_db(app)
 
 
@@ -78,6 +81,7 @@ def cloud_service():
             cloud = Cloud()
             cloud.photo = img_b64
             fashion_data = cloud.combination_service()
+            print(type(fashion_data))
             return ResMsg(200, fashion_data).return_message()
     except Exception as e:
         print(e)

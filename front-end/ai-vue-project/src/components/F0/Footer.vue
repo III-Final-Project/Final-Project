@@ -56,6 +56,9 @@ export default {
 
 <style scoped lang="scss">
 .footerArea {
+  position: relative;
+  bottom: 0;
+  padding: 0;
   background-color: rgba(33, 33, 33, 0.95);
 }
 
