@@ -43,47 +43,49 @@
             <p class="boardTopic">現在時間：{{ clock }}</p>
             <div class="boardFlow">
               <div class="timeCard">
+                <select>
+                  <option disabled selected>選擇時間</option>
+                  <option>11:00-12:00</option>
+                  <option>12:00-13:00</option>
+                  <option>13:00-14:00</option>
+                  <option>14:00-15:00</option>
+                  <option>15:00-16:00</option>
+                  <option>16:00-17:00</option>
+                  <option>17:00-18:00</option>
+                  <option>18:00-19:00</option>
+                  <option>19:00-20:00</option>
+                </select>
                 <div class="timeNow">
-                  {{ time }}
+                  {{ time }}&nbsp;&nbsp;共{{ totalUsers }}筆資料
                   <div class="line"></div>
+                  <!-- pagination -->
+                  <nav class="navigation">
+                    <ul class="pagination">
+                      <li v-for="i in totalPages" :key="i">
+                        <a
+                          class="page-link"
+                          href="#"
+                          @click.prevent="selectedPage = i"
+                          >{{ i }}</a
+                        >
+                      </li>
+                    </ul>
+                  </nav>
                 </div>
                 <div class="timeCustomer">
-                  <div class="customarCard">
+                  <div
+                    class="customarCard"
+                    v-for="(item, index) in getUsersByPage"
+                    :key="index"
+                  >
                     <div class="profile">
                       <img src="@/assets/icon/faceScan.png" alt="" />
                     </div>
                     <div class="content">
-                      <p>風格: {{ style }}</p>
-                      <p>推薦商品：{{ recommandation }}</p>
+                      <p>風格: {{ item.style }}</p>
+                      <p>推薦商品：{{ item.recommandation }}</p>
                     </div>
                   </div>
-                  <div class="customarCard"></div>
-                  <div class="customarCard"></div>
-                  <div class="customarCard"></div>
-                  <div class="customarCard"></div>
-                </div>
-              </div>
-              <div class="timeCard">
-                <div class="timeNow">
-                  {{ time }}
-                  <div class="line"></div>
-                </div>
-                <div class="timeCustomer">
-                  <div class="customarCard"></div>
-                  <div class="customarCard"></div>
-                  <div class="customarCard"></div>
-                  <div class="customarCard"></div>
-                </div>
-              </div>
-              <div class="timeCard">
-                <div class="timeNow">
-                  {{ time }}
-                  <div class="line"></div>
-                </div>
-                <div class="timeCustomer">
-                  <div class="customarCard"></div>
-                  <div class="customarCard"></div>
-                  <div class="customarCard"></div>
                 </div>
               </div>
             </div>
@@ -107,7 +109,7 @@
               </tr>
             </thead>
             <tbody class="table__body">
-              <tr class="table__row" v-for="n in 10" :key="n">
+              <tr class="table__row" v-for="n in 8" :key="n">
                 <td class="table__cell table__cell--checkbox">
                   <input type="checkbox" />
                 </td>
@@ -165,8 +167,173 @@ export default {
       age: 25,
       style: 'fashion',
       recommandation: 'blue pants',
+      // clock
       timeInterval: null,
       clock: new Date().toLocaleTimeString().substring(10),
+      // pagination
+      users_per_page: 8,
+      selectedPage: 1,
+      // data
+      details: [
+        {
+          time: new Date().toLocaleTimeString(),
+          gender: 'M',
+          age: 20,
+          style: 'street',
+          recommandation: 'white pants',
+        },
+        {
+          time: new Date().toLocaleTimeString(),
+          gender: 'M',
+          age: 20,
+          style: 'street',
+          recommandation: 'white pants',
+        },
+        {
+          time: new Date().toLocaleTimeString(),
+          gender: 'F',
+          age: 21,
+          style: 'casual',
+          recommandation: 'overall',
+        },
+        {
+          time: new Date().toLocaleTimeString(),
+          gender: 'F',
+          age: 21,
+          style: 'casual',
+          recommandation: 'overall',
+        },
+        {
+          time: new Date().toLocaleTimeString(),
+          gender: 'M',
+          age: 21,
+          style: 'casual',
+          recommandation: 'coats',
+        },
+        {
+          time: new Date().toLocaleTimeString(),
+          gender: 'F',
+          age: 21,
+          style: 'casual',
+          recommandation: 'overall',
+        },
+        {
+          time: new Date().toLocaleTimeString(),
+          gender: 'M',
+          age: 21,
+          style: 'casual',
+          recommandation: 'pants',
+        },
+        {
+          time: new Date().toLocaleTimeString(),
+          gender: 'F',
+          age: 66,
+          style: 'casual',
+          recommandation: 'dress',
+        },
+        {
+          time: new Date().toLocaleTimeString(),
+          gender: 'F',
+          age: 21,
+          style: 'formal',
+          recommandation: 'overall',
+        },
+        {
+          time: new Date().toLocaleTimeString(),
+          gender: 'F',
+          age: 35,
+          style: 'casual',
+          recommandation: 'glasses',
+        },
+        {
+          time: new Date().toLocaleTimeString(),
+          gender: 'F',
+          age: 42,
+          style: 'fashion',
+          recommandation: 'overall',
+        },
+
+        {
+          time: new Date().toLocaleTimeString(),
+          gender: 'M',
+          age: 58,
+          style: 'casual',
+          recommandation: 'overall',
+        },
+        {
+          time: new Date().toLocaleTimeString(),
+          gender: 'F',
+          age: 21,
+          style: 'formal',
+          recommandation: 'overall',
+        },
+        {
+          time: new Date().toLocaleTimeString(),
+          gender: 'F',
+          age: 35,
+          style: 'casual',
+          recommandation: 'glasses',
+        },
+        {
+          time: new Date().toLocaleTimeString(),
+          gender: 'F',
+          age: 42,
+          style: 'fashion',
+          recommandation: 'overall',
+        },
+
+        {
+          time: new Date().toLocaleTimeString(),
+          gender: 'M',
+          age: 58,
+          style: 'casual',
+          recommandation: 'overall',
+        },
+        {
+          time: new Date().toLocaleTimeString(),
+          gender: 'F',
+          age: 35,
+          style: 'casual',
+          recommandation: 'glasses',
+        },
+        {
+          time: new Date().toLocaleTimeString(),
+          gender: 'F',
+          age: 42,
+          style: 'fashion',
+          recommandation: 'overall',
+        },
+
+        {
+          time: new Date().toLocaleTimeString(),
+          gender: 'M',
+          age: 58,
+          style: 'casual',
+          recommandation: 'overall',
+        },
+        {
+          time: new Date().toLocaleTimeString(),
+          gender: 'F',
+          age: 35,
+          style: 'casual',
+          recommandation: 'glasses',
+        },
+        {
+          time: new Date().toLocaleTimeString(),
+          gender: 'F',
+          age: 42,
+          style: 'fashion',
+          recommandation: 'overall',
+        },
+
+        {
+          time: new Date().toLocaleTimeString(),
+          gender: 'M',
+          age: 58,
+          style: 'casual',
+          recommandation: 'overall',
+        },
+      ],
     };
   },
   created() {
@@ -188,6 +355,7 @@ export default {
     },
     myClock() {
       this.clock = new Date().toLocaleString().substring(10);
+      // 問：為什麼要把setInterval放進一個資料裡
       this.timeInterval = setInterval(() => {
         const newClock = new Date();
         // const year = newClock.getFullYear();
@@ -200,10 +368,26 @@ export default {
       }, 1000);
     },
   },
+
+  computed: {
+    totalUsers() {
+      return this.details.length;
+    },
+    totalPages() {
+      return Math.ceil(this.totalUsers / this.users_per_page);
+    },
+    getUsersByPage() {
+      // 計算起始index
+      const startIndex = (this.selectedPage - 1) * this.users_per_page;
+      return this.details.slice(startIndex, startIndex + this.users_per_page);
+    },
+  },
 };
 </script>
 
 <style scoped lang="scss">
+$main_color: #c180d3;
+
 p {
   margin: 0;
 }
@@ -241,12 +425,12 @@ td {
       color: rgb(175, 175, 175);
       &:hover {
         color: rgb(241, 241, 241);
-        background-color: #7562df;
+        background-color: $main_color;
       }
     }
     .sidebarColor {
       color: rgb(241, 241, 241);
-      background-color: #7562df;
+      background-color: $main_color;
     }
   }
 }
@@ -268,14 +452,14 @@ td {
   border-radius: 3px;
   padding: 1rem;
   .boardLeft {
-    width: 350px;
     display: flex;
     flex-direction: column;
+    padding: 1rem;
     .cardZone {
       .cardTitle {
         padding-bottom: 1rem;
         font: {
-          size: 1.5rem;
+          size: 1.3rem;
           weight: 300;
         }
         letter-spacing: 3px;
@@ -285,6 +469,7 @@ td {
         display: flex;
         flex-direction: column;
         align-items: center;
+        margin: 0 auto;
         padding: 1rem;
         border: none;
         border-radius: 1rem;
@@ -300,7 +485,10 @@ td {
         .cardContent {
           padding-top: 1rem;
           p {
-            font-weight: 300;
+            font: {
+              size: 0.9rem;
+              weight: 300;
+            }
             letter-spacing: 0.1rem;
           }
         }
@@ -325,14 +513,14 @@ td {
     .boardFlow {
       height: 100%;
       margin-left: 1rem;
-      padding: 1.2rem;
+      padding: 1rem;
       overflow-y: auto;
       .timeCard {
         margin-bottom: 20px;
         .timeNow {
           position: relative;
           padding: 1rem 0;
-          color: #7562df;
+          color: $main_color;
           font: {
             size: 1rem;
             weight: 300;
@@ -341,21 +529,25 @@ td {
           .line {
             position: absolute;
             width: 100%;
-            border: 0.3px solid #7562df;
+            border: 0.3px solid $main_color;
+          }
+          .navigation {
+            position: absolute;
+            top: 0;
+            right: 0;
           }
         }
         .timeCustomer {
           display: grid;
-          grid-template-columns: repeat((auto-fit), minmax(200px, 1fr));
-          grid-gap: 1rem;
+          grid-template-columns: repeat((auto-fit), minmax(240px, 1fr));
+          grid-gap: 1rem 1.5rem;
           .customarCard {
+            position: relative;
             height: 80px;
-            display: flex;
-            justify-content: space-evenly;
             align-items: center;
             border-radius: 10px;
             background-color: #fefefe;
-            box-shadow: 0 10px 30px -15px rgba(109, 94, 194, 0.4);
+            box-shadow: 0 10px 10px -15px rgba(109, 94, 194, 0.4);
             .profile {
               width: 80px;
               img {
@@ -363,6 +555,9 @@ td {
               }
             }
             .content {
+              position: absolute;
+              top: 25%;
+              left: 120px;
               font-size: 0.8rem;
               letter-spacing: 1px;
             }
@@ -383,7 +578,7 @@ td {
   justify-content: center;
   .table__header {
     color: rgb(241, 241, 241);
-    background-color: #7562df;
+    background-color: $main_color;
   }
 
   .table__body {
@@ -447,6 +642,14 @@ td {
   }
   .style {
     background-color: #fff;
+  }
+}
+
+//navigation
+
+.navigation {
+  .page-link {
+    color: $main_color;
   }
 }
 

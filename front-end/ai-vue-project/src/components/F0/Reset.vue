@@ -6,7 +6,9 @@
  -->
 <template>
   <div class="main">
-    <div class="picArea"></div>
+    <div class="picArea">
+      <p class="topic">AIFASER</p>
+    </div>
     <div class="pwdArea">
       <div class="pwdBox">
         <h4>重設密碼</h4>
@@ -90,15 +92,19 @@ export default {
 }
 
 .picArea {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex: 1;
   background-color: rgb(48, 45, 51);
+  .topic {
+    font-size: 6rem;
+  }
 }
 
 .pwdArea {
   flex: 1;
-  background-image: url('~@/assets/img/reset-pic.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
+  background: linear-gradient(to top, #f0e9ed, #c180d3);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -160,16 +166,13 @@ export default {
   outline: none;
   color: white;
   border-radius: 3px;
-  background-color: #0b346e;
+  background-color: #662377;
   transition: 0.2s;
 }
 
 .resetBtn:focus,
 .resetBtn:hover {
-  background-color: #316ec4;
-  -moz-box-shadow: 0 7px 6px -6px #5697ec;
-  -webkit-box-shadow: 0 7px 6px -6px #5697ec;
-  box-shadow: 0 7px 6px -6px #5697ec;
+  background-color: #a82973;
   transform: translate(0, 2px);
 }
 </style>

@@ -10,11 +10,7 @@
     <div class="topArea">
       <div class="textBox">
         <p class="topic">為您的客戶量身打造</p>
-        <p class="content">
-          For the journal, see Machine Learning (journal). "Statistical
-          learning" redirects here. For statistical learning in linguistics, see
-          statistical learning in language acquisition.
-        </p>
+        <p class="content">使用AIfaser，讓AI成為您推薦商品的好幫手。</p>
         <a class="topBtn" href="#demo">Learn More</a>
       </div>
       <div class="imgBox"></div>
@@ -23,10 +19,10 @@
     <div class="vissionArea box">
       <p class="conTopic">使用理念</p>
       <div class="vissionBox">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore unde
-        optio, nisi soluta modi repellendus et officia doloribus. Consectetur
-        unde dignissimos asperiores voluptatem enim cumque placeat eaque
-        possimus quos harum!
+        <p class="vissionContent">
+          除了『
+          店裡最熱門、當今最流行』之外，能透過人工智慧自動判斷客人性別、年齡及衣著類型，來協助店員給出更精準的服飾推薦。
+        </p>
       </div>
     </div>
     <div class="spot" id="service"></div>
@@ -118,6 +114,8 @@
           </div>
           <div class="techContent">
             <p class="subTitle">UI & UX</p>
+            <p class="subTitle">SASS</p>
+            <p class="subTitle">RWD</p>
           </div>
         </div>
         <div class="techCard-3">
@@ -200,7 +198,7 @@
           <div class="memberText">
             <p class="memberTitle">Jyun</p>
             <p class="memberSubTitle">UI&UX、前端開發</p>
-            <!-- <p class="memberContent">前端開發<br />UI & UX</p> -->
+            <p class="memberContent">喜歡攝影<br /></p>
           </div>
         </div>
         <div class="memberCard">
@@ -240,6 +238,20 @@ export default {
 </script>
 
 <style scoped lang="scss">
+//color
+$main_color: #c180d3;
+$card_bg_color: #fafbff;
+$btn_color: #f75c2f;
+
+//font
+@mixin font($size, $weight, $letter-spacing) {
+  font: {
+    size: $size;
+    weight: $weight;
+  }
+  letter-spacing: $letter-spacing;
+}
+
 p {
   margin: 0;
 }
@@ -264,8 +276,8 @@ p {
 .conTopic {
   padding: 5vh 0;
   letter-spacing: 2px;
-  font-size: 2.2rem;
   text-align: center;
+  @include font(2.2rem, 400, 0);
 }
 
 //top
@@ -277,28 +289,27 @@ p {
 
 .textBox {
   flex: 1;
-  padding: 8vh 5vw;
+  padding: 8vh 6vw;
   .topic {
     padding: 20px 0;
-    font-size: 3em;
-    letter-spacing: 3px;
+    @include font(3.5rem, 500, 3px);
   }
   .content {
+    margin-bottom: 20px;
     padding: 20px 0;
-    line-height: 1.25em;
+    @include font(1.4rem, 300, 3px);
   }
   .topBtn {
-    float: right;
-    padding: 8px 25px 8px 25px;
-    margin: 0 30px;
-    border: #f75c2f 3px solid;
+    padding: 12px 25px 12px 25px;
     border-radius: 60px;
-    color: #f75c2f;
-    font-size: 16px;
+    border: white 3px solid;
+    background-color: $btn_color;
+    color: white;
     transition: 0.35s;
     &:hover {
-      background: linear-gradient(#e06f6f, #f75c2f);
-      color: white;
+      border: $btn_color 3px solid;
+      background-color: white;
+      color: $btn_color;
     }
   }
 }
@@ -316,7 +327,11 @@ p {
 //vission
 
 .vissionArea {
-  background: linear-gradient(to top, #fbf8f9, #f8f9fd);
+  background-color: $card_bg_color;
+}
+
+.vissionContent {
+  @include font(1.1rem, 300, 1px);
 }
 
 //features
@@ -344,11 +359,7 @@ p {
     .featTitle {
       color: #f75c2f;
       text-align: center;
-      letter-spacing: 2px;
-      font: {
-        size: 1.3rem;
-        weight: 300;
-      }
+      @include font(1.3rem, 300, 2px);
     }
     .featDescription {
       padding: 1.3rem 0;
@@ -410,10 +421,7 @@ p {
   .techTitle {
     line-height: 50px;
     padding-left: 20px;
-    font: {
-      size: 1.5em;
-      weight: bold;
-    }
+    @include font(1.5rem, 500, 0px);
   }
 }
 
@@ -422,19 +430,14 @@ p {
   .subTitle {
     padding-bottom: 1vh;
     color: #a82973;
-    letter-spacing: 1px;
-    font: {
-      size: 1.15em;
-      weight: 340;
-    }
+    @include font(1.15rem, 300, 1px);
   }
 }
 
 div[class*='techCard'] {
   padding: 0 2vw;
   border-radius: 15px;
-  background: linear-gradient(to top, #fbf8f9, #f8f9fd);
-  // background-color: #f8f9fd;
+  background-color: $card_bg_color;
   overflow: hidden;
 }
 
@@ -449,7 +452,7 @@ div[class*='techCard'] {
 .memberCard {
   min-height: 250px;
   border-radius: 20px;
-  background: linear-gradient(to top, #fbf8f9, #f8f9fd);
+  background-color: $card_bg_color;
   text-align: center;
   overflow: hidden;
 }
@@ -468,10 +471,7 @@ div[class*='techCard'] {
 
 .memberContent {
   padding: 3vh 2vw;
-  font: {
-    size: 0.9em;
-    weight: 340;
-  }
+  @include font(0.9rem, 300, 0px);
 }
 
 @media only screen and (max-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
@@ -503,6 +503,12 @@ div[class*='techCard'] {
   .serList,
   .textBox {
     display: block;
+  }
+
+  .textBox {
+    .topic {
+      @include font(3rem, 400, 0px);
+    }
   }
 
   .serCard {

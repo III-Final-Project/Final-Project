@@ -151,6 +151,13 @@ export default {
 </script>
 
 <style scoped lang="scss">
+$main_color: #c180d3;
+$sub_bg_color: #fafbff;
+$link_color: #f75c2f;
+$link_hover_color: #ff9d82;
+$btn_color: #662377;
+$btn_hover_color: #a82973;
+
 h2 {
   font: {
     weight: bold;
@@ -178,7 +185,7 @@ input {
 
 .main {
   padding-top: 15vh;
-  background: linear-gradient(to top, #16222a, #a82973);
+  background-color: $sub_bg_color;
 }
 
 .container {
@@ -202,13 +209,13 @@ input {
   outline: none;
   color: white;
   border-radius: 3px;
-  background-color: #662377;
+  background-color: $btn_color;
   transition: 0.2s;
 }
 
 .btn:active,
 .btn:hover {
-  background-color: #a82973;
+  background-color: $btn_hover_color;
   transform: translate(0, 2px);
 }
 
@@ -217,6 +224,7 @@ input {
   display: flex;
   justify-content: center;
   align-items: center;
+  background: linear-gradient(to top, #16222a, $main_color);
   div {
     img {
       width: 15vw;
@@ -260,19 +268,19 @@ input {
     transition: 0.1s;
     &:focus {
       background-color: white;
-      border: #662377 1px solid;
+      border: $btn_color 1px solid;
     }
   }
 }
 
 .loginLink {
-  color: #f75c2f;
-  font-weight: bold;
+  color: $link_color;
+  font-weight: 500;
   &:active {
-    color: #ff9d82;
+    color: $link_hover_color;
   }
   &:hover {
-    color: #ff9d82;
+    color: $link_hover_color;
   }
 }
 
@@ -306,7 +314,7 @@ input {
 .resetBox {
   margin-top: 3vh;
   > input {
-    width: 35vh;
+    width: 100%;
     background-color: #eee;
     border-radius: 3px;
     margin-bottom: 3vh;
@@ -388,10 +396,6 @@ input {
 
   .btnArea {
     padding: 0 10vw;
-  }
-
-  .remindText {
-    font-size: 1.2rem;
   }
 
   .loginBtn {

@@ -9,14 +9,14 @@
     <div class="container">
       <div class="foContents">
         <div class="foSlogan">關於我們</div>
-        <ul>
-          <li>1</li>
-          <li>2</li>
+        <ul class="foIcons">
+          <li>台中資策會</li>
+          <li>AI班結訓成果報告</li>
         </ul>
       </div>
       <div class="foContents">
         <div class="foSlogan">聯絡我們</div>
-        <ul class="foAuthors">
+        <ul class="foIcons">
           <a href="https://github.com/Michael-Yan-wun">
             <li>
               <img src="@/assets/icon/githubLogo.png" alt="Github" />
@@ -55,11 +55,14 @@ export default {
 </script>
 
 <style scoped lang="scss">
+$footer_bg_color: rgba(55, 55, 55, 0.95);
+$footer_font_color: #eee;
+
 .footerArea {
   position: relative;
   bottom: 0;
   padding: 0;
-  background-color: rgba(33, 33, 33, 0.95);
+  background-color: $footer_bg_color;
 }
 
 .container {
@@ -72,13 +75,17 @@ export default {
   width: 20vw;
   li {
     padding: 5px 0;
-    letter-spacing: 1.5px;
+    color: $footer_font_color;
+    letter-spacing: 2px;
+    font: {
+      size: 0.875rem;
+      weight: 400;
+    }
   }
 }
 
-.foAuthors {
+.foIcons {
   a {
-    color: white;
     &:hover {
       color: #f75c2f;
     }
@@ -96,15 +103,17 @@ export default {
 }
 
 .foSlogan {
-  color: white;
-  letter-spacing: 2px;
   padding: 5px 0;
+  color: $footer_font_color;
+  letter-spacing: 2px;
 }
 
 .copyRight {
-  color: white;
   text-align: center;
   padding-bottom: 10px;
+  color: $footer_font_color;
+  font-size: 0.875rem;
+  letter-spacing: 2px;
 }
 
 @media screen and (max-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
