@@ -7,9 +7,7 @@
 <template>
   <div id="nav" class="navBar" :class="{ sticky: active == true }">
     <div class="logoBox">
-      <router-link :to="{ name: 'AIF000' }"
-        ><img class="logo" src="@/assets/icon/teamLogo.png" alt="logo"
-      /></router-link>
+      <router-link :to="{ name: 'AIF000' }" class="logo">AIFASER</router-link>
       <label class="burgerBtn" id="burger" for="menu">☰</label>
     </div>
     <input id="menu" type="checkbox" v-model="checkStatus" />
@@ -170,6 +168,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$navbar_color: rgba(55, 55, 55, 0.95);
+$dark_bg_font_color: rgb(247, 245, 245);
+$link_color: #f75c2f;
+
 .navBar {
   font: {
     size: 1em;
@@ -179,16 +181,20 @@ export default {
   justify-content: space-between;
   width: 100vw;
   height: 9vh;
-  background-color: rgba(33, 33, 33, 0.95);
+  background-color: $navbar_color;
   position: fixed;
   top: 0;
   transition: 300ms;
 }
 
-.logo {
-  height: 9vh;
-  padding-left: 1vw;
-  transition: 300ms;
+.logoBox {
+  .logo {
+    height: 9vh;
+    padding-left: 2vw;
+    line-height: 9vh;
+    color: $dark_bg_font_color;
+    transition: 300ms;
+  }
 }
 
 .menu {
@@ -209,17 +215,17 @@ export default {
   }
   .navLink {
     display: block;
-    color: white;
+    color: $dark_bg_font_color;
     &:hover {
-      color: #f75c2f;
+      color: $link_color;
     }
     &:active {
-      color: #f75c2f;
+      color: $link_color;
     }
   }
   .navCut {
     width: 15px;
-    color: white;
+    color: $dark_bg_font_color;
   }
 }
 
@@ -239,8 +245,8 @@ export default {
     line-height: 8vh;
   }
   .logo {
-    height: 7.8vh;
-    padding-left: 2vw;
+    height: 8vh;
+    line-height: 8vh;
     transition: 300ms;
   }
   .burgerBtn {
@@ -260,12 +266,17 @@ export default {
   }
 
   .logoBox {
-    display: flex;
-    justify-content: space-between;
+    position: relative;
+    .logo {
+      padding-left: 8vw;
+    }
   }
 
   .burgerBtn {
-    color: white;
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: $dark_bg_font_color;
     padding-right: 8vw;
     line-height: 9vh;
   }
@@ -281,7 +292,7 @@ export default {
     li {
       opacity: 0;
       display: block;
-      background-color: rgba(33, 33, 33, 0.95);
+      background-color: rgba(33, 33, 33, 0.98);
       width: 100vw;
       height: 7vh;
       line-height: 7vh;

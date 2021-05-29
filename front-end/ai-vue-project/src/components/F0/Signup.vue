@@ -103,6 +103,7 @@
               id="phone"
               :class="{ error: v.phone }"
               type="text"
+              placeholder="例：0912345678"
               v-model="phone"
               @keypress.enter="signUp"
             />
@@ -426,6 +427,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
+$main_color: #c180d3;
+$sub_bg_color: #fafbff;
+$link_color: #f75c2f;
+$link_hover_color: #ff9d82;
+
 h2 {
   font: {
     size: 1.75rem;
@@ -437,7 +443,7 @@ h2 {
 
 .main {
   padding-top: 15vh;
-  background: linear-gradient(to top, #16222a, #8a215e);
+  background-color: $sub_bg_color;
 }
 
 .myContainer {
@@ -455,6 +461,7 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
+  background: linear-gradient(to top, #16222a, $main_color);
   div {
     text-align: center;
     img {
@@ -534,13 +541,13 @@ h2 {
 }
 
 .loginLink {
-  color: #ef5064;
-  font-weight: bold;
-  &:focus {
-    color: #fa756c;
+  color: $link_color;
+  font-weight: 500;
+  &:active {
+    color: $link_hover_color;
   }
   &:hover {
-    color: #fa756c;
+    color: $link_hover_color;
   }
 }
 
@@ -613,7 +620,7 @@ h2 {
 
 .showProfile {
   width: 24vw;
-  border: 1px solid gray;
+  border: 1px solid #d6d8db;
   border-radius: 3px;
   margin: auto;
   img {
@@ -674,7 +681,6 @@ h2 {
   }
 
   .remindText {
-    font-size: 1.15rem;
     padding-right: 10vw;
   }
 
