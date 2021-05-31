@@ -18,6 +18,7 @@
 
 <script>
 import { WebCam } from 'vue-web-cam';
+import FaceService from '../../service/face';
 
 export default {
   name: 'webcam',
@@ -78,15 +79,13 @@ export default {
           this.$emit('faceVerify', this.user_name);
         } else {
           count += 1;
-          this.axios
-            .post('http://localhost:5000/face', formData)
-            .then((res) => {
-              if (res.data.returnCode === '200') {
-                this.user_name = res.data.details[0].name;
-                clearInterval(this.timeInterval);
-                this.$emit('faceVerify', this.user_name);
-              }
-            });
+          FaceService.faceDetect(formData).then((res) => {
+            if (res.data.returnCode === '200') {
+              this.user_name = res.data.detail[0].name;
+              clearInterval(this.timeInterval);
+              this.$emit('faceVerify', this.user_name);
+            }
+          });
         }
       }, 1000);
     },

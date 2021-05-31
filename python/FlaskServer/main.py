@@ -81,11 +81,34 @@ def cloud_service():
             cloud = Cloud()
             cloud.photo = img_b64
             fashion_data = cloud.combination_service()
-            print(type(fashion_data))
             return ResMsg(200, fashion_data).return_message()
     except Exception as e:
         print(e)
         return ResMsg(500, 'server error').return_message()
 
 
-app.run(port=5000)
+@app.route('/userinfo', methods=['POST'])
+def query_userinfo():
+    try:
+        if request.method == 'POST':
+            user_name = request.get_json()['user_name']
+            body = {
+                "userName": "omg123",
+                "userPassword": "?AREyouFrickingKiddingME?!",
+                "user_name": user_name
+            }
+            r = requests.post('http://localhost:4000/users/login', body)
+            token = json.loads(r.text)['token']
+            print(token)
+            headers = {'authorization': 'Bearer {}'.format(token)}
+            q = requests.get('http://localhost:4000/users/queryname/{}'.format(user_name), headers=headers)
+            user_info = json.loads(q.text)
+            user_info['detail'][0]['token'] = token
+            print(user_info['detail'])
+            return ResMsg(200, user_info['detail']).return_message()
+    except Exception as e:
+        print(e)
+        return ResMsg(500, 'server error').return_message()
+
+
+app.run(port=5000, debug=True)
