@@ -31,35 +31,26 @@
       <div class="featBox">
         <div class="featCard">
           <div class="featIcon">
-            <img src="@/assets/img/jyun.jpeg" alt="" />
+            <img src="@/assets/icon/clothing.png" alt="" />
           </div>
           <div class="featText">
-            <p class="featTitle">客製化</p>
-            <p class="featDescription">
-              線上觀賞Netflix（網飛）電影與節目，或直接串流至智慧型電視、遊戲機、PC、Mac、手機、平板電腦等多種裝置。
-            </p>
+            <p class="featTitle">服飾商品推薦系統</p>
           </div>
         </div>
         <div class="featCard">
           <div class="featIcon">
-            <img src="@/assets/img/jyun.jpeg" alt="" />
+            <img src="@/assets/icon/management.png" alt="" />
           </div>
           <div class="featText">
-            <p class="featTitle">客製化 隨時隨地</p>
-            <p class="featDescription">
-              線上觀賞Netflix（網飛）電影與節目，或直接串流至智慧型電視、遊戲機、PC、Mac、手機、平板電腦等多種裝置。
-            </p>
+            <p class="featTitle">會員後台管理系統</p>
           </div>
         </div>
         <div class="featCard">
           <div class="featIcon">
-            <img src="@/assets/img/jyun.jpeg" alt="" />
+            <img src="@/assets/icon/analytics.png" alt="" />
           </div>
           <div class="featText">
-            <p class="featTitle">客製化</p>
-            <p class="featDescription">
-              線上觀賞Netflix（網飛）電影與節目，或直接串流至智慧型電視、遊戲機、PC、Mac、手機、平板電腦等多種裝置。
-            </p>
+            <p class="featTitle">後台圖表數據分析</p>
           </div>
         </div>
       </div>

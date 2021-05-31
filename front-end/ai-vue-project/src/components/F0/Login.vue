@@ -19,11 +19,31 @@
         <div>
           <div class="inputBox">
             <label for="UserName">帳號</label>
-            <input id="UserName" type="text" v-model="user_name" />
+            <input
+              :class="{ error: v.name }"
+              id="UserName"
+              type="text"
+              v-model="user_name"
+              @keypress.enter="login_vuex"
+            />
+            <div class="loginAlarm" v-if="v.name">
+              <img :src="require('@/assets/icon/alarm.png')" alt="alarm" />
+              <span>請輸入帳號</span>
+            </div>
           </div>
           <div class="inputBox">
             <label for="passWord">密碼</label>
-            <input id="passWord" type="password" v-model="user_password" />
+            <input
+              :class="{ error: v.password }"
+              id="passWord"
+              type="password"
+              v-model="user_password"
+              @keypress.enter="login_vuex"
+            />
+            <div class="loginAlarm" v-if="v.password">
+              <img :src="require('@/assets/icon/alarm.png')" alt="alarm" />
+              <span>請輸入密碼</span>
+            </div>
           </div>
           <div class="btnArea">
             <button class="btn loginBtn" type="button" @click="login_vuex">
@@ -98,33 +118,69 @@ export default {
   data() {
     return {
       showResetBox: false,
-      user_name: null,
-      user_password: null,
+      user_name: '',
+      user_password: '',
       incorrectAuth: null,
       token: '',
+      v: {
+        name: false,
+        password: false,
+      },
     };
   },
   methods: {
     login_vuex() {
-      this.$store
-        .dispatch('userLogin', {
-          user_name: this.user_name,
-          user_password: this.user_password,
-        })
-        .then(() => {
-          this.$router.push({ name: 'AIA000' });
-        })
-        .catch((err) => {
-          if (err) {
-            this.incorrectAuth = true;
-          }
-        });
+      if (!this.nameCheck) {
+        this.v.name = true;
+      } else {
+        this.v.name = false;
+      }
+      if (!this.pwdCkeck) {
+        this.v.password = true;
+      } else {
+        this.v.password = false;
+      }
+      if (this.nameCheck && this.pwdCkeck) {
+        this.$store
+          .dispatch('userLogin', {
+            user_name: this.user_name,
+            user_password: this.user_password,
+          })
+          .then(() => {
+            const userToken = this.$store.state.accessToken;
+            if (
+              userToken !== undefined &&
+              userToken !== null &&
+              userToken !== ''
+            ) {
+              this.$router.push({ name: 'AIA000' });
+            } else {
+              this.$bvToast.toast(`帳號或密碼錯誤`, {
+                title: '登入失敗',
+                variant: 'danger',
+                solid: true,
+              });
+            }
+          })
+          .catch((err) => {
+            if (err) {
+              this.incorrectAuth = true;
+              this.$bvToast.toast(`帳號或密碼錯誤`, {
+                title: '登入失敗',
+                variant: 'danger',
+                solid: true,
+              });
+            }
+          });
+      }
     },
     login() {
-      this.$router.push({
-        name: 'AIA000',
-        params: { user_name: this.user_name },
-      });
+      if (this.nameCheck && this.pwdCkeck) {
+        this.$router.push({
+          name: 'AIA000',
+          params: { user_name: this.user_name },
+        });
+      }
     },
     faceVerify(res) {
       if (res !== 'Unknown') {
@@ -148,6 +204,22 @@ export default {
           solid: true,
         });
       }
+    },
+  },
+  computed: {
+    nameCheck() {
+      return (
+        this.user_name.trim() !== '' &&
+        this.user_name.length !== 0 &&
+        this.user_name !== null
+      );
+    },
+    pwdCkeck() {
+      return (
+        this.user_password.trim() !== '' &&
+        this.user_password.length !== 0 &&
+        this.user_password !== null
+      );
     },
   },
 };
@@ -255,6 +327,7 @@ input {
 }
 
 .inputBox {
+  padding-bottom: 2vh;
   > label {
     display: block;
     color: rgb(95, 94, 94);
@@ -266,12 +339,29 @@ input {
     background-color: rgb(245, 245, 245);
     border: none;
     border-radius: 3px;
-    margin-bottom: 3vh;
     padding: 0px 8px;
     transition: 0.1s;
     &:focus {
       background-color: white;
       border: $btn_color 1px solid;
+    }
+  }
+  .error {
+    border: rgb(250, 77, 77) 1px solid;
+  }
+  .loginAlarm {
+    text-align: left;
+    padding-left: 5.7vw;
+    img {
+      width: 15px;
+      height: 15px;
+    }
+    span {
+      padding-left: 5px;
+      color: #d93025;
+      font-size: 0.8rem;
+      text-align: left;
+      letter-spacing: 1px;
     }
   }
 }

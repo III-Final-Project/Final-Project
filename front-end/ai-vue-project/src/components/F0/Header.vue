@@ -72,13 +72,15 @@
             >登入</router-link
           >
         </li>
-        <li v-show="user_name !== 'guest'">
+        <!-- <li v-show="user_name !== 'guest'">
           <router-link class="navLink" :to="{ name: 'AIA000' }"
             >後台首頁</router-link
           >
-        </li>
+        </li> -->
         <li v-show="user_name !== 'guest'">
-          <router-link class="navLink" to="">{{ user_name }}</router-link>
+          <router-link class="navLink" :to="{ name: 'AIA000' }">{{
+            user_name
+          }}</router-link>
         </li>
         <li v-show="user_name !== 'guest'">
           <router-link

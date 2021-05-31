@@ -118,7 +118,7 @@ export default {
   height: 40vh;
 }
 video {
-  padding-bottom: 200px;
+  padding-bottom: 225px;
   border: none;
 }
 </style>

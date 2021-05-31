@@ -26,7 +26,7 @@
               id="userName"
               :class="{ error: v.userName }"
               type="text"
-              v-model="userName"
+              v-model.trim="userName"
               @keypress.enter="signUp"
             />
             <!-- <div class="verify" v-show="!usedNameCheck">
@@ -125,6 +125,7 @@
             <p>相片格式說明</p>
             <p>支援規格：jpg、jpeg、png、heic</p>
             <p>檔案大小限制：1KB至6MB</p>
+            <p class="notice">注意：臉部比例占圖片 1 / 2 為佳</p>
           </div>
           <p class="remindText">
             已經註冊?
@@ -266,7 +267,6 @@ export default {
             this.status = 'verify';
           }
         });
-        this.status = 'verify';
       }
     },
     verify() {
@@ -373,7 +373,11 @@ export default {
           });
         } else {
           // jpg\jpep\png
-          this.file = file;
+          const newFile = new File([file], `${this.userName}.jpg`, {
+            type: 'image/jpeg',
+          });
+          this.file = newFile;
+
           reader.addEventListener('load', this.imageLoader);
           reader.readAsDataURL(this.file);
         }
@@ -638,6 +642,9 @@ h2 {
   p {
     font-size: 0.8rem;
     margin: 0;
+  }
+  .notice {
+    color: red;
   }
 }
 

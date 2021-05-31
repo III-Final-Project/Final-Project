@@ -9,8 +9,8 @@ import Reset from '@/components/F0/Reset';
 // A0
 import AIA000 from '@/pages/A0/AIA000';
 import WebCam from '@/components/A0/WebCam';
-
 import test from '@/components/A0/Charts/Analyze_by_color';
+import store from '@/store/store';
 
 Vue.use(Router);
 
@@ -46,6 +46,17 @@ const router = new Router({
       path: '/admin',
       name: 'AIA000',
       component: AIA000,
+      beforeEnter: (to, from, next) => {
+        if (
+          store.state.user_name === '' ||
+          store.state.user_name == null ||
+          store.state.user_name === 'Unknown'
+        ) {
+          next({ name: 'Login' });
+        } else {
+          next();
+        }
+      },
     },
     {
       path: '/camera',

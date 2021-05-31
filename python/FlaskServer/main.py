@@ -99,7 +99,6 @@ def query_userinfo():
             }
             r = requests.post('http://localhost:4000/users/login', body)
             token = json.loads(r.text)['token']
-            print(token)
             headers = {'authorization': 'Bearer {}'.format(token)}
             q = requests.get('http://localhost:4000/users/queryname/{}'.format(user_name), headers=headers)
             user_info = json.loads(q.text)
