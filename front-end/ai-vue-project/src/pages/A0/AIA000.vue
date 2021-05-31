@@ -34,29 +34,29 @@
                   <p>推薦商品: {{ recommandation }}</p>
                   <p></p>
                 </div>
+                <div class="cardRecommendImg">
+                  <img src="@/assets/img/clothing.jpeg" alt="" />
+                </div>
               </div>
             </div>
-            <div class="cameraZone"></div>
           </div>
 
           <div class="boardMain">
             <p class="boardTopic">現在時間：{{ clock }}</p>
             <div class="boardFlow">
               <div class="timeCard">
-                <select>
+                <select id="timer" @change="changeTime">
                   <option disabled selected>選擇時間</option>
-                  <option>11:00-12:00</option>
-                  <option>12:00-13:00</option>
-                  <option>13:00-14:00</option>
-                  <option>14:00-15:00</option>
-                  <option>15:00-16:00</option>
-                  <option>16:00-17:00</option>
-                  <option>17:00-18:00</option>
-                  <option>18:00-19:00</option>
-                  <option>19:00-20:00</option>
+                  <option
+                    v-for="(item, index) in timeRange"
+                    :value="item.val"
+                    :key="index"
+                  >
+                    {{ item.time }}
+                  </option>
                 </select>
                 <div class="timeNow">
-                  {{ time }}&nbsp;&nbsp;共{{ totalUsers }}筆資料
+                  {{ selectedTime }}&nbsp;&nbsp;共{{ totalUsers }}筆資料
                   <div class="line"></div>
                   <!-- pagination -->
                   <nav class="navigation">
@@ -82,7 +82,7 @@
                       <img src="@/assets/icon/faceScan.png" alt="" />
                     </div>
                     <div class="content">
-                      <p>風格: {{ item.style }}</p>
+                      <p>來店時間: {{ item.time }}</p>
                       <p>推薦商品：{{ item.recommandation }}</p>
                     </div>
                   </div>
@@ -176,7 +176,7 @@ export default {
       // data
       details: [
         {
-          time: new Date().toLocaleTimeString(),
+          time: '14',
           gender: 'M',
           age: 20,
           style: 'street',
@@ -334,20 +334,33 @@ export default {
           recommandation: 'overall',
         },
       ],
+      // time selecting
+      timeRange: [
+        { time: '11:00 - 12:00', val: '11:00 - 12:00' },
+        { time: '12:00 - 13:00', val: '12:00 - 13:00' },
+        { time: '13:00 - 14:00', val: '13:00 - 14:00' },
+        { time: '14:00 - 15:00', val: '14:00 - 15:00' },
+        { time: '15:00 - 16:00', val: '15:00 - 16:00' },
+        { time: '16:00 - 17:00', val: '16:00 - 17:00' },
+        { time: '17:00 - 18:00', val: '17:00 - 18:00' },
+        { time: '18:00 - 19:00', val: '18:00 - 19:00' },
+        { time: '19:00 - 20:00', val: '19:00 - 20:00' },
+      ],
+      selectedTime: '',
     };
   },
   created() {
     this.myClock();
   },
   mounted() {
-    // eslint-disable-next-line no-console
-    console.log(this.$store.state.accessToken);
-    // eslint-disable-next-line no-console
-    console.log(this.$store.state.user_name);
+    // TODO 由登入頁進來才顯示
+    if (this.$router.prevRoute === 'Login') {
+      this.showToast();
+    }
   },
   methods: {
     showToast() {
-      this.$bvToast.toast(`歡迎回來${this.$route.params.user_name}`, {
+      this.$bvToast.toast(`歡迎回來 ${this.$store.state.user_name}`, {
         title: '登入訊息',
         variant: 'info',
         solid: true,
@@ -355,7 +368,6 @@ export default {
     },
     myClock() {
       this.clock = new Date().toLocaleString().substring(10);
-      // 問：為什麼要把setInterval放進一個資料裡
       this.timeInterval = setInterval(() => {
         const newClock = new Date();
         // const year = newClock.getFullYear();
@@ -366,6 +378,10 @@ export default {
         this.clock = test;
         // eslint-disable-next-line no-consol
       }, 1000);
+    },
+    changeTime() {
+      const time = document.querySelector('#timer');
+      this.selectedTime = time.value;
     },
   },
 
@@ -483,7 +499,7 @@ td {
           }
         }
         .cardContent {
-          padding-top: 1rem;
+          padding: 1rem 0;
           p {
             font: {
               size: 0.9rem;
@@ -492,12 +508,17 @@ td {
             letter-spacing: 0.1rem;
           }
         }
+        .cardRecommendImg {
+          max-width: 230px;
+          height: 230px;
+          background-color: #eee;
+          img {
+            max-width: 100%;
+            max-height: 100%;
+            margin: 0 auto;
+          }
+        }
       }
-    }
-    .cameraZone {
-      width: 100%;
-      height: 200px;
-      border: 1px solid black;
     }
   }
   .boardMain {
