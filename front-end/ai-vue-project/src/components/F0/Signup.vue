@@ -260,12 +260,12 @@ export default {
         !this.v.address &&
         !this.v.phone
       ) {
-        // User.userSMS({ telephone: this.phone }).then((res) => {
-        //   if (res.data.returnCode === '200') {
-        //     this.cfNumberSms = res.data.detail;
-        //     this.status = 'verify';
-        //   }
-        // });
+        User.userSMS({ telephone: this.phone }).then((res) => {
+          if (res.data.returnCode === '200') {
+            this.cfNumberSms = res.data.detail;
+            this.status = 'verify';
+          }
+        });
         this.status = 'verify';
       }
     },

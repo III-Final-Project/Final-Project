@@ -129,15 +129,18 @@ export default {
     faceVerify(res) {
       if (res !== 'Unknown') {
         this.user_name = res;
-        // TODO 利用使用者名稱搜尋使用者帳號與密碼
-        this.user_password = '1234';
-        // TODO 利用VueX與JWT登入並且記錄使用者資訊
-        // this.login_vuex();
-        // eslint-disable-next-line
-        console.log(`使用者名稱：${this.user_name}`);
-        // eslint-disable-next-line
-        console.log(`使用者帳號：${this.user_password}`);
-        this.login();
+        this.$store
+          .dispatch('userLoginFace', {
+            user_name: this.user_name,
+          })
+          .then(() => {
+            this.$router.push({ name: 'AIA000' });
+          })
+          .catch((err) => {
+            if (err) {
+              this.incorrectAuth = true;
+            }
+          });
       } else {
         this.$bvToast.toast(`請關閉偵測視窗並重新打開，或使用帳號密碼登入`, {
           title: '偵測失敗',
