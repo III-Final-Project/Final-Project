@@ -153,7 +153,10 @@ export default {
               userToken !== null &&
               userToken !== ''
             ) {
-              this.$router.push({ name: 'AIA000' });
+              this.$router.push({
+                name: 'AIA000',
+                params: { user_name: this.user_name },
+              });
             } else {
               this.$bvToast.toast(`帳號或密碼錯誤`, {
                 title: '登入失敗',
@@ -190,7 +193,10 @@ export default {
             user_name: this.user_name,
           })
           .then(() => {
-            this.$router.push({ name: 'AIA000' });
+            this.$router.push({
+              name: 'AIA000',
+              params: { user_name: this.user_name },
+            });
           })
           .catch((err) => {
             if (err) {
