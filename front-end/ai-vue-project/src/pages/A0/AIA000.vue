@@ -35,7 +35,7 @@
                   <p></p>
                 </div>
                 <div class="cardRecommendImg">
-                  <img src="@/assets/img/clothing.jpeg" alt="" />
+                  <img :src="imgUrl" alt="" />
                 </div>
               </div>
             </div>
@@ -47,6 +47,7 @@
               <div class="timeCard">
                 <select id="timer" @change="changeTime">
                   <option disabled selected>選擇時間</option>
+                  <option value="全部資料">全部資料</option>
                   <option
                     v-for="(item, index) in timeRange"
                     :value="item.val"
@@ -77,6 +78,7 @@
                     class="customarCard"
                     v-for="(item, index) in getUsersByPage"
                     :key="index"
+                    @click="changeCard(item)"
                   >
                     <div class="profile">
                       <img src="@/assets/icon/faceScan.png" alt="" />
@@ -167,173 +169,254 @@ export default {
       age: 25,
       style: 'fashion',
       recommandation: 'blue pants',
+      imgUrl: 'https://0.0.0.0:8080/static/img/clothing.909cfb6.jpeg',
       // clock
       timeInterval: null,
-      clock: new Date().toLocaleTimeString().substring(10),
+      clock: new Date().toLocaleTimeString().substring(9),
       // pagination
       users_per_page: 8,
       selectedPage: 1,
       // data
       details: [
         {
-          time: '14',
+          time: '13:05',
           gender: 'M',
           age: 20,
           style: 'street',
           recommandation: 'white pants',
+          imgUrl:
+            'https://img.mytheresa.com/1088/1088/66/jpeg/catalog/product/bb/P00524623.jpg',
         },
         {
-          time: new Date().toLocaleTimeString(),
+          time: '11:30',
           gender: 'M',
           age: 20,
           style: 'street',
           recommandation: 'white pants',
+          imgUrl:
+            'https://img.mytheresa.com/1088/1088/66/jpeg/catalog/product/bb/P00524623.jpg',
         },
         {
-          time: new Date().toLocaleTimeString(),
+          time: '15:21',
           gender: 'F',
           age: 21,
           style: 'casual',
           recommandation: 'overall',
+          imgUrl:
+            'https://cdn0-manfashion.techbang.com/system/images/63244/medium/c45fc441fbb69dc85ca5b4825ee6e04c.jpg?1503301567',
         },
         {
-          time: new Date().toLocaleTimeString(),
+          time: '15:40',
           gender: 'F',
           age: 21,
           style: 'casual',
           recommandation: 'overall',
+          imgUrl:
+            'https://cdn0-manfashion.techbang.com/system/images/63244/medium/c45fc441fbb69dc85ca5b4825ee6e04c.jpg?1503301567',
         },
         {
-          time: new Date().toLocaleTimeString(),
+          time: '10:59',
           gender: 'M',
           age: 21,
           style: 'casual',
           recommandation: 'coats',
+          imgUrl:
+            'https://cdn-images.farfetch-contents.com/15/91/54/16/15915416_29453221_480.jpg',
         },
         {
-          time: new Date().toLocaleTimeString(),
+          time: '17:59',
           gender: 'F',
           age: 21,
           style: 'casual',
           recommandation: 'overall',
+          imgUrl:
+            'https://cdn-images.farfetch-contents.com/15/91/54/16/15915416_29453221_480.jpg',
         },
         {
-          time: new Date().toLocaleTimeString(),
+          time: '15:10',
           gender: 'M',
           age: 21,
           style: 'casual',
           recommandation: 'pants',
+          imgUrl:
+            'https://img.mytheresa.com/1088/1088/66/jpeg/catalog/product/bb/P00524623.jpg',
         },
         {
-          time: new Date().toLocaleTimeString(),
+          time: '18:25',
           gender: 'F',
           age: 66,
           style: 'casual',
           recommandation: 'dress',
+          imgUrl:
+            'http://cdn.shopify.com/s/files/1/0932/1794/products/HHH061_NesliNapDress_LightBlueGlitterCheck_A_grande.jpg?v=1612806814',
         },
         {
-          time: new Date().toLocaleTimeString(),
+          time: '19:25',
+          gender: 'F',
+          age: 42,
+          style: 'fashion',
+          recommandation: 'overall',
+          imgUrl:
+            'https://img.mytheresa.com/1088/1088/66/jpeg/catalog/product/bb/P00524623.jpg',
+        },
+
+        {
+          time: '19:34',
+          gender: 'M',
+          age: 58,
+          style: 'casual',
+          recommandation: 'overall',
+          imgUrl:
+            'https://img.mytheresa.com/1088/1088/66/jpeg/catalog/product/bb/P00524623.jpg',
+        },
+        {
+          time: '17:32',
           gender: 'F',
           age: 21,
           style: 'formal',
           recommandation: 'overall',
+          imgUrl:
+            'https://rexformalwear.com/wp-content/uploads/2020/12/Rex-75th-Anniversary-Black-Notch-Tuxedo.jpg',
         },
         {
-          time: new Date().toLocaleTimeString(),
+          time: '12:50',
           gender: 'F',
           age: 35,
           style: 'casual',
           recommandation: 'glasses',
+          imgUrl:
+            'https://img.mytheresa.com/1088/1088/66/jpeg/catalog/product/bb/P00524623.jpg',
         },
         {
-          time: new Date().toLocaleTimeString(),
+          time: '19:35',
           gender: 'F',
           age: 42,
           style: 'fashion',
           recommandation: 'overall',
+          imgUrl:
+            'https://img.mytheresa.com/1088/1088/66/jpeg/catalog/product/bb/P00524623.jpg',
         },
 
         {
-          time: new Date().toLocaleTimeString(),
+          time: '17:40',
           gender: 'M',
           age: 58,
           style: 'casual',
           recommandation: 'overall',
+          imgUrl:
+            'https://cdn.shopify.com/s/files/1/0120/0311/5089/articles/blue-blazer2_800x.jpg?v=1604464651',
         },
         {
-          time: new Date().toLocaleTimeString(),
-          gender: 'F',
-          age: 21,
-          style: 'formal',
-          recommandation: 'overall',
-        },
-        {
-          time: new Date().toLocaleTimeString(),
+          time: '13:40',
           gender: 'F',
           age: 35,
           style: 'casual',
           recommandation: 'glasses',
+          imgUrl:
+            'https://static.dezeen.com/uploads/2020/02/harikrishnan-lcf-latex-fashion-design_dezeen_2364_sq2.jpg',
         },
         {
-          time: new Date().toLocaleTimeString(),
+          time: '14:08',
           gender: 'F',
           age: 42,
           style: 'fashion',
           recommandation: 'overall',
+          imgUrl:
+            'https://static.dezeen.com/uploads/2020/02/harikrishnan-lcf-latex-fashion-design_dezeen_2364_sq2.jpg',
         },
 
         {
-          time: new Date().toLocaleTimeString(),
+          time: '14:30',
           gender: 'M',
           age: 58,
           style: 'casual',
           recommandation: 'overall',
+          imgUrl:
+            'https://static.dezeen.com/uploads/2020/02/harikrishnan-lcf-latex-fashion-design_dezeen_2364_sq2.jpg',
         },
         {
-          time: new Date().toLocaleTimeString(),
+          time: '18:23',
           gender: 'F',
           age: 35,
           style: 'casual',
           recommandation: 'glasses',
+          imgUrl:
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3GbXdID0E0D7Dxbe9Waeel4E-Ler8BPcjFQ&usqp=CAU',
         },
         {
-          time: new Date().toLocaleTimeString(),
+          time: '14:39',
           gender: 'F',
           age: 42,
           style: 'fashion',
           recommandation: 'overall',
+          imgUrl:
+            'https://cdn1-manfashion.techbang.com/system/images/63247/medium/c71316cdd0e817fe682f883602bc9a2f.jpg?1503301569',
         },
-
         {
-          time: new Date().toLocaleTimeString(),
+          time: '11:40',
           gender: 'M',
           age: 58,
           style: 'casual',
           recommandation: 'overall',
+          imgUrl:
+            'https://cdn1-manfashion.techbang.com/system/images/63247/medium/c71316cdd0e817fe682f883602bc9a2f.jpg?1503301569',
         },
         {
-          time: new Date().toLocaleTimeString(),
-          gender: 'F',
-          age: 35,
-          style: 'casual',
-          recommandation: 'glasses',
-        },
-        {
-          time: new Date().toLocaleTimeString(),
-          gender: 'F',
-          age: 42,
-          style: 'fashion',
-          recommandation: 'overall',
-        },
-
-        {
-          time: new Date().toLocaleTimeString(),
+          time: '11:40',
           gender: 'M',
           age: 58,
           style: 'casual',
           recommandation: 'overall',
+          imgUrl:
+            'https://cdn1-manfashion.techbang.com/system/images/63247/medium/c71316cdd0e817fe682f883602bc9a2f.jpg?1503301569',
+        },
+        {
+          time: '11:40',
+          gender: 'M',
+          age: 58,
+          style: 'casual',
+          recommandation: 'overall',
+          imgUrl:
+            'https://cdn1-manfashion.techbang.com/system/images/63247/medium/c71316cdd0e817fe682f883602bc9a2f.jpg?1503301569',
+        },
+        {
+          time: '11:40',
+          gender: 'M',
+          age: 58,
+          style: 'casual',
+          recommandation: 'overall',
+          imgUrl:
+            'https://cdn1-manfashion.techbang.com/system/images/63247/medium/c71316cdd0e817fe682f883602bc9a2f.jpg?1503301569',
+        },
+        {
+          time: '11:40',
+          gender: 'M',
+          age: 58,
+          style: 'casual',
+          recommandation: 'overall',
+          imgUrl:
+            'https://cdn1-manfashion.techbang.com/system/images/63247/medium/c71316cdd0e817fe682f883602bc9a2f.jpg?1503301569',
+        },
+        {
+          time: '11:40',
+          gender: 'M',
+          age: 58,
+          style: 'casual',
+          recommandation: 'overall',
+          imgUrl:
+            'https://cdn1-manfashion.techbang.com/system/images/63247/medium/c71316cdd0e817fe682f883602bc9a2f.jpg?1503301569',
+        },
+        {
+          time: '11:40',
+          gender: 'M',
+          age: 58,
+          style: 'casual',
+          recommandation: 'overall',
+          imgUrl:
+            'https://img.mytheresa.com/1088/1088/66/jpeg/catalog/product/bb/P00524623.jpg',
         },
       ],
+      cacheDetals: [],
       // time selecting
       timeRange: [
         { time: '11:00 - 12:00', val: '11:00 - 12:00' },
@@ -351,30 +434,30 @@ export default {
   },
   created() {
     this.myClock();
+    this.cacheDetals = this.details;
   },
   mounted() {
-    // TODO 由登入頁進來才顯示
-    if (this.$router.prevRoute === 'Login') {
+    if (Object.keys(this.$route.params).length !== 0) {
       this.showToast();
     }
   },
   methods: {
     showToast() {
-      this.$bvToast.toast(`歡迎回來 ${this.$store.state.user_name}`, {
+      this.$bvToast.toast(`歡迎回來 ${this.$route.params.user_name}`, {
         title: '登入訊息',
         variant: 'info',
         solid: true,
       });
     },
     myClock() {
-      this.clock = new Date().toLocaleString().substring(10);
+      this.clock = new Date().toLocaleString().substring(9);
       this.timeInterval = setInterval(() => {
         const newClock = new Date();
         // const year = newClock.getFullYear();
         // const month = newClock.getMonth() + 1;
         // const date = newClock.getDate();
         // const time = newClock.toTimeString().substring(0, 8);
-        const test = newClock.toLocaleString().substring(10);
+        const test = newClock.toLocaleString().substring(9);
         this.clock = test;
         // eslint-disable-next-line no-consol
       }, 1000);
@@ -382,12 +465,40 @@ export default {
     changeTime() {
       const time = document.querySelector('#timer');
       this.selectedTime = time.value;
+      if (this.selectedTime === '全部資料') {
+        this.cacheDetals = this.details;
+      } else {
+        const timeStart = `${this.selectedTime.substring(0, 2)}00`;
+        const timeEnd = `${this.selectedTime.substring(8, 10)}00`;
+        this.cacheDetals = [];
+        this.details.forEach((element) => {
+          const enterTime =
+            element.time.substring(0, 2) + element.time.substring(3, 5);
+          if (enterTime > timeStart && enterTime < timeEnd) {
+            this.cacheDetals.push(element);
+          }
+        });
+      }
+    },
+    changeCard(item) {
+      const customerTime =
+        item.time.substring(0, 2) + item.time.substring(3, 5);
+      if (customerTime < 1200) {
+        this.time = `上午${item.time}`;
+      } else {
+        this.time = `下午${item.time}`;
+      }
+      this.gender = item.gender;
+      this.age = item.age;
+      this.style = item.style;
+      this.recommandation = item.recommandation;
+      this.imgUrl = item.imgUrl;
     },
   },
 
   computed: {
     totalUsers() {
-      return this.details.length;
+      return this.cacheDetals.length;
     },
     totalPages() {
       return Math.ceil(this.totalUsers / this.users_per_page);
@@ -395,7 +506,10 @@ export default {
     getUsersByPage() {
       // 計算起始index
       const startIndex = (this.selectedPage - 1) * this.users_per_page;
-      return this.details.slice(startIndex, startIndex + this.users_per_page);
+      return this.cacheDetals.slice(
+        startIndex,
+        startIndex + this.users_per_page,
+      );
     },
   },
 };
