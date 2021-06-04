@@ -1,1 +1,9 @@
 .idea
+FlaskServer/color_calculate/*.jpg
+FlaskServer/color_calculate/*.png
+FlaskServer/color_calculate/*.ipynb*
+FlaskServer/__pycache__/*
+FlaskServer/face/__pycache__/*
+FlaskServer/util/__pycache__/*
+FlaskServer/cloud/__pycache__/*
+../.vscode
