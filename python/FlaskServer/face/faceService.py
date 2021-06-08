@@ -8,7 +8,7 @@ import os
 class FaceService:
     def __init__(self):
         self.frame = None
-        self.image_file = 'static/image'
+        self.image_file = 'static/image/user'
 
     def file_reader(self):
         return os.listdir(self.image_file)

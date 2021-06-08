@@ -40,7 +40,6 @@
               </div>
             </div>
           </div>
-
           <div class="boardMain">
             <p class="boardTopic">現在時間：{{ clock }}</p>
             <div class="boardFlow">
@@ -148,6 +147,7 @@ import Pie from '@/components/A0/Charts/Analyze_by_product';
 import Pie2 from '@/components/A0/Charts/Analyze_by_color';
 import Profit from '@/components/A0/Charts/Analyze_by_profit';
 import Worldcloud from '@/components/A0/Charts/Analyze_by_cloud';
+// import Face from '../../service/face';
 
 export default {
   name: 'AIA000',
@@ -440,6 +440,14 @@ export default {
     if (Object.keys(this.$route.params).length !== 0) {
       this.showToast();
     }
+    const userName = this.$route.params.user_name;
+    this.axios.post('http://127.0.0.1:5000/api/customer/fashion', {
+      user_name: userName,
+    });
+    // .then((res) => {
+    //   // eslint-disable-next-line no-console
+    //   console.log(res.data);
+    // });
   },
   methods: {
     showToast() {
@@ -459,7 +467,6 @@ export default {
         // const time = newClock.toTimeString().substring(0, 8);
         const test = newClock.toLocaleString().substring(9);
         this.clock = test;
-        // eslint-disable-next-line no-consol
       }, 1000);
     },
     changeTime() {
@@ -495,7 +502,6 @@ export default {
       this.imgUrl = item.imgUrl;
     },
   },
-
   computed: {
     totalUsers() {
       return this.cacheDetals.length;
@@ -510,6 +516,11 @@ export default {
         startIndex,
         startIndex + this.users_per_page,
       );
+    },
+  },
+  watch: {
+    selectedTime() {
+      this.selectedPage = 1;
     },
   },
 };
