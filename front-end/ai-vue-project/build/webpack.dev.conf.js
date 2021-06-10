@@ -26,11 +26,11 @@ const devWebpackConfig = merge(baseWebpackConfig, {
 
   // these devServer options should be customized in /config/index.js
   devServer: {
-    https: true,
-    https: {
-      key: fs.readFileSync(`${__dirname}/localhost-key.pem`),
-      cert: fs.readFileSync(`${__dirname}/localhost.pem`),
-    },
+    // https: true,
+    // https: {
+    //   key: fs.readFileSync(`${__dirname}/localhost-key.pem`),
+    //   cert: fs.readFileSync(`${__dirname}/localhost.pem`),
+    // },
     clientLogLevel: 'warning',
     historyApiFallback: {
       rewrites: [
@@ -96,7 +96,7 @@ module.exports = new Promise((resolve, reject) => {
         new FriendlyErrorsPlugin({
           compilationSuccessInfo: {
             messages: [
-              `Your application is running here: https://${devWebpackConfig.devServer.host}:${port}`,
+              `Your application is running here: http://${devWebpackConfig.devServer.host}:${port}`,
             ],
           },
           onErrors: config.dev.notifyOnErrors

@@ -189,12 +189,11 @@ def recommend_fashion(img):  # return string
 
 
 def crawl_google_image(query_string, user_name, customer_age, customer_gender, customer_time):
-
     category = query_string  # 放置query字串
     target_num = 1  # 張數
 
     url = "https://www.google.com.tw/search?q=" + \
-        category + "&source=lnms&tbm=isch&sa=X"
+          category + "&source=lnms&tbm=isch&sa=X"
     # The path of ChromeDriver
     # Target element xpath
     xpath = "//img[contains(@class,'Q4LuWd')]"
@@ -229,7 +228,7 @@ def crawl_google_image(query_string, user_name, customer_age, customer_gender, c
                                      "customer_sex": customer_gender,
                                      "customer_age": customer_age,
                                      "customer_time": customer_time,
-                                     "customer_img_path": "static/image/customer/{}".format(customer_time),
+                                     "customer_img_path": "static/image/customer/{}.jpg".format(customer_time),
                                      "customer_recommend_product": category,
                                      "customer_recommend_color": "blue",
                                      "customer_recommend_img": img_url}
@@ -266,11 +265,30 @@ def gen_Video(video, width, height, model, count, user_name):
                 print('time:{}'.format(end_time - start_time))
                 count = 0
                 print('write one picture')
-                cv2.imwrite('static/image/customer/customer{}.jpg'.format(customer_time), frame,
+                cv2.imwrite('static/image/customer/{}.jpg'.format(customer_time), frame,
                             [cv2.IMWRITE_JPEG_QUALITY, 100])
                 recommend_query_string, age, gender = recommend_fashion(frame)
                 crawl_google_image(recommend_query_string,
                                    user_name, age, gender, customer_time)
+        ret, jpeg = cv2.imencode('.jpg', frame)
+        frame = jpeg.tobytes()
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+
+
+def gen_Video_test(video, width, height, model,names,colors):
+    while True:
+        begin_time = time.time()
+        customer_time = transform_local_time(time.time())
+        ret, frame = video.read()
+        frame = cv2.resize(frame, (width, height))
+        classes, confs, boxes = nnProcess(frame, model)
+        frame = drawBox(frame, classes, confs, boxes, names, colors)
+
+        fps = 'fps: {:.2f}'.format(1 / (time.time() - begin_time))
+        cv2.putText(frame, fps, (10, 30),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 204, 255), 2
+                    )
         ret, jpeg = cv2.imencode('.jpg', frame)
         frame = jpeg.tobytes()
         yield (b'--frame\r\n'

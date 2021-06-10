@@ -1,5 +1,7 @@
 <template>
-  <div><v-chart class="chart" :option="option" /></div>
+  <div>
+    <v-chart class="chart" :option="option" />
+  </div>
 </template>
 
 <script>
@@ -28,6 +30,7 @@ export default {
   components: {
     VChart,
   },
+  props: ['myData'],
   data() {
     return {
       option: {
@@ -80,8 +83,8 @@ export default {
             type: 'value',
             name: '總人數',
             min: 0,
-            max: 500,
-            interval: 100,
+            // max: 15,
+            interval: 5,
             axisLabel: {
               formatter: '{value} ',
             },
@@ -91,18 +94,18 @@ export default {
           {
             name: '男性',
             type: 'bar',
-            data: [],
+            data: new Array(12),
           },
           {
             name: '女性',
             type: 'bar',
-            data: [],
+            data: new Array(12),
             color: 'pink',
           },
           {
             name: '平均總人數',
             type: 'line',
-            data: [],
+            data: new Array(12),
             color: 'gray',
           },
         ],
@@ -114,41 +117,23 @@ export default {
   },
   methods: {
     dataSeries() {
-      // male array
-      this.option.series[0].data = [
-        100,
-        150,
-        120,
-        160,
-        170,
-        230,
-        300,
-        400,
-        367,
-        160,
-        230,
-        320,
-      ];
-      // female array
-      this.option.series[1].data = [
-        100,
-        100,
-        175,
-        205,
-        120,
-        169,
-        230,
-        340,
-        236,
-        270,
-        180,
-        250,
-      ];
-      // average
+      // 建立12x1的array Array(0)表示空陣列
+      const maleArrayByMonth = Array.from(Array(12), () => new Array(0));
+      const femaleArrayByMonth = Array.from(Array(12), () => new Array(0));
+      this.myData.forEach((element) => {
+        const customerMonth = element.customer_time.substring(5, 7);
+        if (element.customer_sex === 'male') {
+          maleArrayByMonth[parseInt(customerMonth, 10) - 1].push(element);
+        } else {
+          femaleArrayByMonth[parseInt(customerMonth, 10) - 1].push(element);
+        }
+      });
+      // data array
       for (let i = 0; i < 12; i += 1) {
-        this.option.series[2].data.push(
-          (this.option.series[0].data[i] + this.option.series[0].data[2]) / 2,
-        );
+        this.option.series[0].data[i] = maleArrayByMonth[i].length;
+        this.option.series[1].data[i] = femaleArrayByMonth[i].length;
+        this.option.series[2].data[i] =
+          (maleArrayByMonth[i].length + femaleArrayByMonth[i].length) / 2;
       }
     },
   },

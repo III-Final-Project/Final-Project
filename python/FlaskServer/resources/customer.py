@@ -1,5 +1,5 @@
 from repository.models import Customer
-from flask import request,Response
+from flask import request, Response
 from flask_restful import Resource
 from util.resMsg import ResMsg
 import json
@@ -7,6 +7,8 @@ import cv2
 from fashionService.fashionRecommendService import *
 
 # query data by user_name
+
+
 class CustomerApi_by_username(Resource):
     def get(self, user_name):
         customers = Customer.objects.filter(user_name=user_name).to_json()
@@ -17,6 +19,8 @@ class CustomerApi_by_username(Resource):
             return ResMsg(200, result).return_message()
 
 # get,put,delete by id
+
+
 class CustomerApi_by_id(Resource):
     def get(self, id):
         customer = Customer.objects.get(id=id).to_json()
@@ -43,6 +47,21 @@ class CustomerApi_by_id(Resource):
 
 
 class CustomerApi_fashion_recommend(Resource):
+    # 只有攝影機
+    def get(self):
+        try:
+            model, names, colors = initNet()
+            cap = cv2.VideoCapture(0)
+            ratio = cap.get(cv2.CAP_PROP_FRAME_WIDTH) / \
+                cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
+            WIDTH = 800
+            HEIGHT = int(WIDTH / ratio)
+            return Response(gen_Video_test(cap, WIDTH, HEIGHT, model, names, colors),
+                            mimetype='multipart/x-mixed-replace; boundary=frame')
+        except Exception as e:
+            return ResMsg(500, '{}'.format(e)).return_message()
+    # 完整啟動
+
     def post(self):
         try:
             user_name = request.get_json()['user_name']
@@ -56,5 +75,13 @@ class CustomerApi_fashion_recommend(Resource):
             count = 0
             return Response(gen_Video(cap, WIDTH, HEIGHT, model, count, user_name),
                             mimetype='multipart/x-mixed-replace; boundary=frame')
+        except Exception as e:
+            return ResMsg(500, '{}'.format(e)).return_message()
+
+    # 停止推薦系統
+    def delete(self):
+        try:
+            cv2.destroyAllWindows()
+            return ResMsg(200, 'system shut down!').return_message()
         except Exception as e:
             return ResMsg(500, '{}'.format(e)).return_message()
