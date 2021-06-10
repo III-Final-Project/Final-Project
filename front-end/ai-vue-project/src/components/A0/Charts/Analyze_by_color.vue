@@ -117,5 +117,6 @@ export default {
   height: 400px;
   width: 600px;
   position: relative;
+  margin: 0 auto;
 }
 </style>

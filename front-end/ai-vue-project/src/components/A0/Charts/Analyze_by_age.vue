@@ -138,5 +138,6 @@ export default {
   height: 450px;
   width: 550px;
   position: relative;
+  margin: 0 auto;
 }
 </style>
