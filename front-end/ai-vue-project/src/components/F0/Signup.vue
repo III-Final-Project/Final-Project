@@ -28,6 +28,7 @@
               type="text"
               v-model.trim="userName"
               @keypress.enter="signUp"
+              autofocus
             />
             <!-- <div class="verify" v-show="!usedNameCheck">
               <span>此帳號已經有人使用</span>

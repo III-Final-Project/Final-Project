@@ -25,6 +25,7 @@
               type="text"
               v-model="user_name"
               @keypress.enter="login_vuex"
+              autofocus
             />
             <div class="loginAlarm" v-if="v.name">
               <img :src="require('@/assets/icon/alarm.png')" alt="alarm" />
