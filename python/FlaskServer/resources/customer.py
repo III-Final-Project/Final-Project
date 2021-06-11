@@ -47,40 +47,26 @@ class CustomerApi_by_id(Resource):
 
 
 class CustomerApi_fashion_recommend(Resource):
-    # 只有攝影機
-    def get(self):
+    # 起動推薦系統
+    def get(self, user_name):
         try:
             model, names, colors = initNet()
             cap = cv2.VideoCapture(0)
             ratio = cap.get(cv2.CAP_PROP_FRAME_WIDTH) / \
                 cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
-            WIDTH = 800
-            HEIGHT = int(WIDTH / ratio)
-            return Response(gen_Video_test(cap, WIDTH, HEIGHT, model, names, colors),
-                            mimetype='multipart/x-mixed-replace; boundary=frame')
-        except Exception as e:
-            return ResMsg(500, '{}'.format(e)).return_message()
-    # 完整啟動
-
-    def post(self):
-        try:
-            user_name = request.get_json()['user_name']
-            model, names, colors = initNet()
-            cap = cv2.VideoCapture(0)
-            ratio = cap.get(cv2.CAP_PROP_FRAME_WIDTH) / \
-                cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
-            WIDTH = 400
+            WIDTH = 700
             HEIGHT = int(WIDTH / ratio)
             # 計算yolo判斷物件次數而截圖
             count = 0
-            return Response(gen_Video(cap, WIDTH, HEIGHT, model, count, user_name),
+            return Response(gen_Video(cap, WIDTH, HEIGHT, model, count, user_name, names, colors),
                             mimetype='multipart/x-mixed-replace; boundary=frame')
         except Exception as e:
+            print(e)
             return ResMsg(500, '{}'.format(e)).return_message()
-
     # 停止推薦系統
-    def delete(self):
+    def delete(self, user_name):
         try:
+            print(user_name)
             cv2.destroyAllWindows()
             return ResMsg(200, 'system shut down!').return_message()
         except Exception as e:

@@ -250,8 +250,9 @@ def crawl_google_image(query_string, user_name, customer_age, customer_gender, c
     return 'Recommend done'
 
 
-def gen_Video(video, width, height, model, count, user_name):
+def gen_Video(video, width, height, model, count, user_name,category_names,colors):
     while True:
+        begin_time = time.time()
         customer_time = transform_local_time(time.time())
         ret, frame = video.read()
         frame = cv2.resize(frame, (width, height))
@@ -270,6 +271,11 @@ def gen_Video(video, width, height, model, count, user_name):
                 recommend_query_string, age, gender = recommend_fashion(frame)
                 crawl_google_image(recommend_query_string,
                                    user_name, age, gender, customer_time)
+        frame = drawBox(frame, classes, confs, boxes, category_names, colors)
+        fps = 'fps: {:.2f}'.format(1 / (time.time() - begin_time))
+        cv2.putText(frame, fps, (10, 30),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 204, 255), 2
+                    )
         ret, jpeg = cv2.imencode('.jpg', frame)
         frame = jpeg.tobytes()
         yield (b'--frame\r\n'
