@@ -1,7 +1,9 @@
+from tracemalloc import start
 from selenium import webdriver
 from cloud.cloudService import Cloud
 from fashionService.yoloLib import *
 from util.timeTransform import transform_local_time
+import multiprocessing as mp
 import base64
 import json
 import re
@@ -262,8 +264,7 @@ def gen_Video(video, width, height, model, count, user_name, category_names, col
         if len(classes) == 1:
             count += 1
             if count == 30:
-                end_time = time.time()
-                print('time:{}'.format(end_time - start_time))
+                
                 count = 0
                 print('write one picture')
                 recommend_query_string, age, gender = recommend_fashion(frame)
@@ -271,6 +272,7 @@ def gen_Video(video, width, height, model, count, user_name, category_names, col
                                    user_name, age, gender, customer_time)
                 cv2.imwrite('static/image/customer/{}.jpg'.format(customer_time), frame,
                             [cv2.IMWRITE_JPEG_QUALITY, 100])
+
         frame = drawBox(frame, classes, confs, boxes, category_names, colors)
         frame = cv2.resize(frame, (800, 450))
         fps = 'fps: {:.2f}'.format(1 / (time.time() - begin_time))
@@ -279,24 +281,7 @@ def gen_Video(video, width, height, model, count, user_name, category_names, col
                     )
         ret, jpeg = cv2.imencode('.jpg', frame)
         frame = jpeg.tobytes()
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
-
-
-def gen_Video_test(video, width, height, model, names, colors):
-    while True:
-        begin_time = time.time()
-        customer_time = transform_local_time(time.time())
-        ret, frame = video.read()
-        frame = cv2.resize(frame, (width, height))
-        classes, confs, boxes = nnProcess(frame, model)
-        frame = drawBox(frame, classes, confs, boxes, names, colors)
-
-        fps = 'fps: {:.2f}'.format(1 / (time.time() - begin_time))
-        cv2.putText(frame, fps, (10, 30),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 204, 255), 2
-                    )
-        ret, jpeg = cv2.imencode('.jpg', frame)
-        frame = jpeg.tobytes()
+        end_time = time.time()
+        print('Recommand Done!---spent {} second.'.format(end_time-start_time))
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')

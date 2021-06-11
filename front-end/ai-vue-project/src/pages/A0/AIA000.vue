@@ -46,22 +46,6 @@
           <div class="boardMain">
             <div class="boardTop">
               <p class="boardTopic">現在時間：{{ clock }}</p>
-              <div class="btnArea">
-                <button
-                  class="btns"
-                  :class="{ purple: active }"
-                  @click="startCamera"
-                >
-                  啟動偵測
-                </button>
-                <button
-                  class="btns"
-                  :class="{ purple: !active }"
-                  @click="stopCamera"
-                >
-                  關閉偵測
-                </button>
-              </div>
             </div>
             <div class="boardFlow">
               <div class="timeCard">
@@ -152,8 +136,17 @@
                   {{ item.customer_time }}
                 </td>
                 <td class="table__cell table__cell--delete">
-                  <button @click="deleteData(item.id)">Delete</button>
+                  <b-button
+                    pill
+                    variant="outline-danger"
+                    @click="showModal(item.id)"
+                    ref="btnShow"
+                    >Delete</b-button
+                  >
                 </td>
+                <b-modal :id="item.id" @ok="deleteData(item.id)">
+                  <div class="d-block">請確認是否刪除此資料</div>
+                </b-modal>
               </tr>
             </tbody>
           </table>
@@ -219,10 +212,10 @@ export default {
       // customer info
       imgUrl: '../../../static/customer-reminder.png',
       time: '',
-      gender: 'Ｆ',
-      age: 25,
-      style: 'fashion',
-      recommandation: 'blue pants',
+      gender: '',
+      age: '',
+      style: '',
+      recommandation: '',
       customerImg: '../../../static/user.png',
       myCamera: null,
       // clock
@@ -309,6 +302,9 @@ export default {
             this.queryCustomerData();
           }
         });
+    },
+    showModal(id) {
+      this.$root.$emit('bv::show::modal', id, '#btnShow');
     },
     startCamera() {
       // eslint-disable-next-line no-console
@@ -566,7 +562,6 @@ td {
       position: relative;
     }
     .boardTopic {
-      display: inline-block;
       padding-bottom: 1rem;
       font-size: 1.5rem;
       letter-spacing: 3px;
