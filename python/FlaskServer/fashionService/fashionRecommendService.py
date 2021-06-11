@@ -250,28 +250,29 @@ def crawl_google_image(query_string, user_name, customer_age, customer_gender, c
     return 'Recommend done'
 
 
-def gen_Video(video, width, height, model, count, user_name,category_names,colors):
+def gen_Video(video, width, height, model, count, user_name, category_names, colors):
     while True:
         begin_time = time.time()
         customer_time = transform_local_time(time.time())
         ret, frame = video.read()
         frame = cv2.resize(frame, (width, height))
+
         classes, confs, boxes = nnProcess(frame, model)
         start_time = time.time()
-        print(classes)
         if len(classes) == 1:
             count += 1
-            if count == 25:
+            if count == 30:
                 end_time = time.time()
                 print('time:{}'.format(end_time - start_time))
                 count = 0
                 print('write one picture')
-                cv2.imwrite('static/image/customer/{}.jpg'.format(customer_time), frame,
-                            [cv2.IMWRITE_JPEG_QUALITY, 100])
                 recommend_query_string, age, gender = recommend_fashion(frame)
                 crawl_google_image(recommend_query_string,
                                    user_name, age, gender, customer_time)
+                cv2.imwrite('static/image/customer/{}.jpg'.format(customer_time), frame,
+                            [cv2.IMWRITE_JPEG_QUALITY, 100])
         frame = drawBox(frame, classes, confs, boxes, category_names, colors)
+        frame = cv2.resize(frame, (800, 450))
         fps = 'fps: {:.2f}'.format(1 / (time.time() - begin_time))
         cv2.putText(frame, fps, (10, 30),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 204, 255), 2
@@ -282,7 +283,7 @@ def gen_Video(video, width, height, model, count, user_name,category_names,color
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
 
-def gen_Video_test(video, width, height, model,names,colors):
+def gen_Video_test(video, width, height, model, names, colors):
     while True:
         begin_time = time.time()
         customer_time = transform_local_time(time.time())

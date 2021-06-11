@@ -282,8 +282,9 @@ export default {
                 customer_sex: item.customer_sex,
                 customer_age: item.customer_age,
                 customer_time: item.customer_time,
-                // customer_img_path: basic_customer_img_path + item.customer_img_path,
-                customer_img_path: `${basicCustomerImgPath}static/image/customer/customer2021-6-6 17:8:15.jpg`,
+                customer_img_path:
+                  basicCustomerImgPath + item.customer_img_path,
+                // customer_img_path: `${basicCustomerImgPath}static/image/customer/customer2021-6-6 17:8:15.jpg`,
                 customer_recommend_product: item.customer_recommend_product,
                 customer_recommend_color: item.customer_recommend_color,
                 customer_recommend_img: item.customer_recommend_img,
