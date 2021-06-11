@@ -259,7 +259,7 @@ export default {
       this.showToast();
     }
     // const userName = this.$route.params.user_name;
-    // this.axios.post('http://127.0.0.1:5000/api/customer/fashion', {
+    // this.axios.get('http://127.0.0.1:5000/api/customer/fashion', {
     //   user_name: userName,
     // });
     // .then((res) => {
@@ -312,15 +312,22 @@ export default {
     startCamera() {
       // eslint-disable-next-line no-console
       console.log('start camera');
-      this.myCamera = 'http://localhost:5000/api/customer/fashion';
+      this.myCamera = `http://localhost:5000/api/customer/fashion/${this.$store.state.user_name}`;
       this.active = true;
     },
     stopCamera() {
       // eslint-disable-next-line no-console
       console.log('stop camera');
-      this.axios.delete('http://localhost:5000/api/customer/fashion');
-      this.myCamera = null;
-      this.active = false;
+      this.axios
+        .delete(
+          `http://localhost:5000/api/customer/fashion/${this.$store.state.user_name}`,
+        )
+        .then((res) => {
+          if (res.data.returnCode === '200') {
+            this.myCamera = null;
+            this.active = false;
+          }
+        });
     },
     showToast() {
       this.$bvToast.toast(`歡迎回來 ${this.$route.params.user_name}`, {
