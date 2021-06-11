@@ -54,7 +54,7 @@ class CustomerApi_fashion_recommend(Resource):
             cap = cv2.VideoCapture(0)
             ratio = cap.get(cv2.CAP_PROP_FRAME_WIDTH) / \
                 cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
-            WIDTH = 700
+            WIDTH = 450
             HEIGHT = int(WIDTH / ratio)
             # 計算yolo判斷物件次數而截圖
             count = 0
