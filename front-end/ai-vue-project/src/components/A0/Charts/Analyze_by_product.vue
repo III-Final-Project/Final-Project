@@ -107,9 +107,9 @@ export default {
           categoryArray[0].push(element);
         } else if (category === '襯衫') {
           categoryArray[1].push(element);
-        } else if (category === '褲款') {
-          categoryArray[2].push(element);
         } else if (category === '外套、大衣') {
+          categoryArray[2].push(element);
+        } else if (category === '褲款') {
           categoryArray[3].push(element);
         } else if (category === '裙款') {
           categoryArray[4].push(element);

@@ -201,7 +201,7 @@ def crawl_google_image(query_string, user_name, customer_age, customer_gender, c
     xpath = "//img[contains(@class,'Q4LuWd')]"
 
     # Ignition chrome
-    driver_path = '/Users/yanwun/GitSource/Final-Project-Github/python/FlaskServer/fashionService/chromedriver'
+    driver_path = '/Users/jyun/Final-Project/python/FlaskServer/fashionService/chromedriver'
     option = webdriver.ChromeOptions()
     option.add_argument("headless")
     driver = webdriver.Chrome(driver_path, chrome_options=option)
