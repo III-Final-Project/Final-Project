@@ -125,57 +125,70 @@
           </div>
         </div>
         <div class="tableArea" v-if="status === 'table'">
-          <table>
-            <thead>
-              <tr class="table__header table__row">
-                <th class="table__cell table__cell--id">ID</th>
-                <th class="table__cell table__cell--gender">性別</th>
-                <th class="table__cell table__cell--age">年齡</th>
-                <th class="table__cell table__cell--style">喜好顏色</th>
-                <th class="table__cell table__cell--recommandation">
-                  推薦商品
-                </th>
-                <th class="table__cell table__cell--time">來店時間</th>
-                <th class="table__cell table__cell--delete">DELETE ALL</th>
-              </tr>
-            </thead>
-            <tbody class="table__body">
-              <tr
-                class="table__row"
-                v-for="(item, index) in details"
-                :key="item.id"
-              >
-                <td class="table__cell table__cell--id">{{ index }}</td>
-                <td class="table__cell table__cell--gender">
-                  {{ item.customer_sex }}
-                </td>
-                <td class="table__cell table__cell--age">
-                  {{ item.customer_age }}
-                </td>
-                <td class="table__cell table__cell--style">
-                  {{ item.customer_recommend_color }}
-                </td>
-                <td class="table__cell table__cell--recommandation">
-                  {{ item.customer_recommend_product }}
-                </td>
-                <td class="table__cell table__cell--time">
-                  {{ item.customer_time }}
-                </td>
-                <td class="table__cell table__cell--delete">
-                  <b-button
-                    pill
-                    variant="outline-danger"
-                    @click="showModal(item.id)"
-                    ref="btnShow"
-                    >Delete</b-button
+          <div class="tableArea-dir">
+            <!-- pagination -->
+            <nav class="navigation">
+              <ul class="pagination">
+                <li v-for="i in totalPagesInTable" :key="i">
+                  <a
+                    class="page-link"
+                    href="#"
+                    @click.prevent="selectedPageInTable = i"
+                    >{{ i }}</a
                   >
-                </td>
-                <b-modal :id="item.id" @ok="deleteData(item.id)">
-                  <div class="d-block">請確認是否刪除此資料</div>
-                </b-modal>
-              </tr>
-            </tbody>
-          </table>
+                </li>
+              </ul>
+            </nav>
+            <table>
+              <thead>
+                <tr class="table__header table__row">
+                  <th class="table__cell table__cell--id">ID</th>
+                  <th class="table__cell table__cell--gender">性別</th>
+                  <th class="table__cell table__cell--age">年齡</th>
+                  <th class="table__cell table__cell--style">喜好顏色</th>
+                  <th class="table__cell table__cell--recommandation">
+                    推薦商品
+                  </th>
+                  <th class="table__cell table__cell--time">來店時間</th>
+                  <th class="table__cell table__cell--delete">功能</th>
+                </tr>
+              </thead>
+              <tbody class="table__body">
+                <tr
+                  class="table__row"
+                  v-for="(item, index) in getUsersByPageInTable"
+                  :key="item.id"
+                >
+                  <td class="table__cell table__cell--id">{{ index }}</td>
+                  <td class="table__cell table__cell--gender">
+                    {{ item.customer_sex }}
+                  </td>
+                  <td class="table__cell table__cell--age">
+                    {{ item.customer_age }}
+                  </td>
+                  <td class="table__cell table__cell--style">{{ style }}</td>
+                  <td class="table__cell table__cell--recommandation">
+                    {{ item.customer_recommend_product }}
+                  </td>
+                  <td class="table__cell table__cell--time">
+                    {{ item.customer_time }}
+                  </td>
+                  <td class="table__cell table__cell--delete">
+                    <b-button
+                      pill
+                      variant="outline-danger"
+                      @click="showModal(item.id)"
+                      ref="btnShow"
+                      >Delete</b-button
+                    >
+                  </td>
+                  <b-modal :id="item.id" @ok="deleteData(item.id)">
+                    <div class="d-block">請確認是否刪除此資料</div>
+                  </b-modal>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
         <div class="analysis" v-if="status === 'analysis'">
           <div class="gender"><Bar :myData="details" /></div>
@@ -186,23 +199,24 @@
           <div class="style"><Worldcloud :myData="details" /></div>
         </div>
         <div class="camera" v-if="status === 'camera'">
-          <div class="btnArea">
-            <button
-              class="btns"
-              :class="{ purple: active }"
-              @click="startCamera"
-            >
-              啟動偵測
-            </button>
-            <button
-              class="btns"
-              :class="{ purple: !active }"
-              @click="stopCamera"
-            >
-              關閉偵測
-            </button>
-          </div>
           <div class="cameraArea">
+            <p class="cameraDescription">請點擊左方按鈕以開啟或關閉影像偵測</p>
+            <div class="btnArea">
+              <button
+                class="btns"
+                :class="{ purple: active }"
+                @click="startCamera"
+              >
+                啟動偵測
+              </button>
+              <button
+                class="btns"
+                :class="{ purple: !active }"
+                @click="stopCamera"
+              >
+                關閉偵測
+              </button>
+            </div>
             <img :src="myCamera" />
           </div>
         </div>
@@ -250,12 +264,15 @@ export default {
       // pagination
       users_per_page: 8,
       selectedPage: 1,
+      selectedPageInTable: 1,
       // data
       details: [],
       cacheDatas: [],
       cardNumber: 0,
       // time selecting
       timeRange: [
+        { time: '09:00 - 10:00', val: '09:00 - 10:00' },
+        { time: '10:00 - 11:00', val: '10:00 - 11:00' },
         { time: '11:00 - 12:00', val: '11:00 - 12:00' },
         { time: '12:00 - 13:00', val: '12:00 - 13:00' },
         { time: '13:00 - 14:00', val: '13:00 - 14:00' },
@@ -265,6 +282,7 @@ export default {
         { time: '17:00 - 18:00', val: '17:00 - 18:00' },
         { time: '18:00 - 19:00', val: '18:00 - 19:00' },
         { time: '19:00 - 20:00', val: '19:00 - 20:00' },
+        { time: '20:00 - 21:00', val: '20:00 - 21:00' },
       ],
       selectedTime: '',
     };
@@ -420,6 +438,9 @@ export default {
       // return Math.ceil(this.totalUsers / this.users_per_page);
       return pageArray;
     },
+    totalPagesInTable() {
+      return Math.ceil(this.details.length / this.users_per_page);
+    },
     getUsersByPage() {
       // 計算起始index
       const startIndex = (this.selectedPage - 1) * this.users_per_page;
@@ -427,6 +448,11 @@ export default {
         startIndex,
         startIndex + this.users_per_page,
       );
+    },
+    getUsersByPageInTable() {
+      // 計算起始index
+      const startIndex = (this.selectedPageInTable - 1) * this.users_per_page;
+      return this.details.slice(startIndex, startIndex + this.users_per_page);
     },
   },
   watch: {
@@ -467,7 +493,7 @@ td {
 .btnArea {
   position: absolute;
   display: inline-block;
-  top: 0;
+  top: -12%;
   right: 0;
   .purple {
     color: white;
@@ -555,10 +581,9 @@ td {
         background-color: #fefefe;
         box-shadow: 0 10px 30px -15px rgba(122, 104, 224, 0.4);
         .cardImage {
-          width: 40%;
           text-align: center;
           img {
-            max-width: 100%;
+            max-width: 200px;
           }
         }
         .cardContent {
@@ -623,6 +648,9 @@ td {
             top: 0;
             right: 0;
           }
+          .pagination {
+            padding: 0;
+          }
         }
         .timeCustomer {
           display: grid;
@@ -636,6 +664,9 @@ td {
             box-shadow: 0 10px 10px -15px rgba(109, 94, 194, 0.4);
             cursor: pointer;
             .profile {
+              position: absolute;
+              top: 22%;
+              left: 10px;
               width: 80px;
               img {
                 max-width: 100%;
@@ -663,10 +694,17 @@ td {
 .tableArea {
   width: 100%;
   height: 100%;
-  padding: 2.5rem 2rem;
+  padding: 2rem 2rem;
   display: flex;
   justify-content: center;
+  align-items: flex-start;
   background-color: $side_color;
+  .tableArea-dir {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+  }
   .table__header {
     color: rgb(241, 241, 241);
     background-color: $main_color;
@@ -737,13 +775,26 @@ td {
 //camera
 
 .camera {
-  position: relative;
   width: 100%;
   height: 100%;
+  padding-top: 2rem;
   background-color: $side_color;
+
   .cameraArea {
-    width: 100%;
-    height: 100%;
+    position: relative;
+    width: 800px;
+    height: 450px;
+    margin: 2rem auto;
+    background-color: #eee;
+    .cameraDescription {
+      position: absolute;
+      top: -10%;
+      left: 0;
+      display: inline-block;
+      font-weight: 300;
+      font-size: 1.2rem;
+      letter-spacing: 2px;
+    }
   }
 }
 
