@@ -59,6 +59,7 @@ def obtain_top_colors(image):
     # }
     """
     index = 0
+    threshold = 1
     rank = {}
     # Loop over the boundaries
     for (lower, upper) in boundaries:
@@ -71,7 +72,7 @@ def obtain_top_colors(image):
         #  Mask - Filter the specific color
         output = cv2.bitwise_and(image, image, mask = mask)
         # Check the most appear color
-        count = (output > 1).sum()
+        count = (output > threshold).sum()
         # Store the result in dict 
         rank[index] = count
         # Sort the result from large to small
