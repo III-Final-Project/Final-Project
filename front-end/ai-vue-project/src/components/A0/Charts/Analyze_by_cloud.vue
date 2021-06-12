@@ -86,20 +86,37 @@ export default {
           purpleValue += 1;
         }
       });
+      const totalValue =
+        shirtValue +
+        tShirtValue +
+        pantsValue +
+        coatValue +
+        underDressValue +
+        dressValue +
+        hatValue +
+        redValue +
+        orangeValue +
+        yellowValue +
+        greenValue +
+        blueValue +
+        purpleValue;
       this.details.push(
-        { name: '上衣', value: shirtValue },
-        { name: '襯衫', value: tShirtValue },
-        { name: '褲款', value: pantsValue },
-        { name: '外套、大衣', value: coatValue },
-        { name: '裙款', value: underDressValue },
-        { name: '洋裝', value: dressValue },
-        { name: '帽款', value: hatValue },
-        { name: '紅色', value: redValue },
-        { name: '橙色', value: orangeValue },
-        { name: '黃色', value: yellowValue },
-        { name: '綠色', value: greenValue },
-        { name: '藍色', value: blueValue },
-        { name: '紫色', value: purpleValue },
+        // { name: 'test', value: 0 },
+        // { name: 'hello', value: 14 },
+        // { name: 'god', value: 4 },
+        { name: '上衣', value: shirtValue / totalValue },
+        { name: '襯衫', value: tShirtValue / totalValue },
+        { name: '褲款', value: pantsValue / totalValue },
+        { name: '外套、大衣', value: coatValue / totalValue },
+        { name: '裙款', value: underDressValue / totalValue },
+        { name: '洋裝', value: dressValue / totalValue },
+        { name: '帽款', value: hatValue / totalValue },
+        { name: '紅色', value: redValue / totalValue },
+        { name: '橙色', value: orangeValue / totalValue },
+        { name: '黃色', value: yellowValue / totalValue },
+        { name: '綠色', value: greenValue / totalValue },
+        { name: '藍色', value: blueValue / totalValue },
+        { name: '紫色', value: purpleValue / totalValue },
       );
     },
     categoryClassified(styleData) {

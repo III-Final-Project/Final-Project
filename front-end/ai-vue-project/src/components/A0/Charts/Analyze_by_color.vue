@@ -149,9 +149,9 @@ export default {
           redArray[0].push(element);
         } else if (category === '襯衫') {
           redArray[1].push(element);
-        } else if (category === '褲款') {
-          redArray[2].push(element);
         } else if (category === '外套、大衣') {
+          redArray[2].push(element);
+        } else if (category === '褲款') {
           redArray[3].push(element);
         } else if (category === '裙款') {
           redArray[4].push(element);
@@ -170,9 +170,9 @@ export default {
           orangeArray[0].push(element);
         } else if (category === '襯衫') {
           orangeArray[1].push(element);
-        } else if (category === '褲款') {
-          orangeArray[2].push(element);
         } else if (category === '外套、大衣') {
+          orangeArray[2].push(element);
+        } else if (category === '褲款') {
           orangeArray[3].push(element);
         } else if (category === '裙款') {
           orangeArray[4].push(element);
@@ -191,9 +191,9 @@ export default {
           yellowArray[0].push(element);
         } else if (category === '襯衫') {
           yellowArray[1].push(element);
-        } else if (category === '褲款') {
-          yellowArray[2].push(element);
         } else if (category === '外套、大衣') {
+          yellowArray[2].push(element);
+        } else if (category === '褲款') {
           yellowArray[3].push(element);
         } else if (category === '裙款') {
           yellowArray[4].push(element);
@@ -212,9 +212,9 @@ export default {
           greenArray[0].push(element);
         } else if (category === '襯衫') {
           greenArray[1].push(element);
-        } else if (category === '褲款') {
-          greenArray[2].push(element);
         } else if (category === '外套、大衣') {
+          greenArray[2].push(element);
+        } else if (category === '褲款') {
           greenArray[3].push(element);
         } else if (category === '裙款') {
           greenArray[4].push(element);
@@ -233,9 +233,9 @@ export default {
           blueArray[0].push(element);
         } else if (category === '襯衫') {
           blueArray[1].push(element);
-        } else if (category === '褲款') {
-          blueArray[2].push(element);
         } else if (category === '外套、大衣') {
+          blueArray[2].push(element);
+        } else if (category === '褲款') {
           blueArray[3].push(element);
         } else if (category === '裙款') {
           blueArray[4].push(element);
@@ -254,9 +254,9 @@ export default {
           purpleArray[0].push(element);
         } else if (category === '襯衫') {
           purpleArray[1].push(element);
-        } else if (category === '褲款') {
-          purpleArray[2].push(element);
         } else if (category === '外套、大衣') {
+          purpleArray[2].push(element);
+        } else if (category === '褲款') {
           purpleArray[3].push(element);
         } else if (category === '裙款') {
           purpleArray[4].push(element);
