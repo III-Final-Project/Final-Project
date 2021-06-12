@@ -181,7 +181,7 @@ def recommend_fashion(img):  # return string
             elif Shirt:
                 output = "男款 襯衫"
             else:
-                output = "男版 uniqlo 素T "
+                output = "男版 uniqlo 素T"
     return output, age, gender
 
 

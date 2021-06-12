@@ -248,8 +248,8 @@ export default {
 
 <style scoped>
 .chart {
-  height: 450px;
-  width: 550px;
+  height: 600px;
+  width: 800px;
   position: relative;
   margin: 0 auto;
 }

@@ -66,12 +66,36 @@
                   <!-- pagination -->
                   <nav class="navigation">
                     <ul class="pagination">
-                      <li v-for="i in totalPages" :key="i">
+                      <li>
+                        <a
+                          v-show="selectedPage != 1"
+                          href="#"
+                          class="page-link"
+                          @click.prevent="selectedPage--"
+                          >&laquo;</a
+                        >
+                      </li>
+                      <li
+                        v-for="i in totalPages.slice(
+                          selectedPage - 1,
+                          selectedPage + 4,
+                        )"
+                        :key="i"
+                      >
                         <a
                           class="page-link"
                           href="#"
                           @click.prevent="selectedPage = i"
                           >{{ i }}</a
+                        >
+                      </li>
+                      <li>
+                        <a
+                          v-show="selectedPage < totalPages.length"
+                          href="#"
+                          class="page-link"
+                          @click.prevent="selectedPage++"
+                          >&raquo;</a
                         >
                       </li>
                     </ul>
@@ -128,7 +152,9 @@
                 <td class="table__cell table__cell--age">
                   {{ item.customer_age }}
                 </td>
-                <td class="table__cell table__cell--style">{{ style }}</td>
+                <td class="table__cell table__cell--style">
+                  {{ item.customer_recommend_color }}
+                </td>
                 <td class="table__cell table__cell--recommandation">
                   {{ item.customer_recommend_product }}
                 </td>
@@ -154,10 +180,10 @@
         <div class="analysis" v-if="status === 'analysis'">
           <div class="gender"><Bar :myData="details" /></div>
           <div class="age"><Bar2 :myData="details" /></div>
-          <div class="color"><Pie /></div>
-          <div class="style"><Pie2 /></div>
+          <div class="color"><Pie :myData="details" /></div>
+          <div class="style"><Pie2 :myData="details" /></div>
           <!-- <div class="style"><Profit /></div> -->
-          <div class="style"><Worldcloud /></div>
+          <div class="style"><Worldcloud :myData="details" /></div>
         </div>
         <div class="camera" v-if="status === 'camera'">
           <div class="btnArea">
@@ -246,6 +272,7 @@ export default {
   created() {
     this.myClock();
     this.queryCustomerData();
+    // this.dataRefresh();
   },
   mounted() {
     if (Object.keys(this.$route.params).length !== 0) {
@@ -268,16 +295,16 @@ export default {
         )
         .then((res) => {
           if (res.data.returnCode === '200') {
-            const basicCustomerImgPath = 'http://127.0.0.1:5000/';
+            // const basicCustomerImgPath = 'http://127.0.0.1:5000/';
             res.data.detail.forEach((item) => {
               const customerObj = {
                 id: item.id,
                 customer_sex: item.customer_sex,
                 customer_age: item.customer_age,
                 customer_time: item.customer_time,
-                customer_img_path:
-                  basicCustomerImgPath + item.customer_img_path,
-                // customer_img_path: `${basicCustomerImgPath}static/image/customer/customer2021-6-6 17:8:15.jpg`,
+                // customer_img_path:
+                //   basicCustomerImgPath + item.customer_img_path,
+                customer_img_path: `http://127.0.0.1:5000/static/image/customer/2021-06-11%2020:08:25.jpg`,
                 customer_recommend_product: item.customer_recommend_product,
                 customer_recommend_color: item.customer_recommend_color,
                 customer_recommend_img: item.customer_recommend_img,
@@ -385,7 +412,13 @@ export default {
       return this.cacheDatas.length;
     },
     totalPages() {
-      return Math.ceil(this.totalUsers / this.users_per_page);
+      const pages = Math.ceil(this.totalUsers / this.users_per_page);
+      const pageArray = [];
+      for (let i = 1; i <= pages; i += 1) {
+        pageArray.push(i);
+      }
+      // return Math.ceil(this.totalUsers / this.users_per_page);
+      return pageArray;
     },
     getUsersByPage() {
       // 計算起始index
@@ -421,7 +454,6 @@ th,
 td {
   text-align: initial;
 }
-
 .myContainer {
   width: 100vw;
   height: 100vh;
