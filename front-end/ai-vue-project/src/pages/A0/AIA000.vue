@@ -66,36 +66,12 @@
                   <!-- pagination -->
                   <nav class="navigation">
                     <ul class="pagination">
-                      <li>
-                        <a
-                          v-show="selectedPage != 1"
-                          href="#"
-                          class="page-link"
-                          @click.prevent="selectedPage--"
-                          >&laquo;</a
-                        >
-                      </li>
-                      <li
-                        v-for="i in totalPages.slice(
-                          selectedPage - 1,
-                          selectedPage + 4,
-                        )"
-                        :key="i"
-                      >
+                      <li v-for="i in totalPages" :key="i">
                         <a
                           class="page-link"
                           href="#"
                           @click.prevent="selectedPage = i"
                           >{{ i }}</a
-                        >
-                      </li>
-                      <li>
-                        <a
-                          v-show="selectedPage < totalPages.length"
-                          href="#"
-                          class="page-link"
-                          @click.prevent="selectedPage++"
-                          >&raquo;</a
                         >
                       </li>
                     </ul>
@@ -430,13 +406,7 @@ export default {
       return this.cacheDatas.length;
     },
     totalPages() {
-      const pages = Math.ceil(this.totalUsers / this.users_per_page);
-      const pageArray = [];
-      for (let i = 1; i <= pages; i += 1) {
-        pageArray.push(i);
-      }
-      // return Math.ceil(this.totalUsers / this.users_per_page);
-      return pageArray;
+      return Math.ceil(this.totalUsers / this.users_per_page);
     },
     totalPagesInTable() {
       return Math.ceil(this.details.length / this.users_per_page);
