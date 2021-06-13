@@ -4,12 +4,12 @@ import cv2
 import json
 # Load the image
 img_path = './resources/'
-# image = cv2.imread(img_path + 'palette.png')
+image = cv2.imread(img_path + 'palette.png')
 # image = cv2.imread(img_path + 'pokemon.png')
 # image = cv2.imread(img_path + 'hulk.png')
-scale_percent = 30 # percent of original size
-image = cv2.imread(img_path + 'denden.jpg')
-# scale_percent = 80 # percent of original size
+# scale_percent = 30 # percent of original size
+# image = cv2.imread(img_path + 'denden.jpg')
+scale_percent = 80 # percent of original size
 width = int(image.shape[1] * scale_percent / 100)
 height = int(image.shape[0] * scale_percent / 100)
 dim = (width, height)
@@ -17,8 +17,9 @@ dim = (width, height)
 # Resize image
 image = cv2.resize(image, dim, interpolation = cv2.INTER_AREA)
 image_original = image
-image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+# image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
 
+color_convert = {'1': 'red', '2': 'scarlet', '3': 'orange', '4': 'amber', '5': 'lime', '6': 'bright green', '7': 'green', '8': 'azure', '9': 'blue', '10': 'powder blue', '11': 'sapphire', '12': 'violet', '13': 'magenta'}
 # Order: HSV 
 boundaries = [
     # Red     
@@ -61,6 +62,8 @@ def obtain_top_colors(image):
     index = 0
     threshold = 1
     rank = {}
+    # Image convert to HSV
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
     # Loop over the boundaries
     for (lower, upper) in boundaries:
         index += 1
@@ -83,18 +86,21 @@ def obtain_top_colors(image):
         # cv2.namedWindow('images')
         # cv2.moveWindow('images', 100, 100)
         # Show the images
-        cv2.imshow("images", np.hstack([image_original, output]))
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
-        cv2.waitKey(1)
+        # cv2.imshow("images", np.hstack([image_original, output]))
+        # cv2.waitKey(0)
+        # cv2.destroyAllWindows()
+        # cv2.waitKey(1)
     # Return three top colors
     json_header = ["Top color", "Secondary color",  "Third color"]
     return_format = {}
+    colors = []
+    # Convert encoding to color
+    for i in top_three_color:
+        colors.append(color_convert.get(str(i[0])))
     # Data processing as dict
     for i, ele in enumerate(json_header):
-        return_format[ele] = top_three_color[i][0]
+        return_format[ele] = colors[i]
     # print(return_format)
-    # TODO: Convert number to exact color
     # Dict to json
     json_string = json.dumps(return_format)
     print(json_string)
